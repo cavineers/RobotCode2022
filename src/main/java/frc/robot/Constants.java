@@ -15,6 +15,7 @@ public final class Constants {
         public static int DriveTrainMotor3       = 2;  // Left 2 (neo)
         public static int DriveTrainMotor2       = 3;  // Right 1 (neo)
         public static int DriveTrainMotor4       = 4;  // Right 2 (neo)
+        public static int ShooterMotor          = 5;
     }
 
     public static class DriveTrain {
@@ -34,5 +35,6 @@ public final class Constants {
     public static class Shooter {
         // TODO Update these values
         public static double shooterVelocityConstant = 0;
+        public static int ShooterMotor = CANIds.ShooterMotor;
     }
 }

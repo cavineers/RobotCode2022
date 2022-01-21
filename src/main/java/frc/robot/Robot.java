@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.Limelight.LedMode;
+import frc.robot.subsystems.Shooter;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -23,8 +24,14 @@ public class Robot extends TimedRobot {
   // Limelight targeting sensor
   public static Limelight limelight;
 
+  // Subsystems
+  public static Shooter shooter;
+
   public Robot() {
+    
     limelight = new Limelight();
+
+    shooter = new Shooter();
   }
 
   /**
