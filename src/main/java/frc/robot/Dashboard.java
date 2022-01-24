@@ -10,5 +10,7 @@ public class Dashboard {
         this.configureDashobard();
     }
 
-    private void configureDashobard() {}
+    private void configureDashobard() {
+        
+    }
 }
