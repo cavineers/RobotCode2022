@@ -9,20 +9,24 @@ import edu.wpi.first.math.util.Units;
  */
 public final class Constants {
 
+    // Refernce
+    // neo - full sized neo motor with SparkMax
+    // minineo - mini neo motor with SparkMax
+
     public static class CANIds {
         // TODO Update these values
-        public static int DriveTrainMotor1       = 1;  // Left 1 (neo)
-        public static int DriveTrainMotor3       = 2;  // Left 2 (neo)
-        public static int DriveTrainMotor2       = 3;  // Right 1 (neo)
-        public static int DriveTrainMotor4       = 4;  // Right 2 (neo)
-        public static int ShooterMotor          = 5;
+        public static int DriveTrainMotorLeft1  = 1;  // Left 1 (neo)
+        public static int DriveTrainMotorRight1 = 2;  // Left 2 (neo)
+        public static int DriveTrainMotorLeft2  = 3;  // Right 1 (neo)
+        public static int DriveTrainMotorRight2 = 4;  // Right 2 (neo)
+        public static int ShooterMotor          = 5;  // FlyWheel (neo)
     }
 
     public static class DriveTrain {
-        public static int DriveTrainMotor1 = CANIds.DriveTrainMotor1;
-        public static int DriveTrainMotor2 = CANIds.DriveTrainMotor2;
-        public static int DriveTrainMotor3 = CANIds.DriveTrainMotor3;
-        public static int DriveTrainMotor4 = CANIds.DriveTrainMotor4;
+        public static int DriveTrainMotorLeft1 = CANIds.DriveTrainMotorLeft1;
+        public static int DriveTrainMotorRight1 = CANIds.DriveTrainMotorRight1;
+        public static int DriveTrainMotorLeft2 = CANIds.DriveTrainMotorLeft2;
+        public static int DriveTrainMotorRight2 = CANIds.DriveTrainMotorRight2;
     }
 
     public static class Targeting {
