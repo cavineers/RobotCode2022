@@ -4,11 +4,10 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.Constants;
 
 public class DriveTrain extends SubsystemBase {
-    
+
   public CANSparkMax left1  = new CANSparkMax(Constants.DriveTrain.DriveTrainMotorLeft1, MotorType.kBrushless);
   public CANSparkMax right1 = new CANSparkMax(Constants.DriveTrain.DriveTrainMotorRight1, MotorType.kBrushless);
   public CANSparkMax left2  = new CANSparkMax(Constants.DriveTrain.DriveTrainMotorLeft2, MotorType.kBrushless);
@@ -23,13 +22,24 @@ public class DriveTrain extends SubsystemBase {
 
   public DriveCoastBrake driveMode;
 
-  /** Creates a new DriveTrain. */
-  public DriveTrain() {}
+  public DriveTrain() {
+    // Create a new drivetrain with primary motors
+    this.differentialDrive = new DifferentialDrive(left1, right1);
 
-  /**
-   * Set the brake and coast mode
-   * @param mode coast / brake
-   */
+    // Reset all of the motors to default settings
+    this.left1.restoreFactoryDefaults();
+    this.left2.restoreFactoryDefaults();
+    this.right1.restoreFactoryDefaults();
+    this.right2.restoreFactoryDefaults();
+
+    // Make the secondary motors follow the actions of their primary
+    this.left2.follow(left1);
+    this.right2.follow(right1);
+
+    // Set the drivetrain to coast mode
+    this.setCoastBrakeMode(DriveCoastBrake.COAST);
+  }
+
   public void setCoastBrakeMode(DriveCoastBrake mode) {
     this.driveMode = mode;
     CANSparkMax.IdleMode idleMode = mode == DriveCoastBrake.BRAKE ? CANSparkMax.IdleMode.kBrake : CANSparkMax.IdleMode.kCoast;
@@ -39,10 +49,10 @@ public class DriveTrain extends SubsystemBase {
     this.right2.setIdleMode(idleMode);
   }
 
-  /**
-   * Get Current Drive Mode
-   * @return CostBrake mode of robot
-   */
+  public void drive(double drive, double steer, boolean turnInPlace) {
+    this.differentialDrive.curvatureDrive(drive, steer, turnInPlace);
+  }
+
   public DriveCoastBrake getCurrentDrive() {
     return this.driveMode;
   }
