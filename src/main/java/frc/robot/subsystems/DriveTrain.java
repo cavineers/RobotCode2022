@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class DriveTrain extends SubsystemBase {
-    
+
   public CANSparkMax left1  = new CANSparkMax(Constants.DriveTrain.DriveTrainMotorLeft1, MotorType.kBrushless);
   public CANSparkMax right1 = new CANSparkMax(Constants.DriveTrain.DriveTrainMotorRight1, MotorType.kBrushless);
   public CANSparkMax left2  = new CANSparkMax(Constants.DriveTrain.DriveTrainMotorLeft2, MotorType.kBrushless);
