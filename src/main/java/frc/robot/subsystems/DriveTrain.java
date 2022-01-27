@@ -2,32 +2,61 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class DriveTrain extends SubsystemBase {
-    
-  public CANSparkMax left1  = new CANSparkMax(Constants.DriveTrain.DriveTrainMotor1, MotorType.kBrushless);
-  public CANSparkMax right1 = new CANSparkMax(Constants.DriveTrain.DriveTrainMotor2, MotorType.kBrushless);
-  public CANSparkMax left2  = new CANSparkMax(Constants.DriveTrain.DriveTrainMotor3, MotorType.kBrushless);
-  public CANSparkMax right2 = new CANSparkMax(Constants.DriveTrain.DriveTrainMotor4, MotorType.kBrushless);
+
+  public CANSparkMax left1  = new CANSparkMax(Constants.DriveTrain.DriveTrainMotorLeft1, MotorType.kBrushless);
+  public CANSparkMax right1 = new CANSparkMax(Constants.DriveTrain.DriveTrainMotorRight1, MotorType.kBrushless);
+  public CANSparkMax left2  = new CANSparkMax(Constants.DriveTrain.DriveTrainMotorLeft2, MotorType.kBrushless);
+  public CANSparkMax right2 = new CANSparkMax(Constants.DriveTrain.DriveTrainMotorRight2, MotorType.kBrushless);
 
   public enum DriveCoastBrake {
     COAST,
     BRAKE
   }
 
-  /** Creates a new DriveTrain. */
-  public DriveTrain() {}
+  private DifferentialDrive differentialDrive;
 
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
+  public DriveCoastBrake driveMode;
+
+  public DriveTrain() {
+    // Create a new drivetrain with primary motors
+    this.differentialDrive = new DifferentialDrive(left1, right1);
+
+    // Reset all of the motors to default settings
+    this.left1.restoreFactoryDefaults();
+    this.left2.restoreFactoryDefaults();
+    this.right1.restoreFactoryDefaults();
+    this.right2.restoreFactoryDefaults();
+
+    // Make the secondary motors follow the actions of their primary
+    this.left2.follow(left1);
+    this.right2.follow(right1);
+
+    // Set the drivetrain to coast mode
+    this.setCoastBrakeMode(DriveCoastBrake.COAST);
+  }
+
+  public void setCoastBrakeMode(DriveCoastBrake mode) {
+    this.driveMode = mode;
+    CANSparkMax.IdleMode idleMode = mode == DriveCoastBrake.BRAKE ? CANSparkMax.IdleMode.kBrake : CANSparkMax.IdleMode.kCoast;
+    this.left1.setIdleMode(idleMode);
+    this.left2.setIdleMode(idleMode);
+    this.right1.setIdleMode(idleMode);
+    this.right2.setIdleMode(idleMode);
+  }
+
+  public void drive(double drive, double steer, boolean turnInPlace) {
+    this.differentialDrive.curvatureDrive(drive, steer, turnInPlace);
+  }
+
+  public DriveCoastBrake getCurrentDrive() {
+    return this.driveMode;
   }
 
   @Override
-  public void simulationPeriodic() {
-    // This method will be called once per scheduler run during simulation
-  }
+  public void periodic() {}
 }
