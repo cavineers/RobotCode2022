@@ -17,6 +17,8 @@ public class Shooter extends SubsystemBase {
     }
 
     private CANSparkMax m_shooterMotor = new CANSparkMax(Constants.Shooter.ShooterMotor, MotorType.kBrushless);
+
+    private CANSparkMax m_shooterAngle = new CANSparkMax(Constants.Shooter.ShooterAngle, MotorType.kBrushless);
   
     // See the shooter to disabled by default
     private ShooterStatus m_shooterState = ShooterStatus.DISABLED;
@@ -81,3 +83,4 @@ public class Shooter extends SubsystemBase {
       SmartDashboard.putNumber("Shooter Actual Speed", this.m_shootEncoder.getVelocity());
     }
 }
+
