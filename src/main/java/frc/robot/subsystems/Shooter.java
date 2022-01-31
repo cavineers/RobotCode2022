@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.CANSparkMax.IdleMode;
 import frc.robot.Constants;
+import edu.wpi.first.wpilibj.DigitalInput;
 
 public class Shooter extends SubsystemBase {
     
@@ -19,7 +20,34 @@ public class Shooter extends SubsystemBase {
     private CANSparkMax m_shooterMotor = new CANSparkMax(Constants.Shooter.ShooterMotor, MotorType.kBrushless);
 
     private CANSparkMax m_shooterAngle = new CANSparkMax(Constants.Shooter.ShooterAngle, MotorType.kBrushless);
-  
+
+    // Infrared Sensor
+    private DigitalInput m_sensorBall = new DigitalInput(Constants.Dio.kBallSensor1);
+
+    //Enum for shooter angle
+    private int currentSetpoint;
+
+    public enum ShooterAngle {
+    HIGH,
+    LOW,
+    MEDIUM
+    }
+
+    // Constant shooting angles
+    public void turnToAngle(ShooterAngle ha) {
+        switch (ha) {
+            case LOW:
+                this.currentSetpoint = 0;
+                break;
+            case MEDIUM:
+                this.currentSetpoint = 0;
+                break;
+            case HIGH:
+                this.currentSetpoint = 0;
+                break;
+                 }
+        }
+
     // See the shooter to disabled by default
     private ShooterStatus m_shooterState = ShooterStatus.DISABLED;
 
@@ -81,6 +109,7 @@ public class Shooter extends SubsystemBase {
 
       SmartDashboard.putNumber("Shooter Setpoint Speed", this.m_speed);
       SmartDashboard.putNumber("Shooter Actual Speed", this.m_shootEncoder.getVelocity());
+
     }
 }
 

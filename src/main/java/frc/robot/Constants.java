@@ -43,4 +43,9 @@ public final class Constants {
         public static int ShooterMotor = CANIds.ShooterMotor;
         public static int ShooterAngle = CANIds.ShooterAngle;
     }
+
+    // Constants in direct reference to their location on the Digital In/Out pins on the RIO.
+        public static class Dio {
+        public static int kBallSensor1 = 0;
+    }
 }
