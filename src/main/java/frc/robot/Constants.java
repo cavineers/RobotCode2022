@@ -14,6 +14,7 @@ public final class Constants {
     // minineo - mini neo motor with SparkMax
 
     public static class CANIds {
+        
         // TODO Update these values
         public static int DriveTrainMotorLeft1  = 1;  // Left 1 (neo)
         public static int DriveTrainMotorRight1 = 2;  // Left 2 (neo)
@@ -21,7 +22,8 @@ public final class Constants {
         public static int DriveTrainMotorRight2 = 4;  // Right 2 (neo)
         public static int ShooterMotor          = 5;  // FlyWheel (neo)
         public static int IntakeLowerBrush      = 6;  // LowerIntakeBrush (neo)
-        public static int ClimberMotor          = 7;  // CliberMotor ()
+        public static int ClimberMotor          = 7;  // CliberMotor (neo)
+        public static int ClimberMotorTwo       = 8;  //ClimberMotorTwo (neo)
     }
 
     public static class DriveTrain {
@@ -50,5 +52,6 @@ public final class Constants {
 
     public static class Climber {
         public static int ClimberMotor = CANIds.ClimberMotor;
+        public static int ClimberMotorTwo = CANIds.ClimberMotorTwo;
     }
 }

@@ -12,13 +12,23 @@ import frc.robot.Constants;
 public class Climber extends SubsystemBase {
 
   private CANSparkMax m_shooterMotor = new CANSparkMax(Constants.Climber.ClimberMotor, MotorType.kBrushless);
-
+  
+  private CANSparkMax m_shooterMotorTwo = new CANSparkMax(Constants.Climber.ClimberMotorTwo, MotorType.kBrushless);
+  
   private CANSparkMax climberMotor;
+
+  private CANSparkMax climberMotorTwo;
+  
   public enum ClimberMotorStatus {
     ON,
     OFF
   }
   
+  public enum ClimberMotorTwoStatus {
+    ON,
+    OFF
+  }
+
     /** Creates a new ExampleSubsystem. */
     public Climber() {}
     
