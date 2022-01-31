@@ -14,10 +14,18 @@ public class Climber extends SubsystemBase {
   private CANSparkMax m_shooterMotor = new CANSparkMax(Constants.Climber.ClimberMotor, MotorType.kBrushless);
   
   private CANSparkMax m_shooterMotorTwo = new CANSparkMax(Constants.Climber.ClimberMotorTwo, MotorType.kBrushless);
+
+  private CANSparkMax m_shooterMotorThree = new CANSparkMax(Constants.Climber.ClimberMotorThree, MotorType.kBrushless);
+  
+  private CANSparkMax m_shooterMotorFour = new CANSparkMax(Constants.Climber.ClimberMotorFour, MotorType.kBrushless);
   
   private CANSparkMax climberMotor;
 
   private CANSparkMax climberMotorTwo;
+
+  private CANSparkMax climberMotorThree;
+
+  private CANSparkMax climberMotorFour;
   
   public enum ClimberMotorStatus {
     ON,
@@ -28,6 +36,16 @@ public class Climber extends SubsystemBase {
     ON,
     OFF
   }
+  public enum ClimberMotorThreeStatus {
+    ON,
+    OFF
+  }
+  
+  public enum ClimberMotorFourStatus {
+    ON,
+    OFF
+  }
+
 
     /** Creates a new ExampleSubsystem. */
     public Climber() {}
