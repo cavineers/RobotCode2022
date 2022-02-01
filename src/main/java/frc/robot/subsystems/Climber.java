@@ -11,37 +11,37 @@ import frc.robot.Constants;
 
 public class Climber extends SubsystemBase {
 
-  private CANSparkMax m_shooterMotor = new CANSparkMax(Constants.Climber.ClimberMotor, MotorType.kBrushless);
+  private CANSparkMax m_shooterMotor = new CANSparkMax(Constants.Climber.ClimberMotorH1, MotorType.kBrushless);
   
-  private CANSparkMax m_shooterMotorTwo = new CANSparkMax(Constants.Climber.ClimberMotorTwo, MotorType.kBrushless);
+  private CANSparkMax m_shooterMotorTwo = new CANSparkMax(Constants.Climber.ClimberMotorH2, MotorType.kBrushless);
 
-  private CANSparkMax m_shooterMotorThree = new CANSparkMax(Constants.Climber.ClimberMotorThree, MotorType.kBrushless);
+  private CANSparkMax m_shooterMotorThree = new CANSparkMax(Constants.Climber.ClimberMotorV1, MotorType.kBrushless);
   
-  private CANSparkMax m_shooterMotorFour = new CANSparkMax(Constants.Climber.ClimberMotorFour, MotorType.kBrushless);
+  private CANSparkMax m_shooterMotorFour = new CANSparkMax(Constants.Climber.ClimberMotorV2, MotorType.kBrushless);
   
-  private CANSparkMax climberMotor;
+  private CANSparkMax climberMotorH1;
 
-  private CANSparkMax climberMotorTwo;
+  private CANSparkMax climberMotorH2;
 
-  private CANSparkMax climberMotorThree;
+  private CANSparkMax climberMotorV1;
 
-  private CANSparkMax climberMotorFour;
+  private CANSparkMax climberMotorV2;
   
-  public enum ClimberMotorStatus {
+  public enum ClimberMotorH1Status {
     ON,
     OFF
   }
   
-  public enum ClimberMotorTwoStatus {
+  public enum ClimberMotorH2Status {
     ON,
     OFF
   }
-  public enum ClimberMotorThreeStatus {
+  public enum ClimberMotorV1Status {
     ON,
     OFF
   }
   
-  public enum ClimberMotorFourStatus {
+  public enum ClimberMotorV2Status {
     ON,
     OFF
   }

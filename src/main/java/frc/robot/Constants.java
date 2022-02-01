@@ -22,10 +22,10 @@ public final class Constants {
         public static int DriveTrainMotorRight2 = 4;  // Right 2 (neo)
         public static int ShooterMotor          = 5;  // FlyWheel (neo)
         public static int IntakeLowerBrush      = 6;  // LowerIntakeBrush (neo)
-        public static int ClimberMotor          = 7;  // CliberMotor (neo)
-        public static int ClimberMotorTwo       = 8;  //ClimberMotorTwo (neo)
-        public static int ClimberMotorThree     = 9;  // CliberMotor (neo)
-        public static int ClimberMotorFour      = 10;  //ClimberMotorTwo (neo)
+        public static int ClimberMotorH1        = 7;  // CliberMotor (neo)
+        public static int ClimberMotorH2        = 8;  //ClimberMotorTwo (neo)
+        public static int ClimberMotorV1        = 9;  // CliberMotor (neo)
+        public static int ClimberMotorV2        = 10;  //ClimberMotorTwo (neo)
         public static int ShooterAngle          = 11;  // ShooterAngleMotor (neo)
     }
 
@@ -55,9 +55,9 @@ public final class Constants {
     }
 
     public static class Climber {
-        public static int ClimberMotor = CANIds.ClimberMotor;
-        public static int ClimberMotorTwo = CANIds.ClimberMotorTwo;
-        public static int ClimberMotorThree = CANIds.ClimberMotorThree;
-        public static int ClimberMotorFour = CANIds.ClimberMotorFour;
+        public static int ClimberMotorH1 = CANIds.ClimberMotorH1;
+        public static int ClimberMotorH2 = CANIds.ClimberMotorH2;
+        public static int ClimberMotorV1 = CANIds.ClimberMotorV1;
+        public static int ClimberMotorV2 = CANIds.ClimberMotorV2;
     }
 }
