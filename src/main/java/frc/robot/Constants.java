@@ -25,6 +25,7 @@ public final class Constants {
         public static int ClimberMotor          = 7;  // CliberMotor (neo)
         public static int ClimberMotorTwo       = 8;  //ClimberMotorTwo (neo)
         public static int ShooterAngle          = 9;  // ShooterAngleMotor (neo)
+        public static int kIntakeID;
     }
 
     public static class DriveTrain {
@@ -50,6 +51,7 @@ public final class Constants {
 
     public static class Intake {
         public static int IntakeLowerBrush = CANIds.IntakeLowerBrush;
+        public static int kIntakeID = CANIds.kIntakeID;
     }
 
     public static class Climber {
