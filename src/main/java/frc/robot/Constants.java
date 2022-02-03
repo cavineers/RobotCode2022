@@ -59,5 +59,11 @@ public final class Constants {
         public static int ClimberMotorTwo = CANIds.ClimberMotorTwo;
         public static int ClimberMotorThree = CANIds.ClimberMotorThree;
         public static int ClimberMotorFour = CANIds.ClimberMotorFour;
+
+        public static double ElevatorSpeed = -0.1;
+        public static double ElevatorSpeedRev = 0.1;
+
+        public static double AngleSpeed = -0.1;
+        public static double AngleSpeedRev = 0.1;
     }
 }
