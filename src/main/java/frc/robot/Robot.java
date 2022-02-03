@@ -7,7 +7,10 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.subsystems.Intake;
 import frc.robot.Limelight.LedMode;
+import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Shooter;
 
 /**
@@ -17,21 +20,26 @@ import frc.robot.subsystems.Shooter;
  * project.
  */
 public class Robot extends TimedRobot {
-  private Command m_autonomousCommand;
+private Command m_autonomousCommand;
 
-  private RobotContainer m_robotContainer;
+private RobotContainer m_robotContainer;
 
-  // Limelight targeting sensor
-  public static Limelight limelight;
+// Limelight targeting sensor
+public static Limelight limelight;
+// Subsystems
+public static Shooter shooter;
+public static Climber climber;
+public static Intake intake;
+public static DriveTrain drive;
 
-  // Subsystems
-  public static Shooter shooter;
+public static Object logger;
 
   public Robot() {
-    
     limelight = new Limelight();
-
     shooter = new Shooter();
+    climber = new Climber();
+    intake = new Intake();
+    drive = new DriveTrain();
   }
 
   /**
