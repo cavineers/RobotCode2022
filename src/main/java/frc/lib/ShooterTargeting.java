@@ -10,7 +10,12 @@ public class ShooterTargeting {
     // B is the height of the goal - height of limelight
     // A is the distance between limelight and base of goal
     public static double findZ() {
-        return (Math.sqrt(-Math.pow((104-Constants.Targeting.kLimelightHeightFromGround), 2) + Math.pow(Robot.limelight.getDistance(), 2)));
+        return (Math.sqrt(-Math.pow((104-Constants.Targeting.kLimelightHeightFromGround), 2) + Math.pow(getTD(), 2)));
+    }
+
+    // Returns hypotenuse distance to target
+    public static double getTD() {
+        return Robot.limelight.getDistance();
     }
     
     // Calculate optimal angle
