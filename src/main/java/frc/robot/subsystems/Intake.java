@@ -98,7 +98,7 @@ public void setMotorTwoState(IntakeMotorState state) {
         case REVERSED:
             // Reversed
             this.m_intakeMotor.set(-0.50);
->>>>>>> Stashed changes
+
             break;
         default:
             this.setMotorState(IntakeMotorState.OFF);
