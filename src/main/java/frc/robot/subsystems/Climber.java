@@ -11,15 +11,15 @@ import frc.robot.Constants;
 
 public class Climber extends SubsystemBase {
 
-  private CANSparkMax m_climberElevatorOne = new CANSparkMax(Constants.Climber.ClimberMotor, MotorType.kBrushless);
+  private CANSparkMax m_climberElevatorOne = new CANSparkMax(Constants.Climber.ClimberElevMotorOne, MotorType.kBrushless);
   
-  private CANSparkMax m_climberElevatorTwo = new CANSparkMax(Constants.Climber.ClimberMotorTwo, MotorType.kBrushless);
+  private CANSparkMax m_climberElevatorTwo = new CANSparkMax(Constants.Climber.ClimberElevMotorTwo, MotorType.kBrushless);
 
   private ClimberMotorState m_motorElevState = ClimberMotorState.OFF;
 
-  private CANSparkMax m_climberAngleOne = new CANSparkMax(Constants.Climber.ClimberMotorThree, MotorType.kBrushless);
+  private CANSparkMax m_climberAngleOne = new CANSparkMax(Constants.Climber.ClimberAngleMotorOne, MotorType.kBrushless);
   
-  private CANSparkMax m_climberAngleTwo = new CANSparkMax(Constants.Climber.ClimberMotorFour, MotorType.kBrushless);
+  private CANSparkMax m_climberAngleTwo = new CANSparkMax(Constants.Climber.ClimberAngleMotorTwo, MotorType.kBrushless);
   
   private ClimberMotorState m_motorAngleState = ClimberMotorState.OFF;
 

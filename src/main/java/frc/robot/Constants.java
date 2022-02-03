@@ -22,12 +22,12 @@ public final class Constants {
         public static int DriveTrainMotorRight2 = 4;  // Right 2 (neo)
         public static int ShooterMotor          = 5;  // FlyWheel (neo)
         public static int IntakeLowerBrush      = 6;  // LowerIntakeBrush (neo)
-        public static int ClimberMotor          = 7;  // CliberMotor (neo)
-        public static int ClimberMotorTwo       = 8;  //ClimberMotorTwo (neo)
-        public static int ClimbeMotorThree      = 9;  // ShooterAngleMotor (neo)
-        public static int ClimberMotorFour      = 10;
+        public static int ClimberElevMotorOne   = 7;  // CliberMotor (neo)
+        public static int ClimberElevMotorTwo   = 8;  //ClimberMotorTwo (neo)
+        public static int ClimberAngleMotorOne  = 9;  // ShooterAngleMotor (neo)
+        public static int ClimberAngleMotorTwo  = 10;
         public static int ShooterAngle          = 11;
-        public static int kIntakeID             = 12;
+        public static int IntakeMotor           = 12;
     }
 
     public static class DriveTrain {
@@ -53,17 +53,17 @@ public final class Constants {
 
     public static class Intake {
         public static int IntakeLowerBrush = CANIds.IntakeLowerBrush;
-        public static int kIntakeID = CANIds.kIntakeID;
+        public static int kIntakeID = CANIds.IntakeMotor;
 
         public static double IntakeSpeed = 0.1;
         public static double IntakeSpeedRev = -0.1;
     }
 
     public static class Climber {
-        public static int ClimberMotor = CANIds.ClimberMotor;
-        public static int ClimberMotorTwo = CANIds.ClimberMotorTwo;
-        public static int ClimberMotorThree = CANIds.ClimberMotorThree;
-        public static int ClimberMotorFour = CANIds.ClimberMotorFour;
+        public static int ClimberElevMotorOne = CANIds.ClimberElevMotorOne;
+        public static int ClimberElevMotorTwo = CANIds.ClimberElevMotorTwo;
+        public static int ClimberAngleMotorOne = CANIds.ClimberAngleMotorOne;
+        public static int ClimberAngleMotorTwo = CANIds.ClimberAngleMotorTwo;
 
         public static double ElevatorSpeed = -0.1;
         public static double ElevatorSpeedRev = 0.1;
