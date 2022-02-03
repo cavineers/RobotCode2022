@@ -24,18 +24,18 @@ public class Shooter extends SubsystemBase {
     // Infrared Sensor
     private DigitalInput m_sensorBall = new DigitalInput(Constants.Dio.kBallSensor1);
 
-    //Enum for shooter angle
     private int currentSetpoint;
 
+    //Enum for shooter angle
     public enum ShooterAngle {
-    HIGH,
-    LOW,
-    MEDIUM
+      HIGH,
+      LOW,
+      MEDIUM
     }
 
     // Constant shooting angles
-    public void turnToAngle(ShooterAngle ha) {
-        switch (ha) {
+    public void turnToAngle(ShooterAngle angle) {
+        switch (angle) {
             case LOW:
                 this.currentSetpoint = 0;
                 break;
@@ -100,6 +100,9 @@ public class Shooter extends SubsystemBase {
       return (Math.abs(this.m_speed - Math.abs(this.m_shootEncoder.getVelocity())) < 120);
     }
 
+    public void aim(){
+      
+    }
 
     @Override
     public void periodic() {
