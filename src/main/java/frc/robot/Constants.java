@@ -54,7 +54,7 @@ public final class Constants {
     public static class Intake {
         public static int IntakeLowerBrush = CANIds.IntakeLowerBrush;
         public static int kIntakeID = CANIds.IntakeMotor;
-
+        public static int kIntakeSensor = 0;
         public static double IntakeSpeed = 0.1;
         public static double IntakeSpeedRev = -0.1;
     }
