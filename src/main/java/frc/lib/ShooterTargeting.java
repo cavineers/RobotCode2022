@@ -24,7 +24,10 @@ public class ShooterTargeting {
     }
 
     // Calculate Variable Velocity
-    public static double calculateVelocity(double x) {
-        return (6.346 / (Math.sin(Math.atan(2.055 / x))) * Constants.Shooter.shooterVelocityConstant);
+    public static double calculateVelocity(double z, double a, double C) {
+        //a is angle
+        //C is distance
+        //return (6.346 / (Math.sin(Math.atan(2.055 / x))) * Constants.Shooter.shooterVelocityConstant);
+        return (4.9 * Math.pow(z, 2) / (Math.pow(Math.cos(a), 2) * Math.tan(a*z) - (C * Math.pow(Math.cos(a), 2))));
     }
 }
