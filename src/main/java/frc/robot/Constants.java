@@ -54,6 +54,9 @@ public final class Constants {
     public static class Intake {
         public static int IntakeLowerBrush = CANIds.IntakeLowerBrush;
         public static int kIntakeID = CANIds.kIntakeID;
+
+        public static double IntakeSpeed = 0.1;
+        public static double IntakeSpeedRev = -0.1;
     }
 
     public static class Climber {

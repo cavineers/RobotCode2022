@@ -27,6 +27,7 @@ public IntakeMotorState m_currentMode = IntakeMotorState.OFF;
 public Intake() {
     this.setMotorState(IntakeMotorState.OFF);
 }
+
 /**
  * Set the desired intake state.
  * @param state wanted intake state
@@ -40,15 +41,15 @@ public void setMotorState(IntakeMotorState state) {
     switch (state) {
         case ON:
             // On
-            this.m_intakeMotor.set(1.0);
+            this.m_intakeMotor.set(Constants.Intake.IntakeSpeed);
             break;
         case OFF:
             // Off
-            this.m_intakeMotor.set(0);
+            this.m_intakeMotor.set(0.0);
             break;
         case REVERSED:
             // Reversed
-            this.m_intakeMotor.set(-1.0);
+            this.m_intakeMotor.set(Constants.Intake.IntakeSpeedRev);
             break;
         default:
             this.setMotorState(IntakeMotorState.OFF);
