@@ -12,9 +12,9 @@ import frc.robot.Constants;
 
 public class Climber extends SubsystemBase {
 
-  private DigitalInput m_climberSensorOne = new DigitalInput(Constants.Climber.kClimberSensor);
-  private DigitalInput m_climberSensorTwo = new DigitalInput(Constants.Climber.kClimberSensor);
-  private DigitalInput m_climberSensorThree = new DigitalInput(Constants.Climber.kClimberSensor);
+  private DigitalInput m_climberSensorOne = new DigitalInput(Constants.DIO.ClimberSensorOne);
+  private DigitalInput m_climberSensorTwo = new DigitalInput(Constants.DIO.ClimberSensorTwo);
+  private DigitalInput m_climberSensorThree = new DigitalInput(Constants.DIO.ClimberSensorThree);
 
   private CANSparkMax m_climberElevatorOne = new CANSparkMax(Constants.Climber.ClimberElevMotorOne, MotorType.kBrushless);
   
