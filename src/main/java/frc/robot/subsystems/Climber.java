@@ -12,9 +12,9 @@ import frc.robot.Constants;
 
 public class Climber extends SubsystemBase {
 
-  private DigitalInput m_sensorOne = new DigitalInput(Constants.Climber.kClimberSensor);
-  private DigitalInput m_sensorTwo = new DigitalInput(Constants.Climber.kClimberSensor);
-  private DigitalInput m_sensorThree = new DigitalInput(Constants.Climber.kClimberSensor);
+  private DigitalInput m_climberSensorOne = new DigitalInput(Constants.Climber.kClimberSensor);
+  private DigitalInput m_climberSensorTwo = new DigitalInput(Constants.Climber.kClimberSensor);
+  private DigitalInput m_climberSensorThree = new DigitalInput(Constants.Climber.kClimberSensor);
 
   private CANSparkMax m_climberElevatorOne = new CANSparkMax(Constants.Climber.ClimberElevMotorOne, MotorType.kBrushless);
   
@@ -102,15 +102,15 @@ public class Climber extends SubsystemBase {
     return this.m_climberAngleOne.getEncoder().getVelocity();
   }
   // Tell when climber is properly on the bar.
-  public boolean getSensorOneState() {
-    return !m_sensorOne.get();
+  public boolean getclimberSensorOneState() {
+    return !m_climberSensorOne.get();
   }
     // Tell when climber is properly on the bar.
-  public boolean getSensorTwoState() {
-    return !m_sensorTwo.get();
+  public boolean getclimberSensorTwoState() {
+    return !m_climberSensorTwo.get();
   }
       // Tell when climber is properly on the bar.
-  public boolean getSensorThreeState() {
-    return !m_sensorThree.get();
+  public boolean getclimberSensorThreeState() {
+    return !m_climberSensorThree.get();
   }
 }
