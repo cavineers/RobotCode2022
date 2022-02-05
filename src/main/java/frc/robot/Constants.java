@@ -20,7 +20,8 @@ public final class Constants {
         public static int DriveTrainMotorLeft2  = 3;  // Right 1 (neo)
         public static int DriveTrainMotorRight2 = 4;  // Right 2 (neo)
         public static int ShooterMotor          = 5;  // FlyWheel (neo)
-        public static int ShooterAngle          = 6;  //         (neo)
+        public static int ShooterAngle          = 6;  // Angle (neo)
+        public static int ShooterFeeder         = 7;  // Feeder Wheel (minineo)
     }
 
     public static class DriveTrain {
@@ -42,6 +43,7 @@ public final class Constants {
         public static double shooterVelocityConstant = 0;
         public static int ShooterMotor = CANIds.ShooterMotor;
         public static int ShooterAngle = CANIds.ShooterAngle;
+        public static int ShooterFeeder = CANIds.ShooterFeeder;
     }
 
     // Constants in direct reference to their location on the Digital In/Out pins on the RIO.
