@@ -21,18 +21,14 @@ public final class Constants {
         public static int DriveTrainMotorLeft2  = 3;  // Right 1 (neo)
         public static int DriveTrainMotorRight2 = 4;  // Right 2 (neo)
         public static int ShooterMotor          = 5;  // FlyWheel (neo)
-<<<<<<< HEAD
         public static int IntakeLowerBrush      = 6;  // LowerIntakeBrush (neo)
         public static int ClimberElevMotorOne   = 7;  // CliberMotor (neo)
         public static int ClimberElevMotorTwo   = 8;  //ClimberMotorTwo (neo)
         public static int ClimberAngleMotorOne  = 9;  // ShooterAngleMotor (neo)
         public static int ClimberAngleMotorTwo  = 10;
-        public static int ShooterAngle          = 11;
+        public static int ShooterAngle          = 11; //                (neo)
         public static int IntakeMotor           = 12;
-=======
-        public static int ShooterAngle          = 6;  // Angle (neo)
-        public static int ShooterFeeder         = 7;  // Feeder Wheel (minineo)
->>>>>>> c1ddacecff562c7a45fd9680efc19fdbfdbdc53e
+        public static int ShooterFeeder         = 13;  // Feeder Wheel (minineo)
     }
 
     public static class DriveTrain {
@@ -56,12 +52,10 @@ public final class Constants {
         public static int ShooterAngle = CANIds.ShooterAngle;
         public static int ShooterFeeder = CANIds.ShooterFeeder;
     }
-
-<<<<<<< HEAD
     // Constants in direct reference to their location on the Digital In/Out pins on the RIO.
         public static class Dio {
         public static int kBallSensor1 = 0;
-=======
+        }
     public static class Intake {
         public static int IntakeLowerBrush = CANIds.IntakeLowerBrush;
         public static int kIntakeID = CANIds.IntakeMotor;
@@ -86,6 +80,5 @@ public final class Constants {
 
         public static double AngleSpeed = -0.1;
         public static double AngleSpeedRev = 0.1;
->>>>>>> development
     }
 }
