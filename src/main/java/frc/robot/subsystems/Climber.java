@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import edu.wpi.first.wpilibj.DigitalInput;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -10,6 +11,10 @@ import frc.robot.Constants;
 
 
 public class Climber extends SubsystemBase {
+
+  private DigitalInput m_climberSensorOne = new DigitalInput(Constants.DIO.ClimberSensorOne);
+  private DigitalInput m_climberSensorTwo = new DigitalInput(Constants.DIO.ClimberSensorTwo);
+  private DigitalInput m_climberSensorThree = new DigitalInput(Constants.DIO.ClimberSensorThree);
 
   private CANSparkMax m_climberElevatorOne = new CANSparkMax(Constants.Climber.ClimberElevMotorOne, MotorType.kBrushless);
   
@@ -95,5 +100,17 @@ public class Climber extends SubsystemBase {
 
   public double getAngleMotorSpeed() {
     return this.m_climberAngleOne.getEncoder().getVelocity();
+  }
+  // Tell when climber is properly on the bar.
+  public boolean getclimberSensorOneState() {
+    return !m_climberSensorOne.get();
+  }
+    // Tell when climber is properly on the bar.
+  public boolean getclimberSensorTwoState() {
+    return !m_climberSensorTwo.get();
+  }
+      // Tell when climber is properly on the bar.
+  public boolean getclimberSensorThreeState() {
+    return !m_climberSensorThree.get();
   }
 }

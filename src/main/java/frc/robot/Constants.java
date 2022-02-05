@@ -75,5 +75,11 @@ public final class Constants {
 
         public static double AngleSpeed = -0.1;
         public static double AngleSpeedRev = 0.1;
+
     }
+        public static class DIO {
+        public static int ClimberSensorOne = 0;
+        public static int ClimberSensorTwo = 1;
+        public static int ClimberSensorThree = 2;
+        }
 }
