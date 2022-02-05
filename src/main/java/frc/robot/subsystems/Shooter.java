@@ -21,9 +21,15 @@ public class Shooter extends SubsystemBase {
 
     private CANSparkMax m_shooterAngle = new CANSparkMax(Constants.Shooter.ShooterAngle, MotorType.kBrushless);
 
+    private CANSparkMax m_shooterFeeder = new CANSparkMax(Constants.Shooter.ShooterFeeder, MotorType.kBrushless);
+
     // Infrared Sensor
     private DigitalInput m_sensorBall = new DigitalInput(Constants.Dio.kBallSensor1);
 
+    public boolean getSensorBallState() {
+      return !m_sensorBall.get();
+    }
+    
     private int currentSetpoint;
 
     //Enum for shooter angle
@@ -112,6 +118,7 @@ public class Shooter extends SubsystemBase {
 
       SmartDashboard.putNumber("Shooter Setpoint Speed", this.m_speed);
       SmartDashboard.putNumber("Shooter Actual Speed", this.m_shootEncoder.getVelocity());
+      SmartDashboard.putBoolean("Infrared Ball Sensor Value", this.getSensorBallState());
 
     }
 }
