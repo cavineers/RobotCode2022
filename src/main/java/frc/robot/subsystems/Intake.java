@@ -5,7 +5,6 @@ import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.Robot;
 
 
 public class Intake extends SubsystemBase {
@@ -16,116 +15,101 @@ public class Intake extends SubsystemBase {
       REVERSED
     }
 
-// 
-public CANSparkMax m_intakeMotor = new CANSparkMax(Constants.Intake.kIntakeID, null);
 
-// Current intake mode
-public IntakeMotorState m_currentMode = IntakeMotorState.OFF;
+    public CANSparkMax m_intakeMotor = new CANSparkMax(Constants.Intake.kIntakeID, null);
 
-/**
- * Intake constructor.
- */
-public Intake() {
-    this.setMotorState(IntakeMotorState.OFF);
-}
-/**
- * Set the desired intake state.
- * @param state wanted intake state
- */
-public void setMotorState(IntakeMotorState state) {
-    // set the current state
-    this.m_currentMode = state;
-    
+    public CANSparkMax m_intakeDropMotor = new CANSparkMax(Constants.Intake.kIntakeID, null);
 
-    // set motor state
-    switch (state) {
-        case ON:
-            // On
-            this.m_intakeMotor.set(1.0);
-            break;
-        case OFF:
-            // Off
-            this.m_intakeMotor.set(0);
-            break;
-        case REVERSED:
-            // Reversed
-            this.m_intakeMotor.set(-1.0);
+    public IntakeMotorState m_dropMotorState = IntakeMotorState.OFF;
 
-            break;
-        default:
-            this.setMotorState(IntakeMotorState.OFF);
+    public IntakeMotorState m_intakeMotorState = IntakeMotorState.OFF;
+
+    private DigitalInput m_sensorOne = new DigitalInput(Constants.Intake.kIntakeSensor);
+
+    /**
+     * Intake constructor.
+     */
+    public Intake() {
+        this.setMotorState(IntakeMotorState.OFF);
     }
-}
 
-/**
- * Get the current intake state.
- * @return intake state
- */
-public IntakeMotorState getMotorTwoState() {
-    // return the current motor state
-    return this.m_currentMode;
-}
-public CANSparkMax m_intakeMotorTwo = new CANSparkMax(Constants.Intake.kIntakeID, null);
+    /**
+     * Set the desired intake state.
+     * @param state wanted intake state
+     */
+    public void setMotorState(IntakeMotorState state) {
+        // set the current state
+        this.m_intakeMotorState = state;
+        
 
-// Current intake mode
-public IntakeMotorState m_currentState = IntakeMotorState.OFF;
+        // set motor state
+        switch (state) {
+            case ON:
+                // On
+                this.m_intakeMotor.set(Constants.Intake.IntakeSpeed);
+                break;
+            case OFF:
+                // Off
+                this.m_intakeMotor.set(0.0);
+                break;
+            case REVERSED:
+                // Reversed
+                this.m_intakeMotor.set(Constants.Intake.IntakeSpeedRev);
 
-/**
- * Intake constructor.
- */
-public void DropIntake() {
-    this.setMotorTwoState(IntakeMotorState.OFF);
-}
-/**
- * Set the desired intake state.
- * @param state wanted intake state
- */
-public void setMotorTwoState(IntakeMotorState state) {
-    // set the current state
-    this.m_currentMode = state;
-    
-
-    // set motor state
-    switch (state) {
-        case ON:
-            // On
-            this.m_intakeMotor.set(.50);
-            break;
-        case OFF:
-            // Off
-            this.m_intakeMotor.set(0);
-            break;
-        case REVERSED:
-            // Reversed
-            this.m_intakeMotor.set(-0.50);
-
-            break;
-        default:
-            this.setMotorState(IntakeMotorState.OFF);
+                break;
+            default:
+                this.setMotorState(IntakeMotorState.OFF);
+        }
     }
-}
 
-/**
- * Get the current intake state.
- * @return intake state
- */
-public IntakeMotorState getMotorState() {
-    // return the current motor state
-    return this.m_currentMode;
-    
-}
-private DigitalInput m_sensorOne = new DigitalInput(Constants.Intake.kIntakeSensor);
-public void toggleFeeder() {
-        Robot.Intake.addInfo("ToggleIntake", "Intake Toggle");
-        if (Robot.Intake.getIntakeMotorState() == IntakeMotorState.OFF) {
-            Robot.Intake.setIntakeMotorState(IntakeMotorState.ON);
-        } else {
-            Robot.Intake.setIntakeMotorState(IntakeMotorState.OFF);
-            }
+    /**
+     * Get the current intake state.
+     * @return intake state
+     */
+    public IntakeMotorState getIntakeMotorState() {
+        return this.m_intakeMotorState;
+    }
 
+    /**
+     * Set the desired intake state.
+     * @param state wanted intake state
+     */
+    public void setDropMotorState(IntakeMotorState state) {
+        // set the current drop motor state
+        this.m_dropMotorState = state;
+        
 
-}
-public boolean getSensorOneState() {
+        // set drop motor state
+        switch (state) {
+            case ON:
+                // On
+                this.m_intakeDropMotor.set(Constants.Intake.DropSpeed);
+                break;
+            case OFF:
+                // Off
+                this.m_intakeDropMotor.set(0);
+                break;
+            case REVERSED:
+                // Reversed
+                this.m_intakeDropMotor.set(Constants.Intake.LiftSpeed);
+                break;
+            default:
+                this.setDropMotorState(IntakeMotorState.OFF);
+        }
+    }
+
+    /**
+     * Get the current intake state.
+     * @return intake state
+     */
+    public IntakeMotorState getDropMotorState() {
+        // return the current motor state
+        return this.m_dropMotorState;
+        
+    }
+
+    // Tell when ball is properly in the intake.
+    public boolean getSensorOneState() {
         return !m_sensorOne.get();
     }
 }
