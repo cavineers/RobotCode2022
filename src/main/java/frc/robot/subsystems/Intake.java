@@ -33,6 +33,9 @@ public class Intake extends SubsystemBase {
         this.setMotorState(IntakeMotorState.OFF);
     }
 
+    
+
+
     /**
      * Set the desired intake state.
      * @param state wanted intake state
@@ -113,3 +116,4 @@ public class Intake extends SubsystemBase {
         return !m_sensorOne.get();
     }
 }
+
