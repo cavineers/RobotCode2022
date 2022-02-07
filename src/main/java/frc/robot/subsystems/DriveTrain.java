@@ -61,7 +61,15 @@ public class DriveTrain extends SubsystemBase {
 
   public DifferentialDrive getDifferentialDrive() {
     return this.differentialDrive;
-}
+  }
+
+  public double getActiveLeftSpeed() {
+    return this.left1.getEncoder().getVelocity();
+  }
+  
+  public double getActiveRightSpeed() {
+    return this.right1.getEncoder().getVelocity();
+  }
 
   @Override
   public void periodic() {}
