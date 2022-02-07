@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.Intake;
 import frc.robot.Limelight.LedMode;
+import frc.robot.commands.TeleopDrive;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Shooter;
@@ -35,11 +36,12 @@ public static DriveTrain drive;
 public static Object logger;
 
   public Robot() {
+    super(0.02); // 50Hz run rate
+
     limelight = new Limelight();
     shooter = new Shooter();
     climber = new Climber();
     intake = new Intake();
-    drive = new DriveTrain();
   }
 
   /**
@@ -96,6 +98,8 @@ public static Object logger;
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+
+    new TeleopDrive(this.m_robotContainer.drivetrain, this.m_robotContainer.joy).schedule();
   }
 
   /** This function is called periodically during operator control. */
