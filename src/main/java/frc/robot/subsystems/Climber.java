@@ -101,6 +101,7 @@ public class Climber extends SubsystemBase {
   public double getAngleMotorSpeed() {
     return this.m_climberAngleOne.getEncoder().getVelocity();
   }
+  
   // Tell when climber is properly on the bar.
   public boolean getclimberSensorOneState() {
     return !m_climberSensorOne.get();
