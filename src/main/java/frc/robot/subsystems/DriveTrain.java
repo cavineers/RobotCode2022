@@ -59,6 +59,10 @@ public class DriveTrain extends SubsystemBase {
     return this.driveMode;
   }
 
+  public DifferentialDrive getDifferentialDrive() {
+    return this.differentialDrive;
+}
+
   @Override
   public void periodic() {}
 }

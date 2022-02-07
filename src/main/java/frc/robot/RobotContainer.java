@@ -21,6 +21,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final AutoShoot m_autoShoot = new AutoShoot();
   public DriveTrain drivetrain = new DriveTrain(this.joy);
+  public Dashboard dashboard = new Dashboard(this);
 
   //* Driver Controller
   public Joystick joy = new Joystick(0);
