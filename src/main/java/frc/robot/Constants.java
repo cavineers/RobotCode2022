@@ -82,5 +82,6 @@ public final class Constants {
         public static int ClimberSensorTwo = 1;
         public static int ClimberSensorThree = 2;
         public static int IntakeSensor = 3;
+        public static int ElevatorSwitch = 4;
     }
 }

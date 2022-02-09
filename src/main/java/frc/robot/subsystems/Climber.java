@@ -28,6 +28,8 @@ public class Climber extends SubsystemBase {
   
   private ClimberMotorState m_motorAngleState = ClimberMotorState.OFF;
 
+  private DigitalInput m_elevatorLimitSwtich = new DigitalInput(Constants.DIO.ElevatorSwitch);
+
   public enum ClimberMotorState {
     ON,
     OFF,
@@ -104,14 +106,18 @@ public class Climber extends SubsystemBase {
   
   // Tell when climber is properly on the bar.
   public boolean getclimberSensorOneState() {
-    return !m_climberSensorOne.get();
+    return !this.m_climberSensorOne.get();
   }
     // Tell when climber is properly on the bar.
   public boolean getclimberSensorTwoState() {
-    return !m_climberSensorTwo.get();
+    return !this.m_climberSensorTwo.get();
   }
       // Tell when climber is properly on the bar.
   public boolean getclimberSensorThreeState() {
-    return !m_climberSensorThree.get();
+    return !this.m_climberSensorThree.get();
+  }
+
+  public boolean getElevatorLimitSwitch() {
+    return !this.m_elevatorLimitSwtich.get();
   }
 }
