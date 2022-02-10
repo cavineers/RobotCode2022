@@ -43,7 +43,6 @@ public class Intake extends SubsystemBase {
         // set the current state
         this.m_intakeMotorState = state;
         
-
         // set motor state
         switch (state) {
             case ON:
@@ -57,7 +56,6 @@ public class Intake extends SubsystemBase {
             case REVERSED:
                 // Reversed
                 this.m_intakeMotor.set(Constants.Intake.IntakeSpeedRev);
-
                 break;
             default:
                 this.setMotorState(IntakeMotorState.OFF);
