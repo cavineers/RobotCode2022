@@ -2,6 +2,8 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -22,7 +24,7 @@ public class DriveTrain extends SubsystemBase {
 
   public DriveCoastBrake driveMode;
 
-  public DriveTrain() {
+  public DriveTrain(Joystick joy) {
     // Create a new drivetrain with primary motors
     this.differentialDrive = new DifferentialDrive(left1, right1);
 
@@ -55,6 +57,18 @@ public class DriveTrain extends SubsystemBase {
 
   public DriveCoastBrake getCurrentDrive() {
     return this.driveMode;
+  }
+
+  public DifferentialDrive getDifferentialDrive() {
+    return this.differentialDrive;
+  }
+
+  public double getActiveLeftSpeed() {
+    return this.left1.getEncoder().getVelocity();
+  }
+  
+  public double getActiveRightSpeed() {
+    return this.right1.getEncoder().getVelocity();
   }
 
   @Override

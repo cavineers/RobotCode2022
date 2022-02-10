@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import edu.wpi.first.wpilibj.DigitalInput;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -10,6 +11,10 @@ import frc.robot.Constants;
 
 
 public class Climber extends SubsystemBase {
+
+  private DigitalInput m_climberSensorOne = new DigitalInput(Constants.DIO.ClimberSensorOne);
+  private DigitalInput m_climberSensorTwo = new DigitalInput(Constants.DIO.ClimberSensorTwo);
+  private DigitalInput m_climberSensorThree = new DigitalInput(Constants.DIO.ClimberSensorThree);
 
   private CANSparkMax m_climberElevatorOne = new CANSparkMax(Constants.Climber.ClimberElevMotorOne, MotorType.kBrushless);
   
@@ -22,6 +27,8 @@ public class Climber extends SubsystemBase {
   private CANSparkMax m_climberAngleTwo = new CANSparkMax(Constants.Climber.ClimberAngleMotorTwo, MotorType.kBrushless);
   
   private ClimberMotorState m_motorAngleState = ClimberMotorState.OFF;
+
+  private DigitalInput m_elevatorLimitSwtich = new DigitalInput(Constants.DIO.ElevatorSwitch);
 
   public enum ClimberMotorState {
     ON,
@@ -40,6 +47,10 @@ public class Climber extends SubsystemBase {
   }
 
   //! Elevator
+
+  public CANSparkMax getElevatorMotor() {
+    return this.m_climberElevatorOne;
+  }
 
   public double getElevatorSpeed() {
     return this.m_climberElevatorOne.getEncoder().getVelocity();
@@ -95,5 +106,22 @@ public class Climber extends SubsystemBase {
 
   public double getAngleMotorSpeed() {
     return this.m_climberAngleOne.getEncoder().getVelocity();
+  }
+  
+  // Tell when climber is properly on the bar.
+  public boolean getclimberSensorOneState() {
+    return !this.m_climberSensorOne.get();
+  }
+    // Tell when climber is properly on the bar.
+  public boolean getclimberSensorTwoState() {
+    return !this.m_climberSensorTwo.get();
+  }
+      // Tell when climber is properly on the bar.
+  public boolean getclimberSensorThreeState() {
+    return !this.m_climberSensorThree.get();
+  }
+
+  public boolean getElevatorLimitSwitch() {
+    return !this.m_elevatorLimitSwtich.get();
   }
 }
