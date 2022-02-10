@@ -28,11 +28,8 @@ public final class Constants {
         public static int ClimberAngleMotorTwo  = 10;
         public static int ShooterAngle          = 11; //                (neo)
         public static int IntakeMotor           = 12;
-<<<<<<< HEAD
-        public static int ShooterFeeder         = 13;  // Feeder Wheel (minineo)
-=======
         public static int IntakeMotorDrop       = 13;
->>>>>>> development
+        public static int ShooterFeeder         = 14;  // Feeder Wheel (minineo)
     }
 
     public static class DriveTrain {
