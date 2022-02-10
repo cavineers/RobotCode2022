@@ -14,26 +14,20 @@ import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Shooter;
 
-/**
- * The VM is configured to automatically run this class, and to call the functions corresponding to
- * each mode, as described in the TimedRobot documentation. If you change the name of this class or
- * the package after creating this project, you must also update the build.gradle file in the
- * project.
- */
 public class Robot extends TimedRobot {
-private Command m_autonomousCommand;
+  private Command m_autonomousCommand;
 
-private RobotContainer m_robotContainer;
+  private RobotContainer m_robotContainer;
 
-// Limelight targeting sensor
-public static Limelight limelight;
-// Subsystems
-public static Shooter shooter;
-public static Climber climber;
-public static Intake intake;
-public static DriveTrain drive;
+  // Limelight targeting sensor
+  public static Limelight limelight;
+  // Subsystems
+  public static Shooter shooter;
+  public static Climber climber;
+  public static Intake intake;
+  public static DriveTrain drive;
 
-public static Object logger;
+  public static Object logger;
 
   public Robot() {
     super(0.02); // 50Hz run rate
@@ -69,7 +63,9 @@ public static Object logger;
 
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
-  public void disabledInit() {}
+  public void disabledInit() {
+    limelight.setLightMode(LedMode.OFF);
+  }
 
   @Override
   public void disabledPeriodic() {}
@@ -77,9 +73,9 @@ public static Object logger;
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    m_autonomousCommand = this.m_robotContainer.getAutonomousCommand();
 
-    // schedule the autonomous command (example)
+    // schedule the autonomous commands
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
@@ -92,9 +88,7 @@ public static Object logger;
   @Override
   public void teleopInit() {
     // This makes sure that the autonomous stops running when
-    // teleop starts running. If you want the autonomous to
-    // continue until interrupted by another command, remove
-    // this line or comment it out.
+    // teleop starts running.
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }

@@ -48,6 +48,10 @@ public class Climber extends SubsystemBase {
 
   //! Elevator
 
+  public CANSparkMax getElevatorMotor() {
+    return this.m_climberElevatorOne;
+  }
+
   public double getElevatorSpeed() {
     return this.m_climberElevatorOne.getEncoder().getVelocity();
   }
