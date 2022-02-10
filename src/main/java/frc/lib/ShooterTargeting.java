@@ -19,15 +19,16 @@ public class ShooterTargeting {
     }
     
     // Calculate optimal angle
-    public static double calculateAngle() {
+    public static double calculateAngle(double z) {
+        //double a = (10 - ((8 + (2/3))-(12.4/12)))/((15/17) * Math.pow(z, 2));
         return 0.0;
     }
 
     // Calculate Variable Velocity
-    public static double calculateVelocity(double z, double a, double C) {
+    public static double calculateVelocity(double z, double angle, double C) {
         //a is angle
         //C is distance
         //return (6.346 / (Math.sin(Math.atan(2.055 / x))) * Constants.Shooter.shooterVelocityConstant);
-        return (4.9 * Math.pow(z, 2) / (Math.pow(Math.cos(a), 2) * Math.tan(a*z) - (C * Math.pow(Math.cos(a), 2))));
+        return (4.9 * Math.pow(z, 2) / (Math.pow(Math.cos(angle), 2) * Math.tan(angle*z) - (C * Math.pow(Math.cos(angle), 2))));
     }
 }
