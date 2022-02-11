@@ -49,7 +49,7 @@ public class Shooter extends SubsystemBase {
     private int currentAngleSetpoint;
 
     // Infrared Sensor
-    private DigitalInput m_sensorBall = new DigitalInput(Constants.Dio.kBallSensor1);
+    private DigitalInput m_sensorBall = new DigitalInput(Constants.DIO.BallSensorShooter);
 
     // See the shooter to disabled by default
     private ShooterStatus m_shooterState = ShooterStatus.DISABLED;
