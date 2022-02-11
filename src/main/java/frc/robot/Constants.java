@@ -9,7 +9,7 @@ import edu.wpi.first.math.util.Units;
  */
 public final class Constants {
 
-    // Refernce
+    // Reference
     // neo - full sized neo motor with SparkMax
     // minineo - mini neo motor with SparkMax
 
