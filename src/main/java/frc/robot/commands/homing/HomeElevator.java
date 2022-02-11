@@ -1,4 +1,4 @@
-package frc.robot.commands;
+package frc.robot.commands.homing;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
@@ -24,9 +24,14 @@ public class HomeElevator extends CommandBase {
     @Override
     public void execute() {
         if(Robot.climber.getElevatorLimitSwitch() == false) {
+            // Keep elevator moving downward
             Robot.climber.getElevatorMotor().set(-0.1);
         } else if (Robot.climber.getElevatorLimitSwitch() == true) {
+            // Turn off elevator
             Robot.climber.setElevMotorState(ClimberMotorState.OFF);
+            // Reset encoder revolution count to 0
+            Robot.climber.setElevatorMotorPosition(0.0);
+            // Set homing as true
             this.isElevatorHomed = true;
         }
     }
@@ -36,7 +41,9 @@ public class HomeElevator extends CommandBase {
         Robot.climber.setElevMotorState(ClimberMotorState.OFF);
         
         if (this.isElevatorHomed){
-        	System.out.println("Home Finished");
+        	System.out.println("Home finished");
+        } else {
+            System.out.println("Homeing error detected");
         }
     }
 

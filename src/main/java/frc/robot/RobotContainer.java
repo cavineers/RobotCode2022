@@ -6,6 +6,7 @@ package frc.robot;
 
 import frc.robot.commands.AutoShoot;
 import frc.robot.commands.SwitchMode;
+import frc.robot.commands.climber.ClimberDrive;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -66,6 +67,7 @@ public class RobotContainer {
 
   private void configureButtonBindingsClimb() {
     this.povUp.whenPressed(this.switchDriveMode);
+    new ClimberDrive(this, this.joy).schedule();
   }
 
   public Joystick getJoystick() {

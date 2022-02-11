@@ -20,16 +20,15 @@ public final class Constants {
         public static int DriveTrainMotorRight1 = 2;  // Left 2 (neo)
         public static int DriveTrainMotorLeft2  = 3;  // Right 1 (neo)
         public static int DriveTrainMotorRight2 = 4;  // Right 2 (neo)
-        public static int ShooterMotor          = 5;  // FlyWheel (neo)
-        public static int IntakeLowerBrush      = 6;  // LowerIntakeBrush (neo)
-        public static int ClimberElevMotorOne   = 7;  // CliberMotor (neo)
-        public static int ClimberElevMotorTwo   = 8;  //ClimberMotorTwo (neo)
-        public static int ClimberAngleMotorOne  = 9;  // ShooterAngleMotor (neo)
-        public static int ClimberAngleMotorTwo  = 10;
-        public static int ShooterAngle          = 11; //                (neo)
-        public static int IntakeMotor           = 12;
-        public static int IntakeMotorDrop       = 13;
-        public static int ShooterFeeder         = 14;  // Feeder Wheel (minineo)
+        public static int ClimberElevMotorOne   = 5;  // CliberElevatorMotor (neo)
+        public static int ClimberElevMotorTwo   = 6;  // CliberElevatorMotorTwo (neo)
+        public static int ClimberAngleMotorOne  = 7;  // ClimberAngleMotor (minineo)
+        public static int ClimberAngleMotorTwo  = 8;  // ClimberAngleMotor (minineo)
+        public static int IntakeMotor           = 9;  // IntakeMotor (neo)
+        public static int IntakeMotorDrop       = 10;  // IntakeDrop (minineo)
+        public static int ShooterAngle          = 11;  // ShooterAngle(neo)
+        public static int ShooterFeeder         = 12;  // FeederWheel (minineo)
+        public static int ShooterMotor          = 13;  // FlyWheel (neo)
     }
 
     public static class DriveTrain {
@@ -60,12 +59,8 @@ public final class Constants {
         //TODO Check value with shooter sub-team
         public static double degreesPerRotation = 5;
     }
-    // Constants in direct reference to their location on the Digital In/Out pins on the RIO.
-     public static class Dio {
-        public static int kBallSensor1 = 0;
-        }
+
     public static class Intake {
-        public static int IntakeLowerBrush = CANIds.IntakeLowerBrush;
         public static int IntakeID = CANIds.IntakeMotor;
         public static int IntakeDropID = CANIds.IntakeMotorDrop;
 
@@ -90,10 +85,9 @@ public final class Constants {
 
     }
     public static class DIO {
-        public static int ClimberSensorOne = 0;
-        public static int ClimberSensorTwo = 1;
-        public static int ClimberSensorThree = 2;
-        public static int IntakeSensor = 3;
-        public static int ElevatorSwitch = 4;
+        public static int IntakeSensor = 0;
+        public static int ElevatorSwitch = 1;
+        public static int ClimberAngleSwitch = 2;
+        public static int BallSensorShooter = 3;
     }
 }

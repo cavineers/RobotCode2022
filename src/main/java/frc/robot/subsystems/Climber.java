@@ -11,30 +11,29 @@ import frc.robot.Constants;
 
 
 public class Climber extends SubsystemBase {
-
-  private DigitalInput m_climberSensorOne = new DigitalInput(Constants.DIO.ClimberSensorOne);
-  private DigitalInput m_climberSensorTwo = new DigitalInput(Constants.DIO.ClimberSensorTwo);
-  private DigitalInput m_climberSensorThree = new DigitalInput(Constants.DIO.ClimberSensorThree);
+  //! Variables
 
   private CANSparkMax m_climberElevatorOne = new CANSparkMax(Constants.Climber.ClimberElevMotorOne, MotorType.kBrushless);
-  
   private CANSparkMax m_climberElevatorTwo = new CANSparkMax(Constants.Climber.ClimberElevMotorTwo, MotorType.kBrushless);
 
   private ClimberMotorState m_motorElevState = ClimberMotorState.OFF;
 
   private CANSparkMax m_climberAngleOne = new CANSparkMax(Constants.Climber.ClimberAngleMotorOne, MotorType.kBrushless);
-  
   private CANSparkMax m_climberAngleTwo = new CANSparkMax(Constants.Climber.ClimberAngleMotorTwo, MotorType.kBrushless);
   
   private ClimberMotorState m_motorAngleState = ClimberMotorState.OFF;
 
   private DigitalInput m_elevatorLimitSwtich = new DigitalInput(Constants.DIO.ElevatorSwitch);
+  private DigitalInput m_angleLimitSwitch = new DigitalInput(Constants.DIO.ClimberAngleSwitch);
+
 
   public enum ClimberMotorState {
     ON,
     OFF,
     REVERSED
   }
+
+  //! Constructor
 
   public Climber() {
     // Set motors into break mode and invert the movement
@@ -50,10 +49,6 @@ public class Climber extends SubsystemBase {
 
   public CANSparkMax getElevatorMotor() {
     return this.m_climberElevatorOne;
-  }
-
-  public double getElevatorSpeed() {
-    return this.m_climberElevatorOne.getEncoder().getVelocity();
   }
 
   public void setElevMotorState(ClimberMotorState state) {
@@ -79,7 +74,19 @@ public class Climber extends SubsystemBase {
     return this.m_motorElevState;
   }
 
+  public double getElevatorPosition() {
+    return this.m_climberElevatorOne.getEncoder().getPosition();
+  }
+
+  public void setElevatorMotorPosition(double position) {
+    this.m_climberAngleOne.getEncoder().setPosition(position);
+  }
+
   //! Angle Adjustment
+
+  public CANSparkMax getAngleMotor() {
+    return this.m_climberAngleOne;
+  }
 
   public void setAngleMotorState(ClimberMotorState state) {
     this.m_motorAngleState = state;
@@ -104,24 +111,21 @@ public class Climber extends SubsystemBase {
     return this.m_motorAngleState;
   }
 
-  public double getAngleMotorSpeed() {
-    return this.m_climberAngleOne.getEncoder().getVelocity();
+  public double getAngleMotorPosition() {
+    return this.m_climberAngleOne.getEncoder().getPosition();
   }
-  
-  // Tell when climber is properly on the bar.
-  public boolean getclimberSensorOneState() {
-    return !this.m_climberSensorOne.get();
+
+  public void setAngleMotorPosition(double position) {
+    this.m_climberAngleOne.getEncoder().setPosition(position);
   }
-    // Tell when climber is properly on the bar.
-  public boolean getclimberSensorTwoState() {
-    return !this.m_climberSensorTwo.get();
-  }
-      // Tell when climber is properly on the bar.
-  public boolean getclimberSensorThreeState() {
-    return !this.m_climberSensorThree.get();
-  }
+
+  //! Sensors
 
   public boolean getElevatorLimitSwitch() {
     return !this.m_elevatorLimitSwtich.get();
+  }
+
+  public boolean getAngleLimitSwitch() {
+    return !this.m_angleLimitSwitch.get();
   }
 }
