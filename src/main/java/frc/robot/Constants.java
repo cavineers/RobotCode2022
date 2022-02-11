@@ -9,7 +9,7 @@ import edu.wpi.first.math.util.Units;
  */
 public final class Constants {
 
-    // Refernce
+    // Reference
     // neo - full sized neo motor with SparkMax
     // minineo - mini neo motor with SparkMax
 
@@ -26,9 +26,10 @@ public final class Constants {
         public static int ClimberElevMotorTwo   = 8;  //ClimberMotorTwo (neo)
         public static int ClimberAngleMotorOne  = 9;  // ShooterAngleMotor (neo)
         public static int ClimberAngleMotorTwo  = 10;
-        public static int ShooterAngle          = 11;
+        public static int ShooterAngle          = 11; //                (neo)
         public static int IntakeMotor           = 12;
         public static int IntakeMotorDrop       = 13;
+        public static int ShooterFeeder         = 14;  // Feeder Wheel (minineo)
     }
 
     public static class DriveTrain {
@@ -50,8 +51,16 @@ public final class Constants {
         public static double shooterVelocityConstant = 0;
         public static int ShooterMotor = CANIds.ShooterMotor;
         public static int ShooterAngle = CANIds.ShooterAngle;
-    }
+        public static int ShooterFeeder = CANIds.ShooterFeeder;
 
+        public static double shooterAngleLow = 44;
+        public static double shooterAngleMedium = 63;
+        public static double shooterAngleHigh = 84;
+    }
+    // Constants in direct reference to their location on the Digital In/Out pins on the RIO.
+     public static class Dio {
+        public static int kBallSensor1 = 0;
+        }
     public static class Intake {
         public static int IntakeLowerBrush = CANIds.IntakeLowerBrush;
         public static int IntakeID = CANIds.IntakeMotor;
