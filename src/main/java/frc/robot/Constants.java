@@ -56,6 +56,9 @@ public final class Constants {
         public static double shooterAngleLow = 44;
         public static double shooterAngleMedium = 63;
         public static double shooterAngleHigh = 84;
+
+        //TODO Check value with shooter sub-team
+        public static double degreesPerRotation = 5;
     }
     // Constants in direct reference to their location on the Digital In/Out pins on the RIO.
      public static class Dio {

@@ -79,9 +79,9 @@ public class Shooter extends SubsystemBase {
 
     public ShooterAngle setShooterAngle(double z) {
       z = lengthZ;
-      if (z >= 20) {
+      if (z >= 6) {
         return ShooterAngle.LOW;
-      } else if ((z < 20) && (z > 10)) {
+      } else if ((z < 6) && (z > 3)) {
         return ShooterAngle.MEDIUM;
       } else {
         return ShooterAngle.HIGH;
