@@ -78,7 +78,6 @@ public class Intake extends SubsystemBase {
         // set the current drop motor state
         this.m_dropMotorState = state;
         
-
         // set drop motor state
         switch (state) {
             case ON:
@@ -105,7 +104,6 @@ public class Intake extends SubsystemBase {
     public IntakeMotorState getDropMotorState() {
         // return the current motor state
         return this.m_dropMotorState;
-        
     }
 
     // Tell when ball is properly in the intake.
