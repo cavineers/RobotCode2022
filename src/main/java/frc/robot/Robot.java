@@ -9,7 +9,9 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.Intake;
 import frc.robot.Limelight.LedMode;
+import frc.robot.RobotContainer.CurrentMode;
 import frc.robot.commands.TeleopDrive;
+import frc.robot.commands.climber.ClimberDrive;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Shooter;
@@ -34,7 +36,6 @@ public class Robot extends TimedRobot {
 
     limelight = new Limelight();
     shooter = new Shooter();
-    climber = new Climber();
     intake = new Intake();
   }
 
@@ -92,13 +93,26 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-
-    new TeleopDrive(this.m_robotContainer.drivetrain, this.m_robotContainer.joy).schedule();
   }
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+    TeleopDrive drive = new TeleopDrive(this.m_robotContainer.drivetrain, this.m_robotContainer.joy);
+    ClimberDrive climb = new ClimberDrive(this.m_robotContainer, this.m_robotContainer.joy);
+  
+    if(this.m_robotContainer.mode == CurrentMode.DRIVE) {
+      if(climb.isScheduled()) {
+        climb.cancel();
+      }
+      drive.schedule();
+    } else if(this.m_robotContainer.mode == CurrentMode.CLIMB) {
+      if(drive.isScheduled()) {
+        drive.cancel();
+      }
+      climb.schedule();
+    }
+  }
 
   @Override
   public void testInit() {

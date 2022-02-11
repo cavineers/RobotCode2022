@@ -15,7 +15,7 @@ public class ClimberDrive extends CommandBase {
     public ClimberDrive(RobotContainer container, Joystick joy) {
         this.joy = joy;
         this.rc = container;
-        this.addRequirements(Robot.climber);
+        this.addRequirements(this.rc.climber);
     }
 
     @Override
@@ -24,15 +24,15 @@ public class ClimberDrive extends CommandBase {
     @Override
     public void execute() {
         // Set the motor speed to the axis
-        Robot.climber.getElevatorMotor().set(this.joy.getRawAxis(1));
-        Robot.climber.getAngleMotor().set(this.joy.getRawAxis(4));
+        this.rc.climber.getElevatorMotor().set(this.joy.getRawAxis(1));
+        this.rc.climber.getAngleMotor().set(this.joy.getRawAxis(4));
     }
 
     @Override
     public void end(boolean interrupted) {
         // Turn off motors at the end
-        Robot.climber.setElevMotorState(ClimberMotorState.OFF);
-        Robot.climber.setAngleMotorState(ClimberMotorState.OFF);
+        this.rc.climber.setElevMotorState(ClimberMotorState.OFF);
+        this.rc.climber.setAngleMotorState(ClimberMotorState.OFF);
     }
 
     @Override

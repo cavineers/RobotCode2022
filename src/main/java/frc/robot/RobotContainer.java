@@ -6,12 +6,12 @@ package frc.robot;
 
 import frc.robot.commands.AutoShoot;
 import frc.robot.commands.SwitchMode;
-import frc.robot.commands.climber.ClimberDrive;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Climber;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -25,6 +25,8 @@ public class RobotContainer {
   private final SwitchMode switchDriveMode = new SwitchMode(this);
 
   public DriveTrain drivetrain = new DriveTrain(this.joy);
+  public Climber climber = new Climber();
+
   public Dashboard dashboard = new Dashboard(this);
 
   //* Driver Controller
@@ -67,7 +69,6 @@ public class RobotContainer {
 
   private void configureButtonBindingsClimb() {
     this.povUp.whenPressed(this.switchDriveMode);
-    new ClimberDrive(this, this.joy).schedule();
   }
 
   public Joystick getJoystick() {
