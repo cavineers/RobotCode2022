@@ -56,6 +56,8 @@ public final class Constants {
         public static double shooterAngleMedium = 63;
         public static double shooterAngleHigh = 84;
 
+        public static double shooterHeight = (12.4/12);
+
         //TODO Check value with shooter sub-team
         public static double degreesPerRotation = 5;
     }
