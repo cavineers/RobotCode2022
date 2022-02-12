@@ -9,7 +9,7 @@ import edu.wpi.first.math.util.Units;
  */
 public final class Constants {
 
-    // Refernce
+    // Reference
     // neo - full sized neo motor with SparkMax
     // minineo - mini neo motor with SparkMax
 
@@ -20,14 +20,15 @@ public final class Constants {
         public static int DriveTrainMotorRight1 = 2;  // Left 2 (neo)
         public static int DriveTrainMotorLeft2  = 3;  // Right 1 (neo)
         public static int DriveTrainMotorRight2 = 4;  // Right 2 (neo)
-        public static int ShooterMotor          = 5;  // FlyWheel (neo)
-        public static int IntakeLowerBrush      = 6;  // LowerIntakeBrush (neo)
-        public static int ClimberElevMotorOne   = 7;  // CliberMotor (neo)
-        public static int ClimberElevMotorTwo   = 8;  //ClimberMotorTwo (neo)
-        public static int ClimberAngleMotorOne  = 9;  // ShooterAngleMotor (neo)
-        public static int ClimberAngleMotorTwo  = 10;
-        public static int ShooterAngle          = 11;
-        public static int IntakeMotor           = 12;
+        public static int ClimberElevMotorOne   = 5;  // CliberElevatorMotor (neo)
+        public static int ClimberElevMotorTwo   = 6;  // CliberElevatorMotorTwo (neo)
+        public static int ClimberAngleMotorOne  = 7;  // ClimberAngleMotor (minineo)
+        public static int ClimberAngleMotorTwo  = 8;  // ClimberAngleMotor (minineo)
+        public static int IntakeMotor           = 9;  // IntakeMotor (neo)
+        public static int IntakeMotorDrop       = 10;  // IntakeDrop (minineo)
+        public static int ShooterAngle          = 11;  // ShooterAngle(neo)
+        public static int ShooterFeeder         = 12;  // FeederWheel (minineo)
+        public static int ShooterMotor          = 13;  // FlyWheel (neo)
     }
 
     public static class DriveTrain {
@@ -49,14 +50,24 @@ public final class Constants {
         public static double shooterVelocityConstant = 0;
         public static int ShooterMotor = CANIds.ShooterMotor;
         public static int ShooterAngle = CANIds.ShooterAngle;
+        public static int ShooterFeeder = CANIds.ShooterFeeder;
+
+        public static double shooterAngleLow = 44;
+        public static double shooterAngleMedium = 63;
+        public static double shooterAngleHigh = 84;
     }
 
     public static class Intake {
+<<<<<<< HEAD
         public static int IntakeLowerBrush = CANIds.IntakeLowerBrush;
 
         public static int kIntakeID = CANIds.IntakeMotor;
 
         public static int kIntakeSensor = 0; // DIO port 0
+=======
+        public static int IntakeID = CANIds.IntakeMotor;
+        public static int IntakeDropID = CANIds.IntakeMotorDrop;
+>>>>>>> development
 
         public static double IntakeSpeed = 0.1; // Intake motor speed (-1.0 -- 1.0)
         public static double IntakeSpeedRev = -0.1; // Intake reverse speed
@@ -77,5 +88,12 @@ public final class Constants {
 
         public static double AngleSpeed = -0.1;
         public static double AngleSpeedRev = 0.1;
+
+    }
+    public static class DIO {
+        public static int IntakeSensor = 0;
+        public static int ElevatorSwitch = 1;
+        public static int ClimberAngleSwitch = 2;
+        public static int BallSensorShooter = 3;
     }
 }

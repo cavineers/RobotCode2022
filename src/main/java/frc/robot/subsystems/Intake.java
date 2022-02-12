@@ -2,6 +2,8 @@ package frc.robot.subsystems;
 
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -16,15 +18,15 @@ public class Intake extends SubsystemBase {
     }
 
 
-    public CANSparkMax m_intakeMotor = new CANSparkMax(Constants.Intake.kIntakeID, null);
+    public CANSparkMax m_intakeMotor = new CANSparkMax(Constants.Intake.IntakeID, MotorType.kBrushless);
 
-    public CANSparkMax m_intakeDropMotor = new CANSparkMax(Constants.Intake.kIntakeID, null);
+    public CANSparkMax m_intakeDropMotor = new CANSparkMax(Constants.Intake.IntakeDropID, MotorType.kBrushless);
 
     public IntakeMotorState m_dropMotorState = IntakeMotorState.OFF;
 
     public IntakeMotorState m_intakeMotorState = IntakeMotorState.OFF;
 
-    private DigitalInput m_sensorOne = new DigitalInput(Constants.Intake.kIntakeSensor);
+    private DigitalInput m_sensorOne = new DigitalInput(Constants.DIO.IntakeSensor);
 
     /**
      * Intake constructor.
@@ -44,7 +46,6 @@ public class Intake extends SubsystemBase {
         // set the current state
         this.m_intakeMotorState = state;
         
-
         // set motor state
         switch (state) {
             case ON:
@@ -58,7 +59,6 @@ public class Intake extends SubsystemBase {
             case REVERSED:
                 // Reversed
                 this.m_intakeMotor.set(Constants.Intake.IntakeSpeedRev);
-
                 break;
             default:
                 this.setMotorState(IntakeMotorState.OFF);
@@ -81,7 +81,6 @@ public class Intake extends SubsystemBase {
         // set the current drop motor state
         this.m_dropMotorState = state;
         
-
         // set drop motor state
         switch (state) {
             case ON:
@@ -108,7 +107,6 @@ public class Intake extends SubsystemBase {
     public IntakeMotorState getDropMotorState() {
         // return the current motor state
         return this.m_dropMotorState;
-        
     }
 
     // Tell when ball is properly in the intake.
