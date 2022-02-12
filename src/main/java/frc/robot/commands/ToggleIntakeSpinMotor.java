@@ -1,7 +1,7 @@
    package frc.robot.commands;
 
 import frc.robot.Robot;
-import frc.robot.commands.ToggleIntakespinMotor;
+import frc.robot.commands.ToggleIntakeSpinMotor;
 import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
@@ -10,15 +10,15 @@ import edu.wpi.first.wpilibj.DigitalInput;
 
 
 
-public class ToggleIntakespinMotor extends CommandBase {
+public class ToggleIntakeSpinMotor extends CommandBase {
    
-public ToggleIntakespinMotor() {
+public ToggleIntakeSpinMotor() {
     this.addRequirements(Robot.intake); 
 }
 
 @Override
 public void initialize() {
-    if (Robot.intake.getDropMotorState() == Intake.IntakeMotorState.OFF) {
+        if (Robot.intake.getDropMotorState() == Intake.IntakeMotorState.OFF) {
         Robot.intake.setMotorState(Intake.IntakeMotorState.ON);
     } else {
         Robot.intake.setMotorState(Intake.IntakeMotorState.OFF);

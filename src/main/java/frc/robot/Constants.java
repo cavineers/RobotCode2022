@@ -58,16 +58,14 @@ public final class Constants {
     }
 
     public static class Intake {
-<<<<<<< HEAD
-        public static int IntakeLowerBrush = CANIds.IntakeLowerBrush;
+
+        public static int IntakeDropID = CANIds.IntakeMotorDrop;
 
         public static int kIntakeID = CANIds.IntakeMotor;
 
         public static int kIntakeSensor = 0; // DIO port 0
-=======
+
         public static int IntakeID = CANIds.IntakeMotor;
-        public static int IntakeDropID = CANIds.IntakeMotorDrop;
->>>>>>> development
 
         public static double IntakeSpeed = 0.1; // Intake motor speed (-1.0 -- 1.0)
         public static double IntakeSpeedRev = -0.1; // Intake reverse speed
