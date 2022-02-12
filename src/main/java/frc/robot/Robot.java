@@ -26,6 +26,7 @@ public class Robot extends TimedRobot {
   public static Climber climber;
   public static Intake intake;
   public static DriveTrain drive;
+  public static RobotContainer robotContainer;
 
   public static Object logger;
 

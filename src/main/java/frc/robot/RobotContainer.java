@@ -8,10 +8,12 @@ import frc.robot.commands.AutoShoot;
 import frc.robot.commands.SwitchMode;
 import frc.robot.commands.climber.ClimberDrive;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Shooter;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -21,11 +23,15 @@ import frc.robot.subsystems.DriveTrain;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final AutoShoot autoShoot = new AutoShoot();
+
+  public Shooter shooter = new Shooter();
+  private final AutoShoot autoShoot = new AutoShoot(shooter);
   private final SwitchMode switchDriveMode = new SwitchMode(this);
 
   public DriveTrain drivetrain = new DriveTrain(this.joy);
   public Dashboard dashboard = new Dashboard(this);
+
+  public Command m_autoShootCommand;
 
   //* Driver Controller
   public Joystick joy = new Joystick(0);
@@ -43,14 +49,14 @@ public class RobotContainer {
   public POVButton povUp = new POVButton(joy, 0, 0);
   public POVButton povRight = new POVButton(joy, 90, 0);
   public POVButton povDown = new POVButton(joy, 180, 0);
-  public POVButton povLeft = new POVButton(joy, 270, 0);
+  public POVButton povLeft = new POVButton(joy, 270, 0); 
 
   public enum CurrentMode {
     DRIVE,
     CLIMB
   }
 
-  public CurrentMode mode = CurrentMode.DRIVE;
+  public CurrentMode mode = CurrentMode.DRIVE; 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -59,19 +65,29 @@ public class RobotContainer {
     } else {
       configureButtonBindingsClimb();
     }
+    this.m_autoShootCommand = new AutoShoot(shooter);
   }
 
   private void configureButtonBindings() {
+    //Switches drive mode
     this.povUp.whenPressed(this.switchDriveMode);
+
+    //Shoot
+    this.a_button.whenPressed(new InstantCommand() {
+      @Override
+      public void initialize() {
+        if (Robot.robotContainer.m_autoShootCommand.isScheduled()) {
+          Robot.robotContainer.m_autoShootCommand.cancel();
+        } else {
+          Robot.robotContainer.m_autoShootCommand.schedule();
+        }
+      }
+    });
   }
 
   private void configureButtonBindingsClimb() {
     this.povUp.whenPressed(this.switchDriveMode);
     new ClimberDrive(this, this.joy).schedule();
-  }
-
-  public Joystick getJoystick() {
-    return this.joy;
   }
 
   /**
@@ -83,3 +99,4 @@ public class RobotContainer {
     return this.autoShoot;
   }
 }
+

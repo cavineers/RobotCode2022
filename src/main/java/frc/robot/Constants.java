@@ -60,6 +60,10 @@ public final class Constants {
 
         //TODO Check value with shooter sub-team
         public static double degreesPerRotation = 5;
+
+        public static double kP = 0;
+        public static double kI = 0;
+        public static double kD = 0;
     }
 
     public static class Intake {

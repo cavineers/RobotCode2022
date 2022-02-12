@@ -2,9 +2,6 @@ package frc.robot.subsystems;
 
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
-
-import javax.lang.model.util.ElementScanner6;
-
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -13,6 +10,7 @@ import com.revrobotics.CANSparkMax.IdleMode;
 
 import frc.lib.ShooterTargeting;
 import frc.robot.Constants;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DigitalInput;
 
 public class Shooter extends SubsystemBase {
@@ -36,6 +34,8 @@ public class Shooter extends SubsystemBase {
 
     // See the shooter to disabled by default
     private ShooterStatus m_shooterState = ShooterStatus.DISABLED;
+
+    private FeederStatus m_feederState = FeederStatus.DISABLED;
  
     // Shooter systems setpoint speed (setpoint in RPM)
     private double m_speedSetpoint = 0;
@@ -48,9 +48,12 @@ public class Shooter extends SubsystemBase {
     private double currentAngleMotorPosition = m_angleEncoder.getPosition();
  
     // Create new PID controller
-    private SparkMaxPIDController m_pidController = m_shooterMotor.getPIDController();
+    //private SparkMaxPIDController m_pidController = m_shooterMotor.getPIDController();
+    private PIDController m_pidController = new PIDController(Constants.Shooter.kP, Constants.Shooter.kI, Constants.Shooter.kD);
 
     private double lengthZ = ShooterTargeting.findZ();
+
+    
 
 
     public Shooter() {
@@ -69,16 +72,20 @@ public class Shooter extends SubsystemBase {
       DISABLED
     }
 
-    public boolean getSensorBallState() {
-      return !m_sensorBall.get();
+    public enum FeederStatus {
+      ENABLED,
+      DISABLED
     }
     
-
     //Enum for shooter angle
     public enum ShooterAngle {
       HIGH,
       LOW,
       MEDIUM
+    }
+
+    public boolean getSensorBallState() {
+      return !m_sensorBall.get();
     }
 
     public ShooterAngle setShooterAngle(double z) {
@@ -143,6 +150,8 @@ public class Shooter extends SubsystemBase {
         angle = Constants.Shooter.shooterAngleLow;
       }
       this.setSpeed(ShooterTargeting.calculateVelocity(lengthZ, angle, Constants.Shooter.shooterHeight));
+      double speed = getCurrentSpeedSetpoint();
+      this.m_shooterMotor.set(speed);
     }
 
     public void disableShooter() {
@@ -176,12 +185,17 @@ public class Shooter extends SubsystemBase {
       this.isPositioned = position;
     }
 
+    public void enableFeeder(){
+      this.m_feederState = FeederStatus.ENABLED;
+      this.m_shooterFeeder.set(.1);
+    }
+
 
     @Override
     public void periodic() {
       // TODO Add PID values
 
-      this.m_pidController.setReference(this.m_speedSetpoint, CANSparkMax.ControlType.kVelocity);
+      //this.m_pidController.setReference(this.m_speedSetpoint, CANSparkMax.ControlType.kVelocity);
 
       SmartDashboard.putNumber("Shooter Setpoint Speed", this.m_speedSetpoint);
       SmartDashboard.putNumber("Shooter Actual Speed", this.m_shootEncoder.getVelocity());
