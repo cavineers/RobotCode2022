@@ -2,7 +2,6 @@ package frc.robot.commands.auto;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-
 public class ToggleAutonomous {
     public enum AutonomousState {
         ON,
@@ -17,15 +16,18 @@ public class ToggleAutonomous {
 
             public void run() {
 
-                System.out.println(countdownStarter);
-                countdownStarter--;
+               
+                this.SetAutonomousState(AutonomousState.OFF);
                 if (countdownStarter < 0) {
                     this.SetAutonomousState(AutonomousState.OFF);
                 }
             }
+
+         void SetAutonomousState(AutonomousState state) {
+            }
         };
-        scheduler.scheduleAtFixedRate(runnable, 0, 1, SECONDS);
+        scheduler.scheduleAtFixedRate(runnable, 0, 1, null );
     }
-}
+
 
 }
