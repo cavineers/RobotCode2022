@@ -15,6 +15,7 @@ public final class Constants {
 
     public static class CANIds {
         
+        public static final int AutomovementState = 0;
         // TODO Update these values
         public static int DriveTrainMotorLeft1  = 1;  // Left 1 (neo)
         public static int DriveTrainMotorRight1 = 2;  // Left 2 (neo)
@@ -58,6 +59,7 @@ public final class Constants {
     }
 
     public static class Intake {
+        public static final double AutoMovementSpeed = 0;
         public static int IntakeID = CANIds.IntakeMotor;
         public static int IntakeDropID = CANIds.IntakeMotorDrop;
 
@@ -86,5 +88,10 @@ public final class Constants {
         public static int ElevatorSwitch = 1;
         public static int ClimberAngleSwitch = 2;
         public static int BallSensorShooter = 3;
+    }
+    public static class Auto {
+        public static double AutoMovementSpeed = 0.1;
+        public static double AutoMovementSpeedrev = -0.1;
+        
     }
 }
