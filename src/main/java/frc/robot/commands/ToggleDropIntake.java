@@ -1,25 +1,25 @@
    package frc.robot.commands;
 
 import frc.robot.Robot;
-import frc.robot.commands.ToggleIntake;
+import frc.robot.commands.ToggleDropIntake;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Intake;
 
 
 
-public class ToggleIntake extends CommandBase {
+public class ToggleDropIntake extends CommandBase {
    
     Joystick joystick;
 
-    public ToggleIntake(Joystick joy) {
+    public ToggleDropIntake(Joystick joy) {
         this.addRequirements(Robot.intake);
         this.joystick = joy;
     }
 
     @Override
     public void initialize() {
-        if (Robot.intake.getIntakeMotorState() == Intake.IntakeMotorState.OFF) {
+        if (Robot.intake.getDropMotorState() == Intake.IntakeMotorState.OFF) {
             Robot.intake.setMotorState(Intake.IntakeMotorState.ON);
         } else {
             Robot.intake.setMotorState(Intake.IntakeMotorState.OFF);

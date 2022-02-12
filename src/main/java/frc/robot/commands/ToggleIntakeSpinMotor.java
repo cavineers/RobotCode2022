@@ -18,8 +18,7 @@ public ToggleIntakeSpinMotor() {
 
 @Override
 public void initialize() {
-        if (Robot.intake.getDropMotorState() == Intake.IntakeMotorState.OFF) {
-        Robot.intake.setMotorState(Intake.IntakeMotorState.ON);
+        if (Robot.intake.getDropMotorState() == Intake.IntakeMotorState.ON) {
     } else {
         Robot.intake.setMotorState(Intake.IntakeMotorState.OFF);
     }
