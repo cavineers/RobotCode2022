@@ -5,18 +5,15 @@
 package frc.robot;
 
 import frc.robot.commands.AutoShoot;
-<<<<<<< HEAD
 import frc.robot.commands.SwitchMode;
 import frc.robot.commands.climber.ClimberDrive;
-=======
 import frc.robot.commands.ToggleIntake;
-import frc.robot.commands.ToggleIntakeTwo;
->>>>>>> f428363d5e222e5b3c3f7f010cbc8c5def6643a9
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.commands.ToggleIntakeSpinMotor;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
