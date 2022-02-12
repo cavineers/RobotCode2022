@@ -19,9 +19,8 @@ public class ToggleAutonomous {
 
                 System.out.println(countdownStarter);
                 countdownStarter--;
-                AutonomousState = Off;
                 if (countdownStarter < 0) {
-                    
+                    this.SetAutonomousState(AutonomousState.OFF);
                 }
             }
         };
