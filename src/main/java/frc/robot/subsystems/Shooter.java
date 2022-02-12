@@ -136,7 +136,6 @@ public class Shooter extends SubsystemBase {
             isPositioned = true;
           }
         }
-        
     }
 
     public void enableShooter() {
@@ -186,16 +185,18 @@ public class Shooter extends SubsystemBase {
     }
 
     public void enableFeeder(){
-      this.m_feederState = FeederStatus.ENABLED;
-      this.m_shooterFeeder.set(.1);
+      if(getSensorBallState() == true) {
+        this.m_feederState = FeederStatus.ENABLED;
+        this.m_shooterFeeder.set(.1);
+      }
     }
-
 
     @Override
     public void periodic() {
       // TODO Add PID values
 
       //this.m_pidController.setReference(this.m_speedSetpoint, CANSparkMax.ControlType.kVelocity);
+      m_shooterMotor.set(m_pidController.calculate(m_shootEncoder.getPosition(),getCurrentSpeedSetpoint()));
 
       SmartDashboard.putNumber("Shooter Setpoint Speed", this.m_speedSetpoint);
       SmartDashboard.putNumber("Shooter Actual Speed", this.m_shootEncoder.getVelocity());
@@ -204,4 +205,3 @@ public class Shooter extends SubsystemBase {
 
     }
 }
-
