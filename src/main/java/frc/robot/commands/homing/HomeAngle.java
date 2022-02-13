@@ -14,7 +14,7 @@ public class HomeAngle extends CommandBase {
 
     @Override
     public void initialize() {
-        if (Robot.climber.getRightAngleSwitch() == true) {
+        if (Robot.climber.getAngleLimitSwitch() == true) {
             Robot.climber.getAngleMotor().set(0.1);
         } else {
             Robot.climber.getAngleMotor().set(-0.1);
@@ -23,10 +23,10 @@ public class HomeAngle extends CommandBase {
 
     @Override
     public void execute() {
-        if(Robot.climber.getRightAngleSwitch() == false) {
+        if(Robot.climber.getAngleLimitSwitch() == false) {
             // Keep angle motors moving downward
             Robot.climber.getAngleMotor().set(-0.1);
-        } else if (Robot.climber.getRightAngleSwitch() == true) {
+        } else if (Robot.climber.getAngleLimitSwitch() == true) {
             // Turn off angle motors
             Robot.climber.setAngleMotorState(ClimberMotorState.OFF);
             // Reset encoder revolution count to 0
