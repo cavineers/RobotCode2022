@@ -30,7 +30,12 @@ public class ClimberDrive extends CommandBase {
         // Height max 2.5 ft | est. 2.5 inches per rev | est. 120 revolutions needed
 
         // Set the motor speed to the axis
-        this.rc.climber.getElevatorMotor().set(DriveMotion.add(this.joy.getRawAxis(1), 0.05));
+        if (this.rc.climber.getElevatorPosition() < 120) {
+            this.rc.climber.getElevatorMotor().set(DriveMotion.add(this.joy.getRawAxis(1), 0.05));
+        } else {
+            this.rc.climber.setElevMotorState(ClimberMotorState.OFF);
+        }
+
         this.rc.climber.getAngleMotor().set(-DriveMotion.add(this.joy.getRawAxis(4), 0.05));
     
         SmartDashboard.putNumber("angle axis", this.joy.getRawAxis(4));
