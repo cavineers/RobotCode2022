@@ -86,6 +86,9 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {}
 
+  public TeleopDrive drivingSystem;
+  public ClimberDrive climbingSystem;
+
   @Override
   public void teleopInit() {
     // This makes sure that the autonomous stops running when
@@ -93,24 +96,22 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+
+    this.drivingSystem = new TeleopDrive(this.m_robotContainer.drivetrain, this.m_robotContainer.joy);
+    this.climbingSystem = new ClimberDrive(this.m_robotContainer, this.m_robotContainer.joy);
   }
 
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    TeleopDrive drive = new TeleopDrive(this.m_robotContainer.drivetrain, this.m_robotContainer.joy);
-    ClimberDrive climb = new ClimberDrive(this.m_robotContainer, this.m_robotContainer.joy);
-  
-    if(this.m_robotContainer.mode == CurrentMode.DRIVE) {
-      if(climb.isScheduled()) {
-        climb.cancel();
+      if(this.m_robotContainer.mode == CurrentMode.DRIVE) {
+      if(this.climbingSystem.isScheduled()) {
+        this.climbingSystem.cancel();
       }
-      drive.schedule();
+      this.drivingSystem.schedule();
     } else if(this.m_robotContainer.mode == CurrentMode.CLIMB) {
-      if(drive.isScheduled()) {
-        drive.cancel();
-      }
-      climb.schedule();
+      this.drivingSystem.cancel();
+      this.climbingSystem.schedule();
     }
   }
 
