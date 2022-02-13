@@ -14,7 +14,7 @@ public class HomeElevator extends CommandBase {
 
     @Override
     public void initialize() {
-        if (Robot.climber.getElevatorLimitSwitch() == true) {
+        if (Robot.climber.getRightElevatorSwitch() == true) {
             Robot.climber.getElevatorMotor().set(0.1);
         } else {
             Robot.climber.getElevatorMotor().set(-0.1);
@@ -23,10 +23,10 @@ public class HomeElevator extends CommandBase {
 
     @Override
     public void execute() {
-        if(Robot.climber.getElevatorLimitSwitch() == false) {
+        if(Robot.climber.getRightElevatorSwitch() == false) {
             // Keep elevator moving downward
             Robot.climber.getElevatorMotor().set(-0.1);
-        } else if (Robot.climber.getElevatorLimitSwitch() == true) {
+        } else if (Robot.climber.getRightElevatorSwitch() == true) {
             // Turn off elevator
             Robot.climber.setElevMotorState(ClimberMotorState.OFF);
             // Reset encoder revolution count to 0

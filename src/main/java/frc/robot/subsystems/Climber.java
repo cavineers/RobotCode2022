@@ -16,16 +16,20 @@ public class Climber extends SubsystemBase {
   private CANSparkMax m_climberElevatorOne = new CANSparkMax(Constants.Climber.ClimberElevMotorOne, MotorType.kBrushless);
   private CANSparkMax m_climberElevatorTwo = new CANSparkMax(Constants.Climber.ClimberElevMotorTwo, MotorType.kBrushless);
 
+  // Climber Motor States
   private ClimberMotorState m_motorElevState = ClimberMotorState.OFF;
 
   private CANSparkMax m_climberAngleOne = new CANSparkMax(Constants.Climber.ClimberAngleMotorOne, MotorType.kBrushless);
   private CANSparkMax m_climberAngleTwo = new CANSparkMax(Constants.Climber.ClimberAngleMotorTwo, MotorType.kBrushless);
   
+  // Angle Motor States
   private ClimberMotorState m_motorAngleState = ClimberMotorState.OFF;
 
-  private DigitalInput m_elevatorLimitSwtich = new DigitalInput(Constants.DIO.ElevatorSwitch);
-  private DigitalInput m_angleLimitSwitch = new DigitalInput(Constants.DIO.ClimberAngleSwitch);
-
+  // Sensors
+  private DigitalInput m_elevatorLimitSwtichRight = new DigitalInput(Constants.DIO.ElevatorSwitchRight);
+  private DigitalInput m_elevatorLimitSwtichLeft = new DigitalInput(Constants.DIO.ElevatorSwitchLeft);
+  private DigitalInput m_angleLimitSwitchRight = new DigitalInput(Constants.DIO.ClimberAngleSwitchRight);
+  private DigitalInput m_angleLimitSwitchLeft = new DigitalInput(Constants.DIO.ClimberAngleSwitchLeft);
 
   public enum ClimberMotorState {
     ON,
@@ -36,14 +40,17 @@ public class Climber extends SubsystemBase {
   //! Constructor
 
   public Climber() {
+    // Invert their sides (this may need to change depending on gear boxes)
     this.m_climberElevatorOne.setInverted(true);
     this.m_climberAngleOne.setInverted(true);
 
+    // Set all motors to run in brake mode
     this.m_climberAngleOne.setIdleMode(IdleMode.kBrake);
     this.m_climberAngleTwo.setIdleMode(IdleMode.kBrake);
     this.m_climberElevatorOne.setIdleMode(IdleMode.kBrake);
     this.m_climberElevatorTwo.setIdleMode(IdleMode.kBrake);
 
+    // Set amps on secondary angles to follow primary angles
     this.m_climberElevatorTwo.follow(this.m_climberElevatorOne, true);
     this.m_climberAngleTwo.follow(this.m_climberAngleOne, true);
   }
@@ -57,7 +64,6 @@ public class Climber extends SubsystemBase {
   public void setElevMotorState(ClimberMotorState state) {
     this.m_motorElevState = state;
 
-    // Switch motor to new state
     switch (state) {
       case ON:
         this.m_climberElevatorOne.set(Constants.Climber.ElevatorSpeed);
@@ -124,11 +130,19 @@ public class Climber extends SubsystemBase {
 
   //! Sensors
 
-  public boolean getElevatorLimitSwitch() {
-    return !this.m_elevatorLimitSwtich.get();
+  public boolean getRightElevatorSwitch() {
+    return !this.m_elevatorLimitSwtichRight.get();
   }
 
-  public boolean getAngleLimitSwitch() {
-    return !this.m_angleLimitSwitch.get();
+  public boolean getLeftElevatorSwitch() {
+    return !this.m_elevatorLimitSwtichLeft.get();
+  }
+
+  public boolean getRightAngleSwitch() {
+    return !this.m_angleLimitSwitchRight.get();
+  }
+
+  public boolean getLeftAngleSwitch() {
+    return !this.m_angleLimitSwitchLeft.get();
   }
 }
