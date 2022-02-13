@@ -36,13 +36,16 @@ public class Climber extends SubsystemBase {
   //! Constructor
 
   public Climber() {
-    // Set motors into break mode and invert the movement
+    this.m_climberElevatorOne.setInverted(true);
+    this.m_climberAngleOne.setInverted(true);
+
+    this.m_climberAngleOne.setIdleMode(IdleMode.kBrake);
+    this.m_climberAngleTwo.setIdleMode(IdleMode.kBrake);
     this.m_climberElevatorOne.setIdleMode(IdleMode.kBrake);
     this.m_climberElevatorTwo.setIdleMode(IdleMode.kBrake);
-    this.m_climberElevatorOne.setInverted(true);
-  
+
     this.m_climberElevatorTwo.follow(this.m_climberElevatorOne, true);
-    this.m_climberAngleTwo.follow(this.m_climberAngleOne);
+    this.m_climberAngleTwo.follow(this.m_climberAngleOne, true);
   }
 
   //! Elevator

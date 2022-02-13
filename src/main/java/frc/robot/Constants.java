@@ -17,8 +17,8 @@ public final class Constants {
         
         // TODO Update these values
         public static int DriveTrainMotorLeft1  = 1;  // Left 1 (neo)
-        public static int DriveTrainMotorRight1 = 2;  // Left 2 (neo)
-        public static int DriveTrainMotorLeft2  = 3;  // Right 1 (neo)
+        public static int DriveTrainMotorRight1 = 3;  // Left 2 (neo)
+        public static int DriveTrainMotorLeft2  = 2;  // Right 1 (neo)
         public static int DriveTrainMotorRight2 = 4;  // Right 2 (neo)
         public static int ClimberElevMotorOne   = 5;  // CliberElevatorMotor (neo)
         public static int ClimberElevMotorTwo   = 6;  // CliberElevatorMotorTwo (neo)
