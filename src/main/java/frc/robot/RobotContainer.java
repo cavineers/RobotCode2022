@@ -12,11 +12,8 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.subsystems.DriveTrain;
-<<<<<<< HEAD
 import frc.robot.subsystems.Shooter;
-=======
 import frc.robot.subsystems.Climber;
->>>>>>> development
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
