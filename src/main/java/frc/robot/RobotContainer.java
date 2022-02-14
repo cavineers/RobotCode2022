@@ -23,7 +23,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final AutoShoot autoShoot = new AutoShoot();
   private final SwitchMode switchDriveMode = new SwitchMode(this);
-
+  
   public DriveTrain drivetrain = new DriveTrain(this.joy);
   public Climber climber = new Climber();
 

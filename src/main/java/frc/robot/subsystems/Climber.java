@@ -40,10 +40,6 @@ public class Climber extends SubsystemBase {
   //! Constructor
 
   public Climber() {
-    // Invert their sides (this may need to change depending on gear boxes)
-    this.m_climberElevatorOne.setInverted(true);
-    this.m_climberAngleOne.setInverted(true);
-
     // Set all motors to run in brake mode
     this.m_climberAngleOne.setIdleMode(IdleMode.kBrake);
     this.m_climberAngleTwo.setIdleMode(IdleMode.kBrake);
@@ -51,8 +47,8 @@ public class Climber extends SubsystemBase {
     this.m_climberElevatorTwo.setIdleMode(IdleMode.kBrake);
 
     // Set amps on secondary angles to follow primary angles
-    this.m_climberElevatorTwo.follow(this.m_climberElevatorOne, true);
-    this.m_climberAngleTwo.follow(this.m_climberAngleOne, true);
+    this.m_climberElevatorTwo.follow(this.m_climberElevatorOne);
+    this.m_climberAngleTwo.follow(this.m_climberAngleOne);
   }
 
   //! Elevator

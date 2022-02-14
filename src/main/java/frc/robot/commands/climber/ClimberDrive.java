@@ -27,13 +27,24 @@ public class ClimberDrive extends CommandBase {
 
     @Override
     public void execute() {
-        // Height max 2.5 ft | est. 2.5 inches per rev | est. 120 revolutions needed
+        // Height max 2.5 ft | est. 2.5 inches per rev | est. 120 revolutions needed on elevator
 
         // Set the motor speed to the axis
-        if (this.rc.climber.getElevatorPosition() < 120) {
-            this.rc.climber.getElevatorMotor().set(DriveMotion.add(this.joy.getRawAxis(1), 0.05));
-        } else {
-            this.rc.climber.setElevMotorState(ClimberMotorState.OFF);
+        SmartDashboard.putNumber("Elevator Position", this.rc.climber.getElevatorPosition());
+        if (this.rc.climber.getElevatorPosition() < 120 && this.rc.climber.getElevatorPosition() > 0) {
+            this.rc.climber.getElevatorMotor().set(-DriveMotion.add(this.joy.getRawAxis(1), 0.05));
+        } else if (this.rc.climber.getElevatorPosition() > 120) {
+            if(-DriveMotion.add(this.joy.getRawAxis(1), 0.05) < 0) {
+                this.rc.climber.getElevatorMotor().set(-DriveMotion.add(this.joy.getRawAxis(1), 0.05));
+            } else {
+                this.rc.climber.setElevMotorState(ClimberMotorState.OFF);
+            }
+        } else if (this.rc.climber.getElevatorPosition() < 0) {
+            if(-DriveMotion.add(this.joy.getRawAxis(1), 0.05) > 0) {
+                this.rc.climber.getElevatorMotor().set(-DriveMotion.add(this.joy.getRawAxis(1), 0.05));
+            } else {
+                this.rc.climber.setElevMotorState(ClimberMotorState.OFF);
+            }
         }
 
         this.rc.climber.getAngleMotor().set(-DriveMotion.add(this.joy.getRawAxis(4), 0.05));
