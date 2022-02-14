@@ -11,57 +11,52 @@ import frc.robot.Constants;
 
 public class Intake extends SubsystemBase {
       
-    public enum IntakeMotorState {
+    public enum IntakeTopMotorState {
       ON,
       OFF,
       REVERSED
     }
 
-
-    public CANSparkMax m_intakeMotor = new CANSparkMax(Constants.Intake.IntakeID, MotorType.kBrushless);
-
-    public CANSparkMax m_intakeDropMotor = new CANSparkMax(Constants.Intake.IntakeDropID, MotorType.kBrushless);
-
-    public IntakeMotorState m_dropMotorState = IntakeMotorState.OFF;
-
-    public IntakeMotorState m_intakeMotorState = IntakeMotorState.OFF;
-
-    private DigitalInput m_sensorOne = new DigitalInput(Constants.DIO.IntakeSensor);
-
-    /**
-     * Intake constructor.
-     */
-    public Intake() {
-        this.setMotorState(IntakeMotorState.OFF);
+    public enum IntakeBottomMotorState{
+        ON,
+        OFF,
+        REVERSED
     }
 
+    public CANSparkMax m_intakeTopMotor = new CANSparkMax(Constants.Intake.IntakeTopID, MotorType.kBrushless);
+
+    public CANSparkMax m_intakeBottomMotor = new CANSparkMax(Constants.Intake.IntakeBottomID, MotorType.kBrushless);
+
+    public IntakeBottomMotorState m_intakeBottomMotorState = IntakeBottomMotorState.OFF;
+
+    public IntakeTopMotorState m_intakeTopMotorState = IntakeTopMotorState.OFF;
+
+    public DigitalInput m_sensor = new DigitalInput(Constants.DIO.IntakeSensor);
     
 
 
     /**
      * Set the desired intake state.
-     * @param state wanted intake state
+     * @param off wanted intake state
      */
-    public void setMotorState(IntakeMotorState state) {
-        // set the current state
-        this.m_intakeMotorState = state;
+    public void setTopMotorState(IntakeTopMotorState off){
         
         // set motor state
-        switch (state) {
+        switch (off) {
             case ON:
                 // On
-                this.m_intakeMotor.set(Constants.Intake.IntakeSpeed);
+                this.m_intakeTopMotor.set(Constants.Intake.IntakeSpeed);
                 break;
             case OFF:
                 // Off
-                this.m_intakeMotor.set(0.0);
+                this.m_intakeTopMotor.set(0.0);
                 break;
             case REVERSED:
                 // Reversed
-                this.m_intakeMotor.set(Constants.Intake.IntakeSpeedRev);
+                this.m_intakeTopMotor.set(Constants.Intake.IntakeSpeedRev);
                 break;
             default:
-                this.setMotorState(IntakeMotorState.OFF);
+            this.m_intakeTopMotorState = IntakeTopMotorState.OFF;
         }
     }
 
@@ -69,49 +64,51 @@ public class Intake extends SubsystemBase {
      * Get the current intake state.
      * @return intake state
      */
-    public IntakeMotorState getIntakeMotorState() {
-        return this.m_intakeMotorState;
+    public IntakeTopMotorState getIntakeTopMotorState() {
+        return this.m_intakeTopMotorState;
     }
 
     /**
      * Set the desired intake state.
      * @param state wanted intake state
      */
-    public void setDropMotorState(IntakeMotorState state) {
+    public void setMotorState(IntakeBottomMotorState state) {
         // set the current drop motor state
-        this.m_dropMotorState = state;
+        this.m_intakeBottomMotorState = state;
         
         // set drop motor state
         switch (state) {
             case ON:
                 // On
-                this.m_intakeDropMotor.set(Constants.Intake.DropSpeed);
+                this.m_intakeBottomMotor.set(Constants.Intake.DropSpeed);
                 break;
             case OFF:
                 // Off
-                this.m_intakeDropMotor.set(0);
+                this.m_intakeBottomMotor.set(0);
                 break;
             case REVERSED:
                 // Reversed
-                this.m_intakeDropMotor.set(Constants.Intake.LiftSpeed);
+                this.m_intakeBottomMotor.set(Constants.Intake.LiftSpeed);
                 break;
             default:
-                this.setDropMotorState(IntakeMotorState.OFF);
+                this.m_intakeBottomMotorState = IntakeBottomMotorState.OFF;
         }
     }
+
+
 
     /**
      * Get the current intake state.
      * @return intake state
      */
-    public IntakeMotorState getDropMotorState() {
+    public IntakeBottomMotorState getBottomMotorState() {
         // return the current motor state
-        return this.m_dropMotorState;
+        return this.m_intakeBottomMotorState;
     }
 
     // Tell when ball is properly in the intake.
-    public boolean getSensorOneState() {
-        return !m_sensorOne.get();
+    public boolean getSensorState() {
+        return !m_sensor.get();
     }
 }
 
