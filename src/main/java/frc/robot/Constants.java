@@ -58,6 +58,8 @@ public final class Constants {
 
         public static double shooterHeight = (12.4/12);
 
+        public static double flywheelRadius = 0;
+
         //TODO Check value with shooter sub-team
         public static double degreesPerRotation = 5;
 
