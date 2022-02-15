@@ -11,23 +11,12 @@ import frc.robot.subsystems.Intake;
 
 public class ToggleIntakeBottomMotor extends CommandBase {
    
- 
-
-    @Override
     public void initialize() {
         if (this.getRawButtonPressed(1)) {
             Robot.intake.setMotorState(Intake.IntakeBottomMotorState.ON);
         } else {
             Robot.intake.setMotorState(Intake.IntakeBottomMotorState.OFF);
         }
-    }
-
-    @Override
-    public void execute() {}
-
-    @Override
-    public void end(boolean interrupted) {
-
     }
 
     @Override

@@ -15,22 +15,15 @@ public ToggleIntakeTopMotor() {
 
 @Override
 public void initialize() {
-        if (Robot.intake.getBottomMotorState() == Intake.IntakeBottomMotorState.OFF) {
+        if (this.getRawButtonPressed(1)) {
         Robot.intake.setTopMotorState(Intake.IntakeTopMotorState.ON);
-    } else {
-        Robot.intake.setTopMotorState(Intake.IntakeTopMotorState.OFF);
     }
 }
 
 @Override
-    public void execute() {}
-
-    @Override
-    public void end(boolean interrupted) {}
-
-    @Override
-    public boolean isFinished() {
-        return true;
+public boolean isFinished() {
+    if (this.getRawButtonPressed(2)){
+        Robot.intake.setTopMotorState(Intake.IntakeTopMotorState.OFF);
+    }
 }
-        
 }
