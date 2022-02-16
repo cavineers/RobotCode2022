@@ -76,6 +76,7 @@ public final class Constants {
 
         public static double ElevatorSpeed = -0.1;
         public static double ElevatorSpeedRev = 0.1;
+        public static double ElevatorMetersPerRevolution = Math.PI / 367.3221; //pi/9.33, then converted into meters
 
         public static double AngleSpeed = -0.1;
         public static double AngleSpeedRev = 0.1;
