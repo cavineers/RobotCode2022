@@ -25,8 +25,8 @@ public final class Constants {
         public static int ClimberElevMotorTwo   = 6;  // CliberElevatorMotorTwo (neo)
         public static int ClimberAngleMotorOne  = 7;  // ClimberAngleMotor (minineo)
         public static int ClimberAngleMotorTwo  = 8;  // ClimberAngleMotor (minineo)
-        public static int IntakeMotor           = 9;  // IntakeMotor (neo)
-        public static int IntakeMotorDrop       = 10;  // IntakeDrop (minineo)
+        public static int IntakeTopMotor        = 9;  // IntakeMotor (neo)
+        public static int IntakeBottomMotor     = 10;  // IntakeDrop (minineo)
         public static int ShooterAngle          = 11;  // ShooterAngle(neo)
         public static int ShooterFeeder         = 12;  // FeederWheel (minineo)
         public static int ShooterMotor          = 13;  // FlyWheel (neo)
@@ -60,8 +60,8 @@ public final class Constants {
 
     public static class Intake {
         public static final double AutoMovementSpeed = 0;
-        public static int IntakeID = CANIds.IntakeMotor;
-        public static int IntakeDropID = CANIds.IntakeMotorDrop;
+        public static int IntakeTopID = CANIds.IntakeTopMotor;
+        public static int IntakeBottomID = CANIds.IntakeBottomMotor;
 
         public static double IntakeSpeed = 0.1; // Intake motor speed (-1.0 -- 1.0)
         public static double IntakeSpeedRev = -0.1; // Intake reverse speed
