@@ -30,7 +30,7 @@ public class ShooterTargeting {
         //return (6.346 / (Math.sin(Math.atan(2.055 / x))) * Constants.Shooter.shooterVelocityConstant);
         double velocityMPS = (4.9 * Math.pow(z, 2) / (Math.pow(Math.cos(angle), 2) * Math.tan(angle*z) - (height * Math.pow(Math.cos(angle), 2))));
         double velocityWheelRPM = velocityMPS / 60 / Constants.Shooter.flywheelRadius / (2*Math.PI);
-        double velocityMotorRPM = velocityWheelRPM / Constants.flywheelRotationsPerRevolution;
+        double velocityMotorRPM = velocityWheelRPM / Constants.Shooter.flywheelRotationsPerRevolution;
         return velocityMotorRPM;
     }
 }
