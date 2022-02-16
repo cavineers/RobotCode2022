@@ -39,12 +39,6 @@ public class HomeElevator extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         Robot.climber.setElevMotorState(ClimberMotorState.OFF);
-        
-        if (this.isElevatorHomed){
-        	System.out.println("Home finished");
-        } else {
-            System.out.println("Homeing error detected");
-        }
     }
 
     @Override

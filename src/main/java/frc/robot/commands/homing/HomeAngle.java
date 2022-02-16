@@ -39,12 +39,6 @@ public class HomeAngle extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         Robot.climber.setAngleMotorState(ClimberMotorState.OFF);
-        
-        if (this.isAngleHomed){
-        	System.out.println("Home finished");
-        } else {
-            System.out.println("Homeing error detected");
-        }
     }
 
     @Override

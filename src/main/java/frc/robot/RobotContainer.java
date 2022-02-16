@@ -6,7 +6,10 @@ package frc.robot;
 
 import frc.robot.commands.AutoShoot;
 import frc.robot.commands.SwitchMode;
+import frc.robot.commands.homing.HomeAngle;
+import frc.robot.commands.homing.HomeElevator;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
@@ -64,6 +67,7 @@ public class RobotContainer {
   }
 
   private void configureButtonBindings() {
+    this.right_menu.whenPressed(new SequentialCommandGroup(new HomeAngle(), new HomeElevator()));
     this.povUp.whenPressed(this.switchDriveMode);
   }
 

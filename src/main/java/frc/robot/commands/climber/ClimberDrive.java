@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.lib.DriveMotion;
+import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.RobotContainer.CurrentMode;
 import frc.robot.subsystems.Climber.ClimberMotorState;
@@ -27,13 +28,12 @@ public class ClimberDrive extends CommandBase {
 
     @Override
     public void execute() {
-        // Height max 2.5 ft | est. 2.5 inches per rev | est. 120 revolutions needed on elevator
-
         // Set the motor speed to the axis
         SmartDashboard.putNumber("Elevator Position", this.rc.climber.getElevatorPosition());
-        if (this.rc.climber.getElevatorPosition() < 120 && this.rc.climber.getElevatorPosition() > 0) {
+        
+        if (this.rc.climber.getElevatorPosition() < Constants.Climber.MaxElevatorRevolutions && this.rc.climber.getElevatorPosition() > 0) {
             this.rc.climber.getElevatorMotor().set(-DriveMotion.add(this.joy.getRawAxis(1), 0.05));
-        } else if (this.rc.climber.getElevatorPosition() > 120) {
+        } else if (this.rc.climber.getElevatorPosition() > Constants.Climber.MaxElevatorRevolutions) {
             if(-DriveMotion.add(this.joy.getRawAxis(1), 0.05) < 0) {
                 this.rc.climber.getElevatorMotor().set(-DriveMotion.add(this.joy.getRawAxis(1), 0.05));
             } else {
@@ -47,8 +47,24 @@ public class ClimberDrive extends CommandBase {
             }
         }
 
-        this.rc.climber.getAngleMotor().set(-DriveMotion.add(this.joy.getRawAxis(4), 0.05));
+        SmartDashboard.putNumber("Swivel Position", this.rc.climber.getAngleMotorPosition());
     
+        if (this.rc.climber.getAngleMotorPosition() < Constants.Climber.MaxSwivelRevolutions && this.rc.climber.getAngleMotorPosition() > 0) {
+            this.rc.climber.getAngleMotor().set(-DriveMotion.add(this.joy.getRawAxis(4), 0.05));
+        } else if (this.rc.climber.getAngleMotorPosition() > Constants.Climber.MaxSwivelRevolutions) {
+            if(-DriveMotion.add(this.joy.getRawAxis(4), 0.05) < 0) {
+                this.rc.climber.getAngleMotor().set(-DriveMotion.add(this.joy.getRawAxis(4), 0.05));
+            } else {
+                this.rc.climber.setAngleMotorState(ClimberMotorState.OFF);
+            }
+        } else if (this.rc.climber.getAngleMotorPosition() < 0) {
+            if(-DriveMotion.add(this.joy.getRawAxis(4), 0.05) > 0) {
+                this.rc.climber.getAngleMotor().set(-DriveMotion.add(this.joy.getRawAxis(4), 0.05));
+            } else {
+                this.rc.climber.setAngleMotorState(ClimberMotorState.OFF);
+            }
+        }
+
         SmartDashboard.putNumber("angle axis", this.joy.getRawAxis(4));
         SmartDashboard.putNumber("elev axis", this.joy.getRawAxis(1));
     }
@@ -62,6 +78,7 @@ public class ClimberDrive extends CommandBase {
 
     @Override
     public boolean isFinished() {
+        // Keep running unless in DRIVE mode
         if(this.rc.mode == CurrentMode.CLIMB) {
             return false;
         } else {
