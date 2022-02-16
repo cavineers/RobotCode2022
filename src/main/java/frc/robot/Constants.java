@@ -75,6 +75,8 @@ public final class Constants {
 
         public static double DropSpeed = 0.2;
         public static double LiftSpeed = -0.2;
+
+        public static double RevolutionsToLower = -20;
     }
 
     public static class Climber {

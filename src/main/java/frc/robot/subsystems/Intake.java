@@ -106,6 +106,11 @@ public class Intake extends SubsystemBase {
         return this.m_dropMotorState;
     }
 
+    public CANSparkMax getDropMotor() {
+        // return the current motor state
+        return this.m_intakeDropMotor;
+    }
+
     // Tell when ball is properly in the intake.
     public boolean getSensorOneState() {
         return !m_sensorOne.get();
