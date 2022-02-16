@@ -106,7 +106,7 @@ public class Shooter extends SubsystemBase {
         double currentAngle;
         if (angle == ShooterAngle.LOW) {
           currentAngle = Constants.Shooter.shooterAngleLow;
-          this.currentAngleSetpoint = (currentAngle / Constants.Shooter.degreesPerRotation);
+          this.currentAngleSetpoint = (currentAngle / Constants.Shooter.degreesPerRevolution);
           if (currentAngleMotorPosition < currentAngleSetpoint) {
             this.m_shooterAngleMotor.set(.5);
           } else if (currentAngleMotorPosition > currentAngleSetpoint) {
@@ -117,7 +117,7 @@ public class Shooter extends SubsystemBase {
           }
         } else if (angle == ShooterAngle.MEDIUM) {
           currentAngle = Constants.Shooter.shooterAngleMedium;
-          this.currentAngleSetpoint = (currentAngle / Constants.Shooter.degreesPerRotation);
+          this.currentAngleSetpoint = (currentAngle / Constants.Shooter.degreesPerRevolution);
           if (currentAngleMotorPosition < currentAngleSetpoint) {
             this.m_shooterAngleMotor.set(.5);
           } else if (currentAngleMotorPosition > currentAngleSetpoint) {
@@ -128,7 +128,7 @@ public class Shooter extends SubsystemBase {
           }
         } else if (angle == ShooterAngle.HIGH) {
           currentAngle = Constants.Shooter.shooterAngleHigh;
-          this.currentAngleSetpoint = (currentAngle / Constants.Shooter.degreesPerRotation);
+          this.currentAngleSetpoint = (currentAngle / Constants.Shooter.degreesPerRevolution);
           if (currentAngleMotorPosition < currentAngleSetpoint) {
             this.m_shooterAngleMotor.set(.1);
           } else if (currentAngleMotorPosition > currentAngleSetpoint) {
