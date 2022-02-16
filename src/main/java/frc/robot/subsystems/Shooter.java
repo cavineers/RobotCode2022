@@ -49,11 +49,9 @@ public class Shooter extends SubsystemBase {
  
     // Create new PID controller
     //private SparkMaxPIDController m_pidController = m_shooterMotor.getPIDController();
-    private PIDController m_pidController = new PIDController(Constants.Shooter.kP, Constants.Shooter.kI, Constants.Shooter.kD);
+    //private PIDController m_pidController = new PIDController(Constants.Shooter.kP, Constants.Shooter.kI, Constants.Shooter.kD);
 
     private double lengthZ = ShooterTargeting.findZ();
-
-    
 
 
     public Shooter() {
@@ -191,12 +189,16 @@ public class Shooter extends SubsystemBase {
       }
     }
 
+    public double getShooterMotorPosition() {
+     return m_shootEncoder.getPosition();
+    }
+
     @Override
     public void periodic() {
       // TODO Add PID values
 
       //this.m_pidController.setReference(this.m_speedSetpoint, CANSparkMax.ControlType.kVelocity);
-      m_shooterMotor.set(m_pidController.calculate(m_shootEncoder.getPosition(),getCurrentSpeedSetpoint()));
+      //m_shooterMotor.set(m_pidController.calculate(m_shootEncoder.getPosition(),getCurrentSpeedSetpoint()));
 
       SmartDashboard.putNumber("Shooter Setpoint Speed", this.m_speedSetpoint);
       SmartDashboard.putNumber("Shooter Actual Speed", this.m_shootEncoder.getVelocity());
