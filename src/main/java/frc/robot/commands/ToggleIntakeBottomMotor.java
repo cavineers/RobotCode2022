@@ -1,18 +1,20 @@
    package frc.robot.commands;
 
 import frc.robot.Robot;
-import frc.robot.RobotContainer;
 import frc.robot.commands.ToggleIntakeBottomMotor;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Intake;
 
 
 
 public class ToggleIntakeBottomMotor extends CommandBase {
+
+    public ToggleIntakeBottomMotor() {
+        this.addRequirements(Robot.intake);
+    }
    
     public void initialize() {
-        if (this.getRawButtonPressed(1)) {
+        if (Robot.intake.getBottomMotorState() == Intake.IntakeBottomMotorState.OFF) {
             Robot.intake.setMotorState(Intake.IntakeBottomMotorState.ON);
         } else {
             Robot.intake.setMotorState(Intake.IntakeBottomMotorState.OFF);
@@ -21,9 +23,7 @@ public class ToggleIntakeBottomMotor extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        if (Robot.intake.getSensorState() == true) {
-            Robot.intake.setMotorState(Intake.IntakeBottomMotorState.REVERSED);
-        }
+        if (Robot.intake.getSensorState() == true);
         return true;
     }
 }

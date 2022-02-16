@@ -6,14 +6,14 @@ package frc.robot;
 
 import frc.robot.commands.AutoShoot;
 import frc.robot.commands.SwitchMode;
+import frc.robot.commands.ToggleIntakeBottomMotor;
+import frc.robot.commands.ToggleIntakeTopMotor;
 import frc.robot.commands.climber.ClimberDrive;
-import frc.robot.commands.ToggleIntake;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.subsystems.DriveTrain;
-import frc.robot.commands.ToggleIntakeSpinMotor;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -65,6 +65,8 @@ public class RobotContainer {
 
   private void configureButtonBindings() {
     this.povUp.whenPressed(this.switchDriveMode);
+    this.x_button.whenPressed(new ToggleIntakeTopMotor());
+    this.y_button.whenPressed(new ToggleIntakeBottomMotor());
   }
 
   private void configureButtonBindingsClimb() {
