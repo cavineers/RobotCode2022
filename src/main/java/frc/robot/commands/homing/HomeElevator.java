@@ -1,36 +1,38 @@
 package frc.robot.commands.homing;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Robot;
-import frc.robot.subsystems.Climber.ClimberMotorState;
+import frc.robot.RobotContainer;
+import frc.robot.subsystems.Elevator.ElevatorMotorState;
 
 public class HomeElevator extends CommandBase {
     // Check if elevator systems are homed
     boolean isElevatorHomed = false;
+    RobotContainer rc;
 
-    public HomeElevator() {
-        addRequirements(Robot.climber);
+    public HomeElevator(RobotContainer container) {
+        this.rc = container;
+        addRequirements(container.elevator);
     }
 
     @Override
     public void initialize() {
-        if (Robot.climber.getRightElevatorSwitch() == true) {
-            Robot.climber.getElevatorMotor().set(0.1);
+        if (this.rc.elevator.getRightElevatorSwitch() == true) {
+            this.rc.elevator.getElevatorMotor().set(0.1);
         } else {
-            Robot.climber.getElevatorMotor().set(-0.1);
+            this.rc.elevator.getElevatorMotor().set(-0.1);
         }
     }
 
     @Override
     public void execute() {
-        if(Robot.climber.getRightElevatorSwitch() == false) {
+        if(this.rc.elevator.getRightElevatorSwitch() == false) {
             // Keep elevator moving downward
-            Robot.climber.getElevatorMotor().set(-0.1);
-        } else if (Robot.climber.getRightElevatorSwitch() == true) {
+            this.rc.elevator.getElevatorMotor().set(-0.1);
+        } else if (this.rc.elevator.getRightElevatorSwitch() == true) {
             // Turn off elevator
-            Robot.climber.setElevMotorState(ClimberMotorState.OFF);
+            this.rc.elevator.setElevMotorState(ElevatorMotorState.OFF);
             // Reset encoder revolution count to 0
-            Robot.climber.setElevatorMotorPosition(0.0);
+            this.rc.elevator.setElevatorMotorPosition(0.0);
             // Set homing as true
             this.isElevatorHomed = true;
         }
@@ -38,7 +40,7 @@ public class HomeElevator extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-        Robot.climber.setElevMotorState(ClimberMotorState.OFF);
+        this.rc.elevator.setElevMotorState(ElevatorMotorState.OFF);
     }
 
     @Override

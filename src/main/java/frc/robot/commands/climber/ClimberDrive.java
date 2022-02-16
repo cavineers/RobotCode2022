@@ -8,6 +8,7 @@ import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.RobotContainer.CurrentMode;
 import frc.robot.subsystems.Climber.ClimberMotorState;
+import frc.robot.subsystems.Elevator.ElevatorMotorState;
 
 public class ClimberDrive extends CommandBase {
 
@@ -17,33 +18,33 @@ public class ClimberDrive extends CommandBase {
     public ClimberDrive(RobotContainer container, Joystick joy) {
         this.joy = joy;
         this.rc = container;
-        this.addRequirements(this.rc.climber);
+        this.addRequirements(this.rc.climber, this.rc.elevator);
     }
 
     @Override
     public void initialize() {
-        this.rc.climber.setElevMotorState(ClimberMotorState.OFF);
+        this.rc.elevator.setElevMotorState(ElevatorMotorState.OFF);
         this.rc.climber.setAngleMotorState(ClimberMotorState.OFF);
     }
 
     @Override
     public void execute() {
         // Set the motor speed to the axis
-        SmartDashboard.putNumber("Elevator Position", this.rc.climber.getElevatorPosition());
+        SmartDashboard.putNumber("Elevator Position", this.rc.elevator.getElevatorPosition());
         
-        if (this.rc.climber.getElevatorPosition() < Constants.Climber.MaxElevatorRevolutions && this.rc.climber.getElevatorPosition() > 0) {
-            this.rc.climber.getElevatorMotor().set(-DriveMotion.add(this.joy.getRawAxis(1), 0.05));
-        } else if (this.rc.climber.getElevatorPosition() > Constants.Climber.MaxElevatorRevolutions) {
+        if (this.rc.elevator.getElevatorPosition() < Constants.Climber.MaxElevatorRevolutions && this.rc.elevator.getElevatorPosition() > 0) {
+            this.rc.elevator.getElevatorMotor().set(-DriveMotion.add(this.joy.getRawAxis(1), 0.05));
+        } else if (this.rc.elevator.getElevatorPosition() > Constants.Climber.MaxElevatorRevolutions) {
             if(-DriveMotion.add(this.joy.getRawAxis(1), 0.05) < 0) {
-                this.rc.climber.getElevatorMotor().set(-DriveMotion.add(this.joy.getRawAxis(1), 0.05));
+                this.rc.elevator.getElevatorMotor().set(-DriveMotion.add(this.joy.getRawAxis(1), 0.05));
             } else {
-                this.rc.climber.setElevMotorState(ClimberMotorState.OFF);
+                this.rc.elevator.setElevMotorState(ElevatorMotorState.OFF);
             }
-        } else if (this.rc.climber.getElevatorPosition() < 0) {
+        } else if (this.rc.elevator.getElevatorPosition() <= 0) {
             if(-DriveMotion.add(this.joy.getRawAxis(1), 0.05) > 0) {
-                this.rc.climber.getElevatorMotor().set(-DriveMotion.add(this.joy.getRawAxis(1), 0.05));
+                this.rc.elevator.getElevatorMotor().set(-DriveMotion.add(this.joy.getRawAxis(1), 0.05));
             } else {
-                this.rc.climber.setElevMotorState(ClimberMotorState.OFF);
+                this.rc.elevator.setElevMotorState(ElevatorMotorState.OFF);
             }
         }
 
@@ -57,7 +58,7 @@ public class ClimberDrive extends CommandBase {
             } else {
                 this.rc.climber.setAngleMotorState(ClimberMotorState.OFF);
             }
-        } else if (this.rc.climber.getAngleMotorPosition() < 0) {
+        } else if (this.rc.climber.getAngleMotorPosition() <= 0) {
             if(-DriveMotion.add(this.joy.getRawAxis(4), 0.05) > 0) {
                 this.rc.climber.getAngleMotor().set(-DriveMotion.add(this.joy.getRawAxis(4), 0.05));
             } else {
@@ -72,7 +73,7 @@ public class ClimberDrive extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         // Turn off motors at the end
-        this.rc.climber.setElevMotorState(ClimberMotorState.OFF);
+        this.rc.elevator.setElevMotorState(ElevatorMotorState.OFF);
         this.rc.climber.setAngleMotorState(ClimberMotorState.OFF);
     }
 
