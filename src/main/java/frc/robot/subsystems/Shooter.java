@@ -63,6 +63,10 @@ public class Shooter extends SubsystemBase {
       // Sets 39 amp limit on motor
       this.m_shooterMotor.setSmartCurrentLimit(39);
 
+      SmartDashboard.putNumber("shooter_p", Constants.Shooter.kP);
+      SmartDashboard.putNumber("shooter_i", Constants.Shooter.kI);
+      SmartDashboard.putNumber("shooter_d", Constants.Shooter.kD);
+
     }
 
     public enum ShooterStatus {
@@ -187,6 +191,11 @@ public class Shooter extends SubsystemBase {
         this.m_feederState = FeederStatus.ENABLED;
         this.m_shooterFeeder.set(.1);
       }
+    }
+
+    public void disableFeeder(){
+      this.m_shooterState = ShooterStatus.DISABLED;
+      this.m_shooterFeeder.set(0);
     }
 
     public double getShooterMotorPosition() {

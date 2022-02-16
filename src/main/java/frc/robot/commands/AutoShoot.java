@@ -33,9 +33,7 @@ public class AutoShoot extends CommandBase {
         this.m_timestamp = Timer.getFPGATimestamp();
         // Set finished to false
         this.m_finished = false;
-        this.shooter.turnToAngle(this.shooter.setShooterAngle(ShooterTargeting.findZ()));
-        this.shooter.enableShooter();
-        this.shooter.enableFeeder();
+       
 
         this.pidController.setSetpoint(shooter.getCurrentSpeedSetpoint());
         this.pidController.setTolerance(1);
@@ -49,14 +47,27 @@ public class AutoShoot extends CommandBase {
 
         if (this.pidController.atSetpoint()) {
             this.achievedSetpoint = true;
+            if (shooter.getCurrentState() != Shooter.ShooterStatus.ENABLED) { 
+                this.shooter.turnToAngle(this.shooter.setShooterAngle(ShooterTargeting.findZ()));
+                this.shooter.enableShooter();
+    
+                if(this.shooter.atSetpoint()) {
+                    this.shooter.enableFeeder();
+                }
         }
 
-        SmartDashboard.putBoolean("check_shooter", Robot.shooter.atSetpoint());
+        SmartDashboard.putBoolean("check_shooter", shooter.atSetpoint());
+
+       
+        }
 
     }
 
     @Override
-    public void end(boolean interrupted) {}
+    public void end(boolean interrupted) {
+        shooter.disableShooter();
+        shooter.disableFeeder();
+    }
 
     @Override
     public boolean isFinished() {

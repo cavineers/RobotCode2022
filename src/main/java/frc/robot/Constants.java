@@ -57,13 +57,13 @@ public final class Constants {
         public static double shooterHeight = (12.4/12);
 
         //TODO Check values with shooter sub-team
-        public static double degreesPerRotation = 5;
+        public static double degreesPerRotation = 0; //27.78 revolutions = 50 degrees, 1:5 for flywheel
 
         public static double flywheelRadius = .0508; //checked with shooter, 2 in = .0508 m
 
-        public static double kP = 0;
+        public static double kP = 0.0005;
         public static double kI = 0;
-        public static double kD = 0;
+        public static double kD = 0.0001;
     }
 
     public static class Intake {
