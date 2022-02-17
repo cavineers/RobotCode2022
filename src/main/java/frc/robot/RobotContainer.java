@@ -6,13 +6,17 @@ package frc.robot;
 
 import frc.robot.commands.AutoShoot;
 import frc.robot.commands.SwitchMode;
+import frc.robot.commands.homing.HomeAngle;
+import frc.robot.commands.homing.HomeElevator;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Climber;
 
 /**
@@ -30,6 +34,7 @@ public class RobotContainer {
   
   public DriveTrain drivetrain = new DriveTrain(this.joy);
   public Climber climber = new Climber();
+  public Elevator elevator = new Elevator();
 
   public Dashboard dashboard = new Dashboard(this);
 
@@ -71,7 +76,7 @@ public class RobotContainer {
   }
 
   private void configureButtonBindings() {
-    //Switches drive mode
+    this.right_menu.whenPressed(new ParallelCommandGroup(new HomeAngle(this), new HomeElevator(this)));
     this.povUp.whenPressed(this.switchDriveMode);
 
     //Shoot

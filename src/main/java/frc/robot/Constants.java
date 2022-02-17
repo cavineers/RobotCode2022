@@ -93,6 +93,8 @@ public final class Constants {
         public static double AngleSpeed = -0.1;
         public static double AngleSpeedRev = 0.1;
 
+        public static double MaxElevatorRevolutions = 120.0;
+        public static double MaxSwivelRevolutions = 100.0;
     }
     public static class DIO {
         public static int IntakeSensor = 0;
