@@ -36,8 +36,6 @@ public class Robot extends TimedRobot {
     super(0.02); // 50Hz run rate
 
     limelight = new Limelight();
-    shooter = new Shooter();
-    intake = new Intake();
   }
 
   /**

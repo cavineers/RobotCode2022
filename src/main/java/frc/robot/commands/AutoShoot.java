@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.lib.ShooterTargeting;
 import frc.robot.Constants;
 import frc.robot.Robot;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.Shooter;
 
 public class AutoShoot extends CommandBase {
@@ -23,7 +24,7 @@ public class AutoShoot extends CommandBase {
     private boolean achievedSetpoint = false;
 
     public AutoShoot(Shooter shoot) {
-        this.addRequirements(Robot.shooter);
+        this.addRequirements(shoot);
         this.shooter = shoot;
     }
 

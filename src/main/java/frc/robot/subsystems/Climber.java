@@ -39,8 +39,6 @@ public class Climber extends SubsystemBase {
     this.m_climberAngleTwo.follow(this.m_climberAngleOne);
   }
 
-  //! Angle Adjustment
-
   public CANSparkMax getAngleMotor() {
     return this.m_climberAngleOne;
   }

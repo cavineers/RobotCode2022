@@ -29,7 +29,6 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
   public Shooter shooter = new Shooter();
-  private final AutoShoot autoShoot = new AutoShoot(shooter);
   private final SwitchMode switchDriveMode = new SwitchMode(this);
   
   public DriveTrain drivetrain = new DriveTrain(this.joy);
@@ -72,6 +71,7 @@ public class RobotContainer {
     } else {
       configureButtonBindingsClimb();
     }
+
     this.m_autoShootCommand = new AutoShoot(shooter);
   }
 
@@ -102,7 +102,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return this.autoShoot;
+    return this.m_autoShootCommand;
   }
 }
 
