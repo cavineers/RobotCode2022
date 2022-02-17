@@ -40,7 +40,7 @@ public final class Constants {
         // TODO Update these values
         public static double kFieldGoalHeightFromGround = Units.inchesToMeters(0); // Math constants
         public static double kLimelightHeightFromGround = Units.inchesToMeters(0); // vertical distance from limelight to ground
-        public static double kLimelightMountingAngle    = 0; // Angle Mounted on Robot
+        public static double kLimelightMountingAngle    = 70; // Angle Mounted on Robot
     }
 
     public static class Shooter {
@@ -53,6 +53,18 @@ public final class Constants {
         public static double shooterAngleLow = 44;
         public static double shooterAngleMedium = 63;
         public static double shooterAngleHigh = 84;
+
+        public static double shooterHeight = (12.4/12);
+
+        //TODO Check values with shooter sub-team
+        public static double degreesPerRevolution = 1.8; //27.78 revolutions = 50 degrees, 1:5 for flywheel
+        public static double flywheelRotationsPerRevolution = .2;
+
+        public static double flywheelRadius = .0508; //checked with shooter, 2 in = .0508 m
+
+        public static double kP = 0.0005;
+        public static double kI = 0;
+        public static double kD = 0.0001;
     }
 
     public static class Intake {
@@ -76,6 +88,7 @@ public final class Constants {
 
         public static double ElevatorSpeed = -0.1;
         public static double ElevatorSpeedRev = 0.1;
+        public static double ElevatorMetersPerRevolution = Math.PI / 367.3221; //pi/9.33, then converted into meters
 
         public static double AngleSpeed = -0.1;
         public static double AngleSpeedRev = 0.1;

@@ -25,10 +25,12 @@ public class ShooterTargeting {
     }
 
     // Calculate Variable Velocity
-    public static double calculateVelocity(double z, double angle, double C) {
-        //a is angle
-        //C is distance
+    public static double calculateVelocity(double z, double angle, double height) {
+        //height is height of the shooter
         //return (6.346 / (Math.sin(Math.atan(2.055 / x))) * Constants.Shooter.shooterVelocityConstant);
-        return (4.9 * Math.pow(z, 2) / (Math.pow(Math.cos(angle), 2) * Math.tan(angle*z) - (C * Math.pow(Math.cos(angle), 2))));
+        double velocityMPS = (4.9 * Math.pow(z, 2) / (Math.pow(Math.cos(angle), 2) * Math.tan(angle*z) - (height * Math.pow(Math.cos(angle), 2))));
+        double velocityWheelRPM = velocityMPS / 60 / Constants.Shooter.flywheelRadius / (2*Math.PI);
+        double velocityMotorRPM = velocityWheelRPM / Constants.Shooter.flywheelRotationsPerRevolution;
+        return velocityMotorRPM;
     }
 }
