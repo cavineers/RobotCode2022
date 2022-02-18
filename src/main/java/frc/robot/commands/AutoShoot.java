@@ -19,6 +19,8 @@ public class AutoShoot extends CommandBase {
     // Timestamp
     private double m_timestamp;
 
+    double pid;
+
     // Finished Command
     private boolean m_finished = false;
 
@@ -42,13 +44,16 @@ public class AutoShoot extends CommandBase {
         this.pidController.setTolerance(1);
         this.achievedSetpoint = false;
         this.limelight.setLightMode(LedMode.ON);
-        
+
+        Shuffleboard.getTab("Shooter").add("Shooter PID", this.pid);
+        Shuffleboard.getTab("Shooter").add("distanceD", limelight.getDistance());
+        Shuffleboard.getTab("Shooter").add("check_shooter", shooter.atSetpoint());
+        Shuffleboard.getTab("Shooter").add("Z", ShooterTargeting.findZ());
     }
 
     @Override
     public void execute() {
-        double pid = pidController.calculate(shooter.getShooterMotorPosition(), shooter.getCurrentSpeedSetpoint());
-        Shuffleboard.getTab("Shooter").add("Shooter PID", pid);
+        this.pid = pidController.calculate(shooter.getShooterMotorPosition(), shooter.getCurrentSpeedSetpoint());
 
         if (this.pidController.atSetpoint()) {
             this.achievedSetpoint = true;
@@ -60,10 +65,6 @@ public class AutoShoot extends CommandBase {
                     this.shooter.enableFeeder();
                 }
             }
-
-            Shuffleboard.getTab("Shooter").add("distanceD", limelight.getDistance());
-            Shuffleboard.getTab("Shooter").add("check_shooter", shooter.atSetpoint());
-            Shuffleboard.getTab("Shooter").add("Z", ShooterTargeting.findZ());
         }
     }
 
@@ -71,6 +72,7 @@ public class AutoShoot extends CommandBase {
     public void end(boolean interrupted) {
         shooter.disableShooter();
         shooter.disableFeeder();
+        this.limelight.setLightMode(LedMode.OFF);
     }
 
     @Override
