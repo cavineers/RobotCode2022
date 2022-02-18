@@ -12,13 +12,6 @@ import frc.robot.Constants;
 
 public class Climber extends SubsystemBase {
   //! Variables
-
-  private CANSparkMax m_climberElevatorOne = new CANSparkMax(Constants.Climber.ClimberElevMotorOne, MotorType.kBrushless);
-  private CANSparkMax m_climberElevatorTwo = new CANSparkMax(Constants.Climber.ClimberElevMotorTwo, MotorType.kBrushless);
-
-  // Climber Motor States
-  private ClimberMotorState m_motorElevState = ClimberMotorState.OFF;
-
   private CANSparkMax m_climberAngleOne = new CANSparkMax(Constants.Climber.ClimberAngleMotorOne, MotorType.kBrushless);
   private CANSparkMax m_climberAngleTwo = new CANSparkMax(Constants.Climber.ClimberAngleMotorTwo, MotorType.kBrushless);
   
@@ -26,8 +19,6 @@ public class Climber extends SubsystemBase {
   private ClimberMotorState m_motorAngleState = ClimberMotorState.OFF;
 
   // Sensors
-  private DigitalInput m_elevatorLimitSwtichRight = new DigitalInput(Constants.DIO.ElevatorSwitchRight);
-  private DigitalInput m_elevatorLimitSwtichLeft = new DigitalInput(Constants.DIO.ElevatorSwitchLeft);
   private DigitalInput m_angleLimitSwitchRight = new DigitalInput(Constants.DIO.ClimberAngleSwitchRight);
   private DigitalInput m_angleLimitSwitchLeft = new DigitalInput(Constants.DIO.ClimberAngleSwitchLeft);
 
@@ -43,51 +34,10 @@ public class Climber extends SubsystemBase {
     // Set all motors to run in brake mode
     this.m_climberAngleOne.setIdleMode(IdleMode.kBrake);
     this.m_climberAngleTwo.setIdleMode(IdleMode.kBrake);
-    this.m_climberElevatorOne.setIdleMode(IdleMode.kBrake);
-    this.m_climberElevatorTwo.setIdleMode(IdleMode.kBrake);
 
     // Set amps on secondary angles to follow primary angles
-    this.m_climberElevatorTwo.follow(this.m_climberElevatorOne);
     this.m_climberAngleTwo.follow(this.m_climberAngleOne);
   }
-
-  //! Elevator
-
-  public CANSparkMax getElevatorMotor() {
-    return this.m_climberElevatorOne;
-  }
-
-  public void setElevMotorState(ClimberMotorState state) {
-    this.m_motorElevState = state;
-
-    switch (state) {
-      case ON:
-        this.m_climberElevatorOne.set(Constants.Climber.ElevatorSpeed);
-        break;
-      case OFF:
-        this.m_climberElevatorOne.set(0.0);
-        break;
-      case REVERSED:
-        this.m_climberElevatorOne.set(Constants.Climber.ElevatorSpeedRev);
-        break;
-      default:
-        this.setElevMotorState(ClimberMotorState.OFF);
-    }
-  }
-
-  public ClimberMotorState getElevState() {
-    return this.m_motorElevState;
-  }
-
-  public double getElevatorPosition() {
-    return this.m_climberElevatorOne.getEncoder().getPosition();
-  }
-
-  public void setElevatorMotorPosition(double position) {
-    this.m_climberAngleOne.getEncoder().setPosition(position);
-  }
-
-  //! Angle Adjustment
 
   public CANSparkMax getAngleMotor() {
     return this.m_climberAngleOne;
@@ -126,19 +76,11 @@ public class Climber extends SubsystemBase {
 
   //! Sensors
 
-  public boolean getRightElevatorSwitch() {
-    return !this.m_elevatorLimitSwtichRight.get();
-  }
-
-  public boolean getLeftElevatorSwitch() {
-    return !this.m_elevatorLimitSwtichLeft.get();
-  }
-
   public boolean getRightAngleSwitch() {
-    return !this.m_angleLimitSwitchRight.get();
+    return this.m_angleLimitSwitchRight.get();
   }
 
   public boolean getLeftAngleSwitch() {
-    return !this.m_angleLimitSwitchLeft.get();
+    return this.m_angleLimitSwitchLeft.get();
   }
 }

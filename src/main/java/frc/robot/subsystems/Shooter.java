@@ -10,16 +10,12 @@ import com.revrobotics.CANSparkMax.IdleMode;
 
 import frc.lib.ShooterTargeting;
 import frc.robot.Constants;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DigitalInput;
 
 public class Shooter extends SubsystemBase {
     
     private boolean isPositioned = false;
-
-    public enum ShooterStatus {
-      ENABLED,
-      DISABLED
-    }
 
     private CANSparkMax m_shooterMotor = new CANSparkMax(Constants.Shooter.ShooterMotor, MotorType.kBrushless);
 
@@ -31,6 +27,32 @@ public class Shooter extends SubsystemBase {
     //Then the flywheel will go to the correct speed
     //Then the feeder will activate
 
+    private double currentAngleSetpoint;
+
+    // Infrared Sensor
+    private DigitalInput m_sensorBall = new DigitalInput(Constants.DIO.BallSensorShooter);
+
+    // See the shooter to disabled by default
+    private ShooterStatus m_shooterState = ShooterStatus.DISABLED;
+
+    private FeederStatus m_feederState = FeederStatus.DISABLED;
+ 
+    // Shooter systems setpoint speed (setpoint in RPM)
+    private double m_speedSetpoint = 0;
+ 
+    // Shooter motor encoder
+    private RelativeEncoder m_shootEncoder = m_shooterMotor.getEncoder();
+
+    private RelativeEncoder m_angleEncoder = m_shooterAngleMotor.getEncoder();
+
+    private double currentAngleMotorPosition = m_angleEncoder.getPosition();
+ 
+    // Create new PID controller
+    //private SparkMaxPIDController m_pidController = m_shooterMotor.getPIDController();
+    //private PIDController m_pidController = new PIDController(Constants.Shooter.kP, Constants.Shooter.kI, Constants.Shooter.kD);
+
+    private double lengthZ = ShooterTargeting.findZ();
+
 
     public Shooter() {
       this.m_shooterMotor.restoreFactoryDefaults();
@@ -41,35 +63,22 @@ public class Shooter extends SubsystemBase {
       // Sets 39 amp limit on motor
       this.m_shooterMotor.setSmartCurrentLimit(39);
 
+      SmartDashboard.putNumber("shooter_p", Constants.Shooter.kP);
+      SmartDashboard.putNumber("shooter_i", Constants.Shooter.kI);
+      SmartDashboard.putNumber("shooter_d", Constants.Shooter.kD);
+
     }
-    public boolean getSensorBallState() {
-      return !m_sensorBall.get();
+
+    public enum ShooterStatus {
+      ENABLED,
+      DISABLED
+    }
+
+    public enum FeederStatus {
+      ENABLED,
+      DISABLED
     }
     
-    private int currentAngleSetpoint;
-
-    // Infrared Sensor
-    private DigitalInput m_sensorBall = new DigitalInput(Constants.DIO.BallSensorShooter);
-
-    // See the shooter to disabled by default
-    private ShooterStatus m_shooterState = ShooterStatus.DISABLED;
- 
-    // Shooter systems setpoint speed (setpoint in RPM)
-    private double m_speedSetpoint = 0;
- 
-    // Shooter motor encoder
-    private RelativeEncoder m_shootEncoder = m_shooterMotor.getEncoder();
-
-    private RelativeEncoder m_angleEncoder = m_shooterAngleMotor.getEncoder();
-
-    private double originalAngleMotorPosition = m_angleEncoder.getPosition();
- 
-    // Create new PID controller
-    private SparkMaxPIDController m_pidController = m_shooterMotor.getPIDController();
-
-    private double lengthZ = ShooterTargeting.findZ();
-
-
     //Enum for shooter angle
     public enum ShooterAngle {
       HIGH,
@@ -77,11 +86,15 @@ public class Shooter extends SubsystemBase {
       MEDIUM
     }
 
+    public boolean getSensorBallState() {
+      return !m_sensorBall.get();
+    }
+
     public ShooterAngle setShooterAngle(double z) {
       z = lengthZ;
-      if (z >= 20) {
+      if (z >= 6) {
         return ShooterAngle.LOW;
-      } else if ((z < 20) && (z > 10)) {
+      } else if ((z < 6) && (z > 3)) {
         return ShooterAngle.MEDIUM;
       } else {
         return ShooterAngle.HIGH;
@@ -93,20 +106,53 @@ public class Shooter extends SubsystemBase {
         double currentAngle;
         if (angle == ShooterAngle.LOW) {
           currentAngle = Constants.Shooter.shooterAngleLow;
-          this.currentAngleSetpoint = 0;
+          this.currentAngleSetpoint = (currentAngle / Constants.Shooter.degreesPerRevolution);
+          if (currentAngleMotorPosition < currentAngleSetpoint) {
+            this.m_shooterAngleMotor.set(.5);
+          } else if (currentAngleMotorPosition > currentAngleSetpoint) {
+            this.m_shooterAngleMotor.set(-.5);
+          } else if (currentAngleMotorPosition == currentAngleSetpoint) {
+            this.m_shooterAngleMotor.set(0);
+            isPositioned = true;
+          }
         } else if (angle == ShooterAngle.MEDIUM) {
           currentAngle = Constants.Shooter.shooterAngleMedium;
-          this.currentAngleSetpoint = 0;
+          this.currentAngleSetpoint = (currentAngle / Constants.Shooter.degreesPerRevolution);
+          if (currentAngleMotorPosition < currentAngleSetpoint) {
+            this.m_shooterAngleMotor.set(.5);
+          } else if (currentAngleMotorPosition > currentAngleSetpoint) {
+            this.m_shooterAngleMotor.set(-.5);
+          } else if (currentAngleMotorPosition == currentAngleSetpoint) {
+            this.m_shooterAngleMotor.set(0);
+            isPositioned = true;
+          }
         } else if (angle == ShooterAngle.HIGH) {
           currentAngle = Constants.Shooter.shooterAngleHigh;
-          this.currentAngleSetpoint = 0;
+          this.currentAngleSetpoint = (currentAngle / Constants.Shooter.degreesPerRevolution);
+          if (currentAngleMotorPosition < currentAngleSetpoint) {
+            this.m_shooterAngleMotor.set(.1);
+          } else if (currentAngleMotorPosition > currentAngleSetpoint) {
+            this.m_shooterAngleMotor.set(-.1);
+          } else if (currentAngleMotorPosition == currentAngleSetpoint) {
+            this.m_shooterAngleMotor.set(0);
+            isPositioned = true;
+          }
         }
-        
     }
 
     public void enableShooter() {
       this.m_shooterState = ShooterStatus.ENABLED;
-
+      double angle;
+      if (setShooterAngle(lengthZ) == ShooterAngle.HIGH) {
+        angle = Constants.Shooter.shooterAngleHigh;
+      } else if (setShooterAngle(lengthZ) == ShooterAngle.MEDIUM){
+        angle = Constants.Shooter.shooterAngleMedium;
+      } else {
+        angle = Constants.Shooter.shooterAngleLow;
+      }
+      this.setSpeed(ShooterTargeting.calculateVelocity(lengthZ, angle, Constants.Shooter.shooterHeight));
+      double speed = getCurrentSpeedSetpoint();
+      this.m_shooterMotor.set(speed);
     }
 
     public void disableShooter() {
@@ -133,19 +179,35 @@ public class Shooter extends SubsystemBase {
     }
 
     public boolean atAngle() {
-      return this.isPositioned;
+        return this.isPositioned;
     }
 
     public void togglePosition(boolean position) {
       this.isPositioned = position;
     }
 
+    public void enableFeeder(){
+      if(getSensorBallState() == true) {
+        this.m_feederState = FeederStatus.ENABLED;
+        this.m_shooterFeeder.set(.1);
+      }
+    }
+
+    public void disableFeeder(){
+      this.m_shooterState = ShooterStatus.DISABLED;
+      this.m_shooterFeeder.set(0);
+    }
+
+    public double getShooterMotorPosition() {
+     return m_shootEncoder.getPosition();
+    }
 
     @Override
     public void periodic() {
       // TODO Add PID values
 
-      this.m_pidController.setReference(this.m_speedSetpoint, CANSparkMax.ControlType.kVelocity);
+      //this.m_pidController.setReference(this.m_speedSetpoint, CANSparkMax.ControlType.kVelocity);
+      //m_shooterMotor.set(m_pidController.calculate(m_shootEncoder.getPosition(),getCurrentSpeedSetpoint()));
 
       SmartDashboard.putNumber("Shooter Setpoint Speed", this.m_speedSetpoint);
       SmartDashboard.putNumber("Shooter Actual Speed", this.m_shootEncoder.getVelocity());
@@ -154,4 +216,3 @@ public class Shooter extends SubsystemBase {
 
     }
 }
-

@@ -28,6 +28,7 @@ public class Robot extends TimedRobot {
   public static Climber climber;
   public static Intake intake;
   public static DriveTrain drive;
+  public static RobotContainer robotContainer;
 
   public static Object logger;
 
@@ -35,8 +36,6 @@ public class Robot extends TimedRobot {
     super(0.02); // 50Hz run rate
 
     limelight = new Limelight();
-    shooter = new Shooter();
-    intake = new Intake();
   }
 
   /**

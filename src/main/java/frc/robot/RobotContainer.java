@@ -6,11 +6,17 @@ package frc.robot;
 
 import frc.robot.commands.AutoShoot;
 import frc.robot.commands.SwitchMode;
+import frc.robot.commands.homing.HomeAngle;
+import frc.robot.commands.homing.HomeElevator;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Climber;
 
 /**
@@ -21,13 +27,17 @@ import frc.robot.subsystems.Climber;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final AutoShoot autoShoot = new AutoShoot();
+
+  public Shooter shooter = new Shooter();
   private final SwitchMode switchDriveMode = new SwitchMode(this);
   
   public DriveTrain drivetrain = new DriveTrain(this.joy);
   public Climber climber = new Climber();
+  public Elevator elevator = new Elevator();
 
   public Dashboard dashboard = new Dashboard(this);
+
+  public Command m_autoShootCommand;
 
   //* Driver Controller
   public Joystick joy = new Joystick(0);
@@ -45,14 +55,14 @@ public class RobotContainer {
   public POVButton povUp = new POVButton(joy, 0, 0);
   public POVButton povRight = new POVButton(joy, 90, 0);
   public POVButton povDown = new POVButton(joy, 180, 0);
-  public POVButton povLeft = new POVButton(joy, 270, 0);
+  public POVButton povLeft = new POVButton(joy, 270, 0); 
 
   public enum CurrentMode {
     DRIVE,
     CLIMB
   }
 
-  public CurrentMode mode = CurrentMode.DRIVE;
+  public CurrentMode mode = CurrentMode.DRIVE; 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -61,18 +71,29 @@ public class RobotContainer {
     } else {
       configureButtonBindingsClimb();
     }
+
+    this.m_autoShootCommand = new AutoShoot(shooter);
   }
 
   private void configureButtonBindings() {
+    this.right_menu.whenPressed(new ParallelCommandGroup(new HomeAngle(this), new HomeElevator(this)));
     this.povUp.whenPressed(this.switchDriveMode);
+
+    //Shoot
+    this.a_button.whenPressed(new InstantCommand() {
+      @Override
+      public void initialize() {
+        if (Robot.robotContainer.m_autoShootCommand.isScheduled()) {
+          Robot.robotContainer.m_autoShootCommand.cancel();
+        } else {
+          Robot.robotContainer.m_autoShootCommand.schedule();
+        }
+      }
+    });
   }
 
   private void configureButtonBindingsClimb() {
     this.povUp.whenPressed(this.switchDriveMode);
-  }
-
-  public Joystick getJoystick() {
-    return this.joy;
   }
 
   /**
@@ -81,6 +102,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return this.autoShoot;
+    return this.m_autoShootCommand;
   }
 }
+
