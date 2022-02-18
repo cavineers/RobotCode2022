@@ -38,8 +38,8 @@ public final class Constants {
 
     public static class Targeting {
         // TODO Update these values
-        public static double kFieldGoalHeightFromGround = Units.inchesToMeters(0); // Math constants
-        public static double kLimelightHeightFromGround = Units.inchesToMeters(0); // vertical distance from limelight to ground
+        public static double kFieldGoalHeightFromGround = Units.inchesToMeters(104); // Math constants
+        public static double kLimelightHeightFromGround = Units.inchesToMeters(20); // vertical distance from limelight to ground
         public static double kLimelightMountingAngle    = 70; // Angle Mounted on Robot
     }
 

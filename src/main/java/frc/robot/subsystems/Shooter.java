@@ -1,17 +1,14 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.RelativeEncoder;
-import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.CANSparkMax.IdleMode;
-
 import frc.lib.ShooterTargeting;
 import frc.robot.Constants;
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 
 public class Shooter extends SubsystemBase {
     
@@ -63,9 +60,13 @@ public class Shooter extends SubsystemBase {
       // Sets 39 amp limit on motor
       this.m_shooterMotor.setSmartCurrentLimit(39);
 
-      SmartDashboard.putNumber("shooter_p", Constants.Shooter.kP);
-      SmartDashboard.putNumber("shooter_i", Constants.Shooter.kI);
-      SmartDashboard.putNumber("shooter_d", Constants.Shooter.kD);
+      Shuffleboard.getTab("Shooter").add("shooter_p", Constants.Shooter.kP);
+      Shuffleboard.getTab("Shooter").add("shooter_i", Constants.Shooter.kI);
+      Shuffleboard.getTab("Shooter").add("shooter_d", Constants.Shooter.kD);
+      Shuffleboard.getTab("Shooter").add("Shooter Setpoint Speed", this.m_speedSetpoint);
+      Shuffleboard.getTab("Shooter").add("Shooter Actual Speed", this.m_shootEncoder.getVelocity());
+      Shuffleboard.getTab("Shooter").add("Infrared Ball Sensor Value", this.getSensorBallState());
+      Shuffleboard.getTab("Shooter").add("shooter_angle", this.currentAngleSetpoint);
 
     }
 
@@ -108,9 +109,9 @@ public class Shooter extends SubsystemBase {
           currentAngle = Constants.Shooter.shooterAngleLow;
           this.currentAngleSetpoint = (currentAngle / Constants.Shooter.degreesPerRevolution);
           if (currentAngleMotorPosition < currentAngleSetpoint) {
-            this.m_shooterAngleMotor.set(.5);
+            this.m_shooterAngleMotor.set(.1);
           } else if (currentAngleMotorPosition > currentAngleSetpoint) {
-            this.m_shooterAngleMotor.set(-.5);
+            this.m_shooterAngleMotor.set(-.1);
           } else if (currentAngleMotorPosition == currentAngleSetpoint) {
             this.m_shooterAngleMotor.set(0);
             isPositioned = true;
@@ -119,9 +120,9 @@ public class Shooter extends SubsystemBase {
           currentAngle = Constants.Shooter.shooterAngleMedium;
           this.currentAngleSetpoint = (currentAngle / Constants.Shooter.degreesPerRevolution);
           if (currentAngleMotorPosition < currentAngleSetpoint) {
-            this.m_shooterAngleMotor.set(.5);
+            this.m_shooterAngleMotor.set(.1);
           } else if (currentAngleMotorPosition > currentAngleSetpoint) {
-            this.m_shooterAngleMotor.set(-.5);
+            this.m_shooterAngleMotor.set(-.1);
           } else if (currentAngleMotorPosition == currentAngleSetpoint) {
             this.m_shooterAngleMotor.set(0);
             isPositioned = true;
@@ -208,11 +209,5 @@ public class Shooter extends SubsystemBase {
 
       //this.m_pidController.setReference(this.m_speedSetpoint, CANSparkMax.ControlType.kVelocity);
       //m_shooterMotor.set(m_pidController.calculate(m_shootEncoder.getPosition(),getCurrentSpeedSetpoint()));
-
-      SmartDashboard.putNumber("Shooter Setpoint Speed", this.m_speedSetpoint);
-      SmartDashboard.putNumber("Shooter Actual Speed", this.m_shootEncoder.getVelocity());
-      SmartDashboard.putBoolean("Infrared Ball Sensor Value", this.getSensorBallState());
-      SmartDashboard.putNumber("shooter_angle", this.currentAngleSetpoint);
-
     }
 }

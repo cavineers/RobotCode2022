@@ -13,14 +13,14 @@ public class Dashboard {
 
     private void configureDashobard() {
         // Differential Drive Graph
-        Shuffleboard.getTab("Dashboard")
+        Shuffleboard.getTab("DriveTrain")
             .add("DriveTrain", this.container.drivetrain.getDifferentialDrive())
             .withWidget(BuiltInWidgets.kDifferentialDrive)
             .withPosition(6, 1)
             .withSize(3, 2);
 
          // Limelight Camera
-         Shuffleboard.getTab("Dashboard")
+         Shuffleboard.getTab("General")
             .add("Camera", "http://10.45.41.6:8101")
             .withWidget(BuiltInWidgets.kCameraStream)
             .withPosition(4, 2)
