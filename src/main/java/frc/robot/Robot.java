@@ -5,6 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.Intake;
@@ -55,7 +56,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    limelight.setLightMode(LedMode.OFF);
+    limelight.setLightMode(LedMode.ON);
   }
 
   /**
@@ -64,13 +65,14 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
+    Shuffleboard.update();
     CommandScheduler.getInstance().run();
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
   public void disabledInit() {
-    limelight.setLightMode(LedMode.OFF);
+    limelight.setLightMode(LedMode.ON);
   }
 
   @Override

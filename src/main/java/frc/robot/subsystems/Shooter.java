@@ -4,17 +4,24 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
+import com.revrobotics.CANSparkMax.ControlType;
 import com.revrobotics.CANSparkMax.IdleMode;
 import frc.lib.ShooterTargeting;
 import frc.robot.Constants;
+import frc.robot.Robot;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import com.revrobotics.SparkMaxPIDController;
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Shooter extends SubsystemBase {
     
     private boolean isPositioned = false;
 
-    private CANSparkMax m_shooterMotor = new CANSparkMax(Constants.Shooter.ShooterMotor, MotorType.kBrushless);
+    public CANSparkMax m_shooterMotor = new CANSparkMax(Constants.Shooter.ShooterMotor, MotorType.kBrushless);
 
     private CANSparkMax m_shooterAngleMotor = new CANSparkMax(Constants.Shooter.ShooterAngle, MotorType.kBrushless);
 
@@ -39,6 +46,8 @@ public class Shooter extends SubsystemBase {
  
     // Shooter motor encoder
     private RelativeEncoder m_shootEncoder = m_shooterMotor.getEncoder();
+
+    private SparkMaxPIDController m_shootPID = m_shooterMotor.getPIDController();
 
     private RelativeEncoder m_angleEncoder = m_shooterAngleMotor.getEncoder();
 
@@ -67,7 +76,9 @@ public class Shooter extends SubsystemBase {
       Shuffleboard.getTab("Shooter").add("Shooter Actual Speed", this.m_shootEncoder.getVelocity());
       Shuffleboard.getTab("Shooter").add("Infrared Ball Sensor Value", this.getSensorBallState());
       Shuffleboard.getTab("Shooter").add("shooter_angle", this.currentAngleSetpoint);
-
+      Shuffleboard.getTab("Shooter").add("distanceD", Robot.limelight.getDistance());
+      Shuffleboard.getTab("Shooter").add("Z", this.lengthZ);
+      Shuffleboard.getTab("Shooter").add("AngleSetting", this.setShooterAngle(this.lengthZ).toString());
     }
 
     public enum ShooterStatus {
@@ -92,7 +103,6 @@ public class Shooter extends SubsystemBase {
     }
 
     public ShooterAngle setShooterAngle(double z) {
-      z = lengthZ;
       if (z >= 6) {
         return ShooterAngle.LOW;
       } else if ((z < 6) && (z > 3)) {
@@ -102,58 +112,61 @@ public class Shooter extends SubsystemBase {
       }
     }
 
+    public double getCurrentAngleMotorPosition(){
+      currentAngleMotorPosition = m_angleEncoder.getPosition();
+      return currentAngleMotorPosition;
+    }
+
     // Constant shooting angles
     public void turnToAngle(ShooterAngle angle) {
         double currentAngle;
         if (angle == ShooterAngle.LOW) {
           currentAngle = Constants.Shooter.shooterAngleLow;
           this.currentAngleSetpoint = (currentAngle / Constants.Shooter.degreesPerRevolution);
-          if (currentAngleMotorPosition < currentAngleSetpoint) {
+          if (getCurrentAngleMotorPosition() < currentAngleSetpoint - 2) {
             this.m_shooterAngleMotor.set(.1);
-          } else if (currentAngleMotorPosition > currentAngleSetpoint) {
+          } else if (getCurrentAngleMotorPosition() > currentAngleSetpoint + 2) {
             this.m_shooterAngleMotor.set(-.1);
-          } else if (currentAngleMotorPosition == currentAngleSetpoint) {
+          } else {
             this.m_shooterAngleMotor.set(0);
             isPositioned = true;
           }
         } else if (angle == ShooterAngle.MEDIUM) {
           currentAngle = Constants.Shooter.shooterAngleMedium;
           this.currentAngleSetpoint = (currentAngle / Constants.Shooter.degreesPerRevolution);
-          if (currentAngleMotorPosition < currentAngleSetpoint) {
+          if (getCurrentAngleMotorPosition() < currentAngleSetpoint - 2) {
             this.m_shooterAngleMotor.set(.1);
-          } else if (currentAngleMotorPosition > currentAngleSetpoint) {
+          } else if (getCurrentAngleMotorPosition() > currentAngleSetpoint + 2) {
             this.m_shooterAngleMotor.set(-.1);
-          } else if (currentAngleMotorPosition == currentAngleSetpoint) {
+          } else {
             this.m_shooterAngleMotor.set(0);
             isPositioned = true;
           }
         } else if (angle == ShooterAngle.HIGH) {
           currentAngle = Constants.Shooter.shooterAngleHigh;
           this.currentAngleSetpoint = (currentAngle / Constants.Shooter.degreesPerRevolution);
-          if (currentAngleMotorPosition < currentAngleSetpoint) {
+          if (getCurrentAngleMotorPosition() < currentAngleSetpoint - 2) {
             this.m_shooterAngleMotor.set(.1);
-          } else if (currentAngleMotorPosition > currentAngleSetpoint) {
+          } else if (getCurrentAngleMotorPosition() > currentAngleSetpoint + 2) {
             this.m_shooterAngleMotor.set(-.1);
-          } else if (currentAngleMotorPosition == currentAngleSetpoint) {
+          } else {
             this.m_shooterAngleMotor.set(0);
             isPositioned = true;
           }
         }
     }
 
-    public void enableShooter() {
+    public void enableShooter(double z) {
       this.m_shooterState = ShooterStatus.ENABLED;
       double angle;
-      if (setShooterAngle(lengthZ) == ShooterAngle.HIGH) {
+      if (setShooterAngle(z) == ShooterAngle.HIGH) {
         angle = Constants.Shooter.shooterAngleHigh;
-      } else if (setShooterAngle(lengthZ) == ShooterAngle.MEDIUM){
+      } else if (setShooterAngle(z) == ShooterAngle.MEDIUM){
         angle = Constants.Shooter.shooterAngleMedium;
       } else {
         angle = Constants.Shooter.shooterAngleLow;
       }
-      this.setSpeed(ShooterTargeting.calculateVelocity(lengthZ, angle, Constants.Shooter.shooterHeight));
-      double speed = getCurrentSpeedSetpoint();
-      this.m_shooterMotor.set(speed);
+      this.setSpeed(ShooterTargeting.calculateVelocity(z, Units.degreesToRadians(angle), Constants.Shooter.shooterHeight));
     }
 
     public void disableShooter() {
@@ -205,9 +218,13 @@ public class Shooter extends SubsystemBase {
 
     @Override
     public void periodic() {
-      // TODO Add PID values
+      this.m_shootPID.setReference(this.getCurrentSpeedSetpoint(), ControlType.kVelocity);
 
-      //this.m_pidController.setReference(this.m_speedSetpoint, CANSparkMax.ControlType.kVelocity);
-      //m_shooterMotor.set(m_pidController.calculate(m_shootEncoder.getPosition(),getCurrentSpeedSetpoint()));
+      this.m_shootPID.setP(Constants.Shooter.kP);
+      this.m_shootPID.setI(Constants.Shooter.kI);
+      this.m_shootPID.setD(Constants.Shooter.kD);
+
+      SmartDashboard.putNumber("SetPoint2", this.getCurrentSpeedSetpoint());
+      SmartDashboard.putNumber("Actual2", this.m_shootEncoder.getVelocity());
     }
 }

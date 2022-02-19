@@ -33,8 +33,6 @@ public class SwitchMode extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-        Shuffleboard.getTab("General").add("ChassisMode", this.rc.mode.toString());
-        
         this.rc.joy.setRumble(RumbleType.kLeftRumble, 0);
         this.rc.joy.setRumble(RumbleType.kRightRumble, 0);
     }

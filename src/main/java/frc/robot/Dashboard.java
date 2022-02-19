@@ -2,6 +2,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import frc.lib.ShooterTargeting;
 
 public class Dashboard {
     private RobotContainer container;

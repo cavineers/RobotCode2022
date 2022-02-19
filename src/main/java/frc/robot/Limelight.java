@@ -71,7 +71,7 @@ public class Limelight {
 
     /**
      * Find the distance to the target.
-     * @return Distance in inches.
+     * @return Distance in meters.
      */
     public int getDistance() {
         double height1 = Constants.Targeting.kLimelightHeightFromGround;

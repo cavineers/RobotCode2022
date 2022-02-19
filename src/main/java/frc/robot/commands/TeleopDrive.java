@@ -19,10 +19,6 @@ public class TeleopDrive extends CommandBase {
     @Override
     public void initialize() {
         // Put numbers on logging platform
-        Shuffleboard.getTab("DriveTrain").add("Joystick steering value", this.joystick.getRawAxis(4));
-        Shuffleboard.getTab("DriveTrain").add("Joystick drive value", this.joystick.getRawAxis(1));
-        Shuffleboard.getTab("DriveTrain").add("Left Drive Speed", this.driveTrain.getActiveLeftSpeed());
-        Shuffleboard.getTab("DriveTrain").add("Right Drive Speed", this.driveTrain.getActiveRightSpeed());
     }
 
     @Override

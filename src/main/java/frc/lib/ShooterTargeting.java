@@ -1,5 +1,7 @@
 package frc.lib;
 
+import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.Robot;
 
@@ -10,7 +12,7 @@ public class ShooterTargeting {
     // B is the height of the goal - height of limelight
     // A is the distance between limelight and base of goal
     public static double findZ() {
-        return (Math.sqrt(-Math.pow((104-Constants.Targeting.kLimelightHeightFromGround), 2) + Math.pow(getTD(), 2)));
+        return (Math.sqrt((Math.pow(getTD(), 2) - Math.pow((Constants.Targeting.kFieldGoalHeightFromGround-Constants.Targeting.kLimelightHeightFromGround), 2))));
     }
 
     // Returns hypotenuse distance to target
@@ -28,9 +30,15 @@ public class ShooterTargeting {
     public static double calculateVelocity(double z, double angle, double height) {
         //height is height of the shooter
         //return (6.346 / (Math.sin(Math.atan(2.055 / x))) * Constants.Shooter.shooterVelocityConstant);
-        double velocityMPS = (4.9 * Math.pow(z, 2) / (Math.pow(Math.cos(angle), 2) * Math.tan(angle*z) - (height * Math.pow(Math.cos(angle), 2))));
-        double velocityWheelRPM = velocityMPS / 60 / Constants.Shooter.flywheelRadius / (2*Math.PI);
-        double velocityMotorRPM = velocityWheelRPM / Constants.Shooter.flywheelRotationsPerRevolution;
-        return velocityMotorRPM;
+
+        double x = Constants.Targeting.kFieldGoalHeightFromGround-Constants.Targeting.kLimelightHeightFromGround;
+        // double angle = Units.degreesToRadians(44);
+        SmartDashboard.putNumber("Step2", (Math.pow(Math.cos(angle), 2) * Math.tan(angle) * z) - (x * Math.pow(Math.cos(angle), 2)));
+        SmartDashboard.putNumber("Step3", Math.sqrt((4.9 * Math.pow(z, 2)) / ((Math.pow(Math.cos(angle), 2) * Math.tan(angle*z)) - (x * Math.pow(Math.cos(angle), 2)))));
+        double velocityMPS = Math.sqrt((4.9 * Math.pow(z, 2)) / ((Math.pow(Math.cos(angle), 2) * Math.tan(angle) * z) - (x * Math.pow(Math.cos(angle), 2))));
+        SmartDashboard.putNumber("Velocity M/S", velocityMPS);
+        double velocityRPM = velocityMPS * 60 / (Constants.Shooter.flywheelRadius * (2*Math.PI));
+        SmartDashboard.putNumber("Velocity RPM", velocityRPM);
+        return velocityRPM;
     }
 }

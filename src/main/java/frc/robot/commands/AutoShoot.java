@@ -1,19 +1,21 @@
 package frc.robot.commands;
 
-import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.lib.ShooterTargeting;
 import frc.robot.Constants;
 import frc.robot.Limelight;
+import frc.robot.Robot;
 import frc.robot.Limelight.LedMode;
 import frc.robot.subsystems.Shooter;
 
 public class AutoShoot extends CommandBase {
 
     private Shooter shooter;
-    private PIDController pidController = new PIDController(Constants.Shooter.kP, Constants.Shooter.kI, Constants.Shooter.kD);
+    // private PIDController pidController = new PIDController(Constants.Shooter.kP, Constants.Shooter.kI, Constants.Shooter.kD);
     private Limelight limelight;
 
     // Timestamp
@@ -39,33 +41,26 @@ public class AutoShoot extends CommandBase {
         // Set finished to false
         this.m_finished = false;
        
-
-        this.pidController.setSetpoint(shooter.getCurrentSpeedSetpoint());
-        this.pidController.setTolerance(1);
         this.achievedSetpoint = false;
         this.limelight.setLightMode(LedMode.ON);
-
-        Shuffleboard.getTab("Shooter").add("Shooter PID", this.pid);
-        Shuffleboard.getTab("Shooter").add("distanceD", limelight.getDistance());
-        Shuffleboard.getTab("Shooter").add("check_shooter", shooter.atSetpoint());
-        Shuffleboard.getTab("Shooter").add("Z", ShooterTargeting.findZ());
     }
 
     @Override
     public void execute() {
-        this.pid = pidController.calculate(shooter.getShooterMotorPosition(), shooter.getCurrentSpeedSetpoint());
+        // this.pid = pidController.calculate(shooter.getShooterMotorPosition(), shooter.getCurrentSpeedSetpoint());
+        // this.shooter.m_shooterMotor.set(pidController.calculate(shooter.getShooterMotorPosition(), shooter.getCurrentSpeedSetpoint())); //this.shooter.getCurrentSpeedSetpoint()/5900
 
-        if (this.pidController.atSetpoint()) {
-            this.achievedSetpoint = true;
-            if (shooter.getCurrentState() != Shooter.ShooterStatus.ENABLED) { 
-                this.shooter.turnToAngle(this.shooter.setShooterAngle(ShooterTargeting.findZ()));
-                this.shooter.enableShooter();
-    
-                if(this.shooter.atSetpoint()) {
-                    this.shooter.enableFeeder();
-                }
-            }
-        }
+        SmartDashboard.putNumber("Motor Position Angle", this.shooter.getCurrentAngleMotorPosition());
+        SmartDashboard.putNumber("TD Value", ShooterTargeting.getTD());
+        SmartDashboard.putNumber("Z Value", ShooterTargeting.findZ());
+        // SmartDashboard.putNumber("ShooterSetpoint", pidController.getSetpoint());
+        SmartDashboard.putNumber("ActiveSpeed", this.shooter.m_shooterMotor.getEncoder().getVelocity());
+        this.shooter.turnToAngle(this.shooter.setShooterAngle(ShooterTargeting.findZ()));
+        this.shooter.enableShooter(ShooterTargeting.findZ());
+        // if(this.pidController.atSetpoint()) {
+        //     this.achievedSetpoint = true;
+        //     this.shooter.enableFeeder();
+        // }
     }
 
     @Override
@@ -78,6 +73,7 @@ public class AutoShoot extends CommandBase {
     @Override
     public boolean isFinished() {
         // End if command takes longer than 15 seconds or finished firing
-        return Timer.getFPGATimestamp() - this.m_timestamp >= 15.0 || this.m_finished;
+        // return Timer.getFPGATimestamp() - this.m_timestamp >= 15.0 || this.m_finished;
+        return false;
     }
 }
