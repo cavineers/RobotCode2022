@@ -4,9 +4,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
-import frc.robot.commands.auto.ToggleAutonomous;
 import frc.robot.subsystems.DriveTrain;
-
 import java.io.File;
 import java.util.Scanner;
 import com.revrobotics.CANSparkMax;
