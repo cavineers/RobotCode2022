@@ -45,9 +45,9 @@ public class Shooter extends SubsystemBase {
     private double m_speedSetpoint = 0;
  
     // Shooter motor encoder
-    private RelativeEncoder m_shootEncoder = m_shooterMotor.getEncoder();
+    public RelativeEncoder m_shootEncoder = m_shooterMotor.getEncoder();
 
-    private SparkMaxPIDController m_shootPID = m_shooterMotor.getPIDController();
+    public SparkMaxPIDController m_shootPID = m_shooterMotor.getPIDController();
 
     private RelativeEncoder m_angleEncoder = m_shooterAngleMotor.getEncoder();
 
@@ -69,16 +69,16 @@ public class Shooter extends SubsystemBase {
       // Sets 39 amp limit on motor
       this.m_shooterMotor.setSmartCurrentLimit(39);
 
-      Shuffleboard.getTab("Shooter").add("shooter_p", Constants.Shooter.kP);
-      Shuffleboard.getTab("Shooter").add("shooter_i", Constants.Shooter.kI);
-      Shuffleboard.getTab("Shooter").add("shooter_d", Constants.Shooter.kD);
-      Shuffleboard.getTab("Shooter").add("Shooter Setpoint Speed", this.m_speedSetpoint);
-      Shuffleboard.getTab("Shooter").add("Shooter Actual Speed", this.m_shootEncoder.getVelocity());
-      Shuffleboard.getTab("Shooter").add("Infrared Ball Sensor Value", this.getSensorBallState());
-      Shuffleboard.getTab("Shooter").add("shooter_angle", this.currentAngleSetpoint);
-      Shuffleboard.getTab("Shooter").add("distanceD", Robot.limelight.getDistance());
-      Shuffleboard.getTab("Shooter").add("Z", this.lengthZ);
-      Shuffleboard.getTab("Shooter").add("AngleSetting", this.setShooterAngle(this.lengthZ).toString());
+      // Shuffleboard.getTab("Shooter").add("shooter_p", Constants.Shooter.kP);
+      // Shuffleboard.getTab("Shooter").add("shooter_i", Constants.Shooter.kI);
+      // Shuffleboard.getTab("Shooter").add("shooter_d", Constants.Shooter.kD);
+      // Shuffleboard.getTab("Shooter").add("Shooter Setpoint Speed", this.m_speedSetpoint);
+      // Shuffleboard.getTab("Shooter").add("Shooter Actual Speed", this.m_shootEncoder.getVelocity());
+      // Shuffleboard.getTab("Shooter").add("Infrared Ball Sensor Value", this.getSensorBallState());
+      // Shuffleboard.getTab("Shooter").add("shooter_angle", this.currentAngleSetpoint);
+      // Shuffleboard.getTab("Shooter").add("distanceD", Robot.limelight.getDistance());
+      // Shuffleboard.getTab("Shooter").add("Z", this.lengthZ);
+      // Shuffleboard.getTab("Shooter").add("AngleSetting", this.setShooterAngle(this.lengthZ).toString());
     }
 
     public enum ShooterStatus {
@@ -189,7 +189,7 @@ public class Shooter extends SubsystemBase {
 
     // Returns true of the shooter motor is at it's target setpoint
     public boolean atSetpoint() {
-      return (Math.abs(this.m_speedSetpoint - Math.abs(this.m_shootEncoder.getVelocity())) < 120);
+      return (Math.abs(this.getCurrentSpeedSetpoint() - Math.abs(this.m_shootEncoder.getVelocity())) < 120);
     }
 
     public boolean atAngle() {

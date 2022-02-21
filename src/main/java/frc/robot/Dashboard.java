@@ -13,6 +13,8 @@ public class Dashboard {
     }
 
     private void configureDashobard() {
+        //! General Vals
+
         // Differential Drive Graph
         Shuffleboard.getTab("DriveTrain")
             .add("DriveTrain", this.container.drivetrain.getDifferentialDrive())
@@ -26,5 +28,18 @@ public class Dashboard {
             .withWidget(BuiltInWidgets.kCameraStream)
             .withPosition(4, 2)
             .withSize(3, 3);
+
+        //! Shooter Vals
+        Shuffleboard.getTab("Shooter")
+            .add("Shooter Z", ShooterTargeting.findZ());
+        
+        Shuffleboard.getTab("Shooter")
+            .add("ShooterSetpoint", Robot.shooter.getCurrentSpeedSetpoint());
+
+        Shuffleboard.getTab("Shooter")
+            .add("AngleConstant", Robot.shooter.setShooterAngle(ShooterTargeting.findZ()).toString());
+        
+        Shuffleboard.getTab("Shooter")
+            .add("Shooter Actual Speed", Robot.shooter.m_shootEncoder.getVelocity());
     }
 }

@@ -1,27 +1,20 @@
 package frc.robot.commands;
 
-import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.lib.ShooterTargeting;
-import frc.robot.Constants;
 import frc.robot.Limelight;
-import frc.robot.Robot;
 import frc.robot.Limelight.LedMode;
 import frc.robot.subsystems.Shooter;
 
 public class AutoShoot extends CommandBase {
 
     private Shooter shooter;
-    // private PIDController pidController = new PIDController(Constants.Shooter.kP, Constants.Shooter.kI, Constants.Shooter.kD);
     private Limelight limelight;
 
     // Timestamp
     private double m_timestamp;
-
-    double pid;
 
     // Finished Command
     private boolean m_finished = false;
@@ -29,6 +22,7 @@ public class AutoShoot extends CommandBase {
     private boolean achievedSetpoint = false;
 
     public AutoShoot(Shooter shoot, Limelight limelight) {
+        // Add requirements for shooter and limelight systems
         this.addRequirements(shoot);
         this.shooter = shoot;
         this.limelight = limelight;
@@ -38,6 +32,7 @@ public class AutoShoot extends CommandBase {
     public void initialize() {
         // Set start timestamp
         this.m_timestamp = Timer.getFPGATimestamp();
+        
         // Set finished to false
         this.m_finished = false;
        
@@ -47,20 +42,21 @@ public class AutoShoot extends CommandBase {
 
     @Override
     public void execute() {
-        // this.pid = pidController.calculate(shooter.getShooterMotorPosition(), shooter.getCurrentSpeedSetpoint());
-        // this.shooter.m_shooterMotor.set(pidController.calculate(shooter.getShooterMotorPosition(), shooter.getCurrentSpeedSetpoint())); //this.shooter.getCurrentSpeedSetpoint()/5900
-
         SmartDashboard.putNumber("Motor Position Angle", this.shooter.getCurrentAngleMotorPosition());
         SmartDashboard.putNumber("TD Value", ShooterTargeting.getTD());
         SmartDashboard.putNumber("Z Value", ShooterTargeting.findZ());
-        // SmartDashboard.putNumber("ShooterSetpoint", pidController.getSetpoint());
         SmartDashboard.putNumber("ActiveSpeed", this.shooter.m_shooterMotor.getEncoder().getVelocity());
+
+        // Move the angle of the Shooter
         this.shooter.turnToAngle(this.shooter.setShooterAngle(ShooterTargeting.findZ()));
+
+        // Start spinning up shooter
         this.shooter.enableShooter(ShooterTargeting.findZ());
-        // if(this.pidController.atSetpoint()) {
-        //     this.achievedSetpoint = true;
-        //     this.shooter.enableFeeder();
-        // }
+        
+        if(this.shooter.atAngle() == true && this.shooter.atSetpoint() == true) {
+            this.achievedSetpoint = true;
+            this.shooter.enableFeeder();
+        }
     }
 
     @Override
