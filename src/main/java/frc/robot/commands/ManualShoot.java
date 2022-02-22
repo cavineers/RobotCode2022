@@ -1,6 +1,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.lib.ShooterTargeting;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Shooter.ShooterStatus;
 
@@ -16,7 +17,7 @@ public class ManualShoot extends CommandBase{
     public void initialize() {
         if (shooter.getCurrentState() == ShooterStatus.DISABLED) {
             shooter.enableFeeder();
-            shooter.enableShooter();
+            shooter.enableShooter(ShooterTargeting.findZ());
             shooter.setSpeed(5000); // Change to update speed. (200 - 5500 safe bounds)
         } else if (shooter.getCurrentState() == ShooterStatus.ENABLED) {
             shooter.disableShooter();

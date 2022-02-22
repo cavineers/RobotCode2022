@@ -1,10 +1,11 @@
 package frc.robot.commands.climber;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.lib.DriveMotion;
 import frc.robot.Constants;
+import frc.robot.Robot;
 import frc.robot.RobotContainer;
 import frc.robot.RobotContainer.CurrentMode;
 import frc.robot.subsystems.Climber.ClimberMotorState;
@@ -18,63 +19,63 @@ public class ClimberDrive extends CommandBase {
     public ClimberDrive(RobotContainer container, Joystick joy) {
         this.joy = joy;
         this.rc = container;
-        this.addRequirements(this.rc.climber, this.rc.elevator);
+        this.addRequirements(Robot.climber, Robot.elevator);
     }
 
     @Override
     public void initialize() {
-        this.rc.elevator.setElevMotorState(ElevatorMotorState.OFF);
-        this.rc.climber.setAngleMotorState(ClimberMotorState.OFF);
+        Robot.elevator.setElevMotorState(ElevatorMotorState.OFF);
+        Robot.climber.setAngleMotorState(ClimberMotorState.OFF);
     }
 
     @Override
     public void execute() {
         // Set the motor speed to the axis
-        SmartDashboard.putNumber("Elevator Position", this.rc.elevator.getElevatorPosition());
+        Shuffleboard.getTab("Climber").add("Elevator Position", Robot.elevator.getElevatorPosition());
         
-        if (this.rc.elevator.getElevatorPosition() < Constants.Climber.MaxElevatorRevolutions && this.rc.elevator.getElevatorPosition() > 0) {
-            this.rc.elevator.getElevatorMotor().set(-DriveMotion.add(this.joy.getRawAxis(1), 0.05));
-        } else if (this.rc.elevator.getElevatorPosition() > Constants.Climber.MaxElevatorRevolutions) {
+        if (Robot.elevator.getElevatorPosition() < Constants.Climber.MaxElevatorRevolutions && Robot.elevator.getElevatorPosition() > 0) {
+            Robot.elevator.getElevatorMotor().set(-DriveMotion.add(this.joy.getRawAxis(1), 0.05));
+        } else if (Robot.elevator.getElevatorPosition() > Constants.Climber.MaxElevatorRevolutions) {
             if(-DriveMotion.add(this.joy.getRawAxis(1), 0.05) < 0) {
-                this.rc.elevator.getElevatorMotor().set(-DriveMotion.add(this.joy.getRawAxis(1), 0.05));
+                Robot.elevator.getElevatorMotor().set(-DriveMotion.add(this.joy.getRawAxis(1), 0.05));
             } else {
-                this.rc.elevator.setElevMotorState(ElevatorMotorState.OFF);
+                Robot.elevator.setElevMotorState(ElevatorMotorState.OFF);
             }
-        } else if (this.rc.elevator.getElevatorPosition() <= 0) {
+        } else if (Robot.elevator.getElevatorPosition() <= 0) {
             if(-DriveMotion.add(this.joy.getRawAxis(1), 0.05) > 0) {
-                this.rc.elevator.getElevatorMotor().set(-DriveMotion.add(this.joy.getRawAxis(1), 0.05));
+                Robot.elevator.getElevatorMotor().set(-DriveMotion.add(this.joy.getRawAxis(1), 0.05));
             } else {
-                this.rc.elevator.setElevMotorState(ElevatorMotorState.OFF);
+                Robot.elevator.setElevMotorState(ElevatorMotorState.OFF);
             }
         }
 
-        SmartDashboard.putNumber("Swivel Position", this.rc.climber.getAngleMotorPosition());
+        Shuffleboard.getTab("Climber").add("Swivel Position", Robot.climber.getAngleMotorPosition());
     
-        if (this.rc.climber.getAngleMotorPosition() < Constants.Climber.MaxSwivelRevolutions && this.rc.climber.getAngleMotorPosition() > 0) {
-            this.rc.climber.getAngleMotor().set(-DriveMotion.add(this.joy.getRawAxis(4), 0.05));
-        } else if (this.rc.climber.getAngleMotorPosition() > Constants.Climber.MaxSwivelRevolutions) {
+        if (Robot.climber.getAngleMotorPosition() < Constants.Climber.MaxSwivelRevolutions && Robot.climber.getAngleMotorPosition() > 0) {
+            Robot.climber.getAngleMotor().set(-DriveMotion.add(this.joy.getRawAxis(4), 0.05));
+        } else if (Robot.climber.getAngleMotorPosition() > Constants.Climber.MaxSwivelRevolutions) {
             if(-DriveMotion.add(this.joy.getRawAxis(4), 0.05) < 0) {
-                this.rc.climber.getAngleMotor().set(-DriveMotion.add(this.joy.getRawAxis(4), 0.05));
+                Robot.climber.getAngleMotor().set(-DriveMotion.add(this.joy.getRawAxis(4), 0.05));
             } else {
-                this.rc.climber.setAngleMotorState(ClimberMotorState.OFF);
+                Robot.climber.setAngleMotorState(ClimberMotorState.OFF);
             }
-        } else if (this.rc.climber.getAngleMotorPosition() <= 0) {
+        } else if (Robot.climber.getAngleMotorPosition() <= 0) {
             if(-DriveMotion.add(this.joy.getRawAxis(4), 0.05) > 0) {
-                this.rc.climber.getAngleMotor().set(-DriveMotion.add(this.joy.getRawAxis(4), 0.05));
+                Robot.climber.getAngleMotor().set(-DriveMotion.add(this.joy.getRawAxis(4), 0.05));
             } else {
-                this.rc.climber.setAngleMotorState(ClimberMotorState.OFF);
+                Robot.climber.setAngleMotorState(ClimberMotorState.OFF);
             }
         }
 
-        SmartDashboard.putNumber("angle axis", this.joy.getRawAxis(4));
-        SmartDashboard.putNumber("elev axis", this.joy.getRawAxis(1));
+        Shuffleboard.getTab("Climber").add("angle axis", this.joy.getRawAxis(4));
+        Shuffleboard.getTab("Climber").add("elev axis", this.joy.getRawAxis(1));
     }
 
     @Override
     public void end(boolean interrupted) {
         // Turn off motors at the end
-        this.rc.elevator.setElevMotorState(ElevatorMotorState.OFF);
-        this.rc.climber.setAngleMotorState(ClimberMotorState.OFF);
+        Robot.elevator.setElevMotorState(ElevatorMotorState.OFF);
+        Robot.climber.setAngleMotorState(ClimberMotorState.OFF);
     }
 
     @Override

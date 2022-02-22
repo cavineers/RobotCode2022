@@ -25,7 +25,8 @@
       "/LiveWindow/Ungrouped/DigitalInput[5]": "Digital Input",
       "/LiveWindow/Ungrouped/PIDController[1]": "PIDController",
       "/LiveWindow/Ungrouped/Scheduler": "Scheduler",
-      "/Shuffleboard/Dashboard/DriveTrain": "DifferentialDrive"
+      "/Shuffleboard/Dashboard/DriveTrain": "DifferentialDrive",
+      "/Shuffleboard/DriveTrain/DriveTrain": "DifferentialDrive"
     }
   }
 }

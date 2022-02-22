@@ -38,9 +38,12 @@ public final class Constants {
 
     public static class Targeting {
         // TODO Update these values
-        public static double kFieldGoalHeightFromGround = Units.inchesToMeters(0); // Math constants
-        public static double kLimelightHeightFromGround = Units.inchesToMeters(0); // vertical distance from limelight to ground
-        public static double kLimelightMountingAngle    = 70; // Angle Mounted on Robot
+        public static double kFieldGoalHeightFromGroundIn = 69; // Math constants 104
+        public static double kLimelightHeightFromGroundIn = 37; // vertical distance from limelight to ground
+    
+        public static double kFieldGoalHeightFromGround = Units.inchesToMeters(kFieldGoalHeightFromGroundIn); // Math constants
+        public static double kLimelightHeightFromGround = Units.inchesToMeters(kLimelightHeightFromGroundIn); // vertical distance from limelight to ground
+        public static double kLimelightMountingAngle    = 20; // Angle Mounted on Robot
     }
 
     public static class Shooter {
@@ -54,7 +57,7 @@ public final class Constants {
         public static double shooterAngleMedium = 63;
         public static double shooterAngleHigh = 84;
 
-        public static double shooterHeight = (12.4/12);
+        public static double shooterHeight = Units.inchesToMeters(38); // 12.4
 
         //TODO Check values with shooter sub-team
         public static double degreesPerRevolution = 1.8; //27.78 revolutions = 50 degrees, 1:5 for flywheel
@@ -62,9 +65,10 @@ public final class Constants {
 
         public static double flywheelRadius = .0508; //checked with shooter, 2 in = .0508 m
 
-        public static double kP = 0.0005;
-        public static double kI = 0;
-        public static double kD = 0.0001;
+        public static double kP = 0.00095; //.00095; Proportional
+        public static double kI = 0.0; //0.0; Integral
+        public static double kD = 0.009; //0.009; Derivative
+        public static double kF = 0.00015; // 0.00015; Feed Forward
     }
 
     public static class Intake {
@@ -93,8 +97,8 @@ public final class Constants {
         public static double AngleSpeed = -0.1;
         public static double AngleSpeedRev = 0.1;
 
-        public static double MaxElevatorRevolutions = 120.0;
-        public static double MaxSwivelRevolutions = 100.0;
+        public static double MaxElevatorRevolutions = 243.6;
+        public static double MaxSwivelRevolutions = 700.0;
     }
     public static class DIO {
         public static int IntakeSensor = 0;
