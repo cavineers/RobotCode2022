@@ -43,7 +43,7 @@ public final class Constants {
     
         public static double kFieldGoalHeightFromGround = Units.inchesToMeters(kFieldGoalHeightFromGroundIn); // Math constants
         public static double kLimelightHeightFromGround = Units.inchesToMeters(kLimelightHeightFromGroundIn); // vertical distance from limelight to ground
-        public static double kLimelightMountingAngle    = 30; // Angle Mounted on Robot
+        public static double kLimelightMountingAngle    = 20; // Angle Mounted on Robot
     }
 
     public static class Shooter {
@@ -65,10 +65,10 @@ public final class Constants {
 
         public static double flywheelRadius = .0508; //checked with shooter, 2 in = .0508 m
 
-        public static double kP = 0.00095; //.00092;
-         //.00092
-        public static double kI = 0.0; //0.00000038;
-        public static double kD = 0.0002; //0.0001;
+        public static double kP = 0.00095; //.00095; Proportional
+        public static double kI = 0.0; //0.0; Integral
+        public static double kD = 0.009; //0.009; Derivative
+        public static double kF = 0.00015; // 0.00015; Feed Forward
     }
 
     public static class Intake {

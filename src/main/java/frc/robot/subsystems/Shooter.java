@@ -171,7 +171,8 @@ public class Shooter extends SubsystemBase {
 
     public void disableShooter() {
       this.m_shooterState = ShooterStatus.DISABLED;
-      this.setSpeed(0.0);
+      // this.setSpeed(0.0);
+      this.m_shooterMotor.set(0.0);
     }
 
     public ShooterStatus getCurrentState() {
@@ -223,6 +224,7 @@ public class Shooter extends SubsystemBase {
       this.m_shootPID.setP(Constants.Shooter.kP);
       this.m_shootPID.setI(Constants.Shooter.kI);
       this.m_shootPID.setD(Constants.Shooter.kD);
+      this.m_shootPID.setFF(Constants.Shooter.kF);
 
       SmartDashboard.putNumber("SetPoint2", this.getCurrentSpeedSetpoint());
       SmartDashboard.putNumber("Actual2", this.m_shootEncoder.getVelocity());
