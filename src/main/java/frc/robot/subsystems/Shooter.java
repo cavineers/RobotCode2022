@@ -9,10 +9,8 @@ import com.revrobotics.CANSparkMax.ControlType;
 import com.revrobotics.CANSparkMax.IdleMode;
 import frc.lib.ShooterTargeting;
 import frc.robot.Constants;
-import frc.robot.Robot;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import com.revrobotics.SparkMaxPIDController;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -68,17 +66,6 @@ public class Shooter extends SubsystemBase {
 
       // Sets 39 amp limit on motor
       this.m_shooterMotor.setSmartCurrentLimit(39);
-
-      // Shuffleboard.getTab("Shooter").add("shooter_p", Constants.Shooter.kP);
-      // Shuffleboard.getTab("Shooter").add("shooter_i", Constants.Shooter.kI);
-      // Shuffleboard.getTab("Shooter").add("shooter_d", Constants.Shooter.kD);
-      // Shuffleboard.getTab("Shooter").add("Shooter Setpoint Speed", this.m_speedSetpoint);
-      // Shuffleboard.getTab("Shooter").add("Shooter Actual Speed", this.m_shootEncoder.getVelocity());
-      // Shuffleboard.getTab("Shooter").add("Infrared Ball Sensor Value", this.getSensorBallState());
-      // Shuffleboard.getTab("Shooter").add("shooter_angle", this.currentAngleSetpoint);
-      // Shuffleboard.getTab("Shooter").add("distanceD", Robot.limelight.getDistance());
-      // Shuffleboard.getTab("Shooter").add("Z", this.lengthZ);
-      // Shuffleboard.getTab("Shooter").add("AngleSetting", this.setShooterAngle(this.lengthZ).toString());
     }
 
     public enum ShooterStatus {

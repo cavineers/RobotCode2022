@@ -66,8 +66,8 @@ public final class Constants {
         public static double flywheelRadius = .0508; //checked with shooter, 2 in = .0508 m
 
         public static double kP = 0.00095; //.00095; Proportional
-        public static double kI = 0.0; //0.0; Integral
-        public static double kD = 0.009; //0.009; Derivative
+        public static double kI = 0.0000001; //0.0; Integral
+        public static double kD = 0.0095; //0.009; Derivative
         public static double kF = 0.00015; // 0.00015; Feed Forward
     }
 

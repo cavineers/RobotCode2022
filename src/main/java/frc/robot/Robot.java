@@ -13,6 +13,7 @@ import frc.robot.Limelight.LedMode;
 import frc.robot.RobotContainer.CurrentMode;
 import frc.robot.commands.TeleopDrive;
 import frc.robot.commands.climber.ClimberDrive;
+import frc.robot.commands.Autonomous;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Elevator;
@@ -87,6 +88,8 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
+
+    new Autonomous(m_robotContainer).schedule();
   }
 
   /** This function is called periodically during autonomous. */
