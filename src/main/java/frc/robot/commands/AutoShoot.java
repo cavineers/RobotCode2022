@@ -16,10 +16,11 @@ public class AutoShoot extends CommandBase {
     // Timestamp
     private double m_timestamp;
 
+    private double endTime;
+
     // Finished Command
     private boolean m_finished = false;
-
-    private boolean achievedSetpoint = false;
+    private boolean setEndTimer = false;
 
     public AutoShoot(Shooter shoot, Limelight limelight) {
         // Add requirements for shooter and limelight systems
@@ -32,11 +33,11 @@ public class AutoShoot extends CommandBase {
     public void initialize() {
         // Set start timestamp
         this.m_timestamp = Timer.getFPGATimestamp();
+        this.endTime = Timer.getFPGATimestamp();
         
         // Set finished to false
         this.m_finished = false;
-       
-        this.achievedSetpoint = false;
+
         this.limelight.setLightMode(LedMode.ON);
     }
 
@@ -54,8 +55,16 @@ public class AutoShoot extends CommandBase {
         this.shooter.enableShooter(ShooterTargeting.findZ());
         
         if(this.shooter.atAngle() == true && this.shooter.atSetpoint() == true) {
-            this.achievedSetpoint = true;
             this.shooter.enableFeeder();
+
+            if (this.setEndTimer == false) {
+                this.setEndTimer = true;
+                this.endTime = Timer.getFPGATimestamp();
+            }
+
+            if (this.shooter.getSensorBallState() == false && Timer.getFPGATimestamp() - this.endTime >= 1) {
+                this.m_finished = true;
+            }
         }
     }
 
@@ -69,7 +78,6 @@ public class AutoShoot extends CommandBase {
     @Override
     public boolean isFinished() {
         // End if command takes longer than 15 seconds or finished firing
-        // return Timer.getFPGATimestamp() - this.m_timestamp >= 15.0 || this.m_finished;
-        return false;
+        return Timer.getFPGATimestamp() - this.m_timestamp >= 15.0 || this.m_finished;
     }
 }

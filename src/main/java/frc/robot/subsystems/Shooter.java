@@ -63,6 +63,7 @@ public class Shooter extends SubsystemBase {
 
       // Sets motor to coast mode
       this.m_shooterMotor.setIdleMode(IdleMode.kCoast);
+      this.m_shooterAngleMotor.setIdleMode(IdleMode.kBrake);
 
       // Sets 39 amp limit on motor
       this.m_shooterMotor.setSmartCurrentLimit(39);
@@ -92,7 +93,7 @@ public class Shooter extends SubsystemBase {
     public ShooterAngle setShooterAngle(double z) {
       if (z >= 6) {
         return ShooterAngle.LOW;
-      } else if ((z < 6) && (z > 3)) {
+      } else if ((z <= 6) && (z >= 3)) {
         return ShooterAngle.MEDIUM;
       } else {
         return ShooterAngle.HIGH;
@@ -111,9 +112,9 @@ public class Shooter extends SubsystemBase {
           currentAngle = Constants.Shooter.shooterAngleLow;
           this.currentAngleSetpoint = (currentAngle / Constants.Shooter.degreesPerRevolution);
           if (getCurrentAngleMotorPosition() < currentAngleSetpoint - 2) {
-            this.m_shooterAngleMotor.set(.1);
+            this.m_shooterAngleMotor.set(.05);
           } else if (getCurrentAngleMotorPosition() > currentAngleSetpoint + 2) {
-            this.m_shooterAngleMotor.set(-.1);
+            this.m_shooterAngleMotor.set(-.05);
           } else {
             this.m_shooterAngleMotor.set(0);
             isPositioned = true;
@@ -122,9 +123,9 @@ public class Shooter extends SubsystemBase {
           currentAngle = Constants.Shooter.shooterAngleMedium;
           this.currentAngleSetpoint = (currentAngle / Constants.Shooter.degreesPerRevolution);
           if (getCurrentAngleMotorPosition() < currentAngleSetpoint - 2) {
-            this.m_shooterAngleMotor.set(.1);
+            this.m_shooterAngleMotor.set(.05);
           } else if (getCurrentAngleMotorPosition() > currentAngleSetpoint + 2) {
-            this.m_shooterAngleMotor.set(-.1);
+            this.m_shooterAngleMotor.set(-.05);
           } else {
             this.m_shooterAngleMotor.set(0);
             isPositioned = true;
@@ -133,9 +134,9 @@ public class Shooter extends SubsystemBase {
           currentAngle = Constants.Shooter.shooterAngleHigh;
           this.currentAngleSetpoint = (currentAngle / Constants.Shooter.degreesPerRevolution);
           if (getCurrentAngleMotorPosition() < currentAngleSetpoint - 2) {
-            this.m_shooterAngleMotor.set(.1);
+            this.m_shooterAngleMotor.set(.05);
           } else if (getCurrentAngleMotorPosition() > currentAngleSetpoint + 2) {
-            this.m_shooterAngleMotor.set(-.1);
+            this.m_shooterAngleMotor.set(-.05);
           } else {
             this.m_shooterAngleMotor.set(0);
             isPositioned = true;
@@ -158,8 +159,7 @@ public class Shooter extends SubsystemBase {
 
     public void disableShooter() {
       this.m_shooterState = ShooterStatus.DISABLED;
-      // this.setSpeed(0.0);
-      this.m_shooterMotor.set(0.0);
+      this.setSpeed(0.0);
     }
 
     public ShooterStatus getCurrentState() {

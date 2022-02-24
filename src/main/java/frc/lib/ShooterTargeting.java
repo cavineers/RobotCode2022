@@ -4,15 +4,21 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.Robot;
+import java.text.DecimalFormat;
 
 public class ShooterTargeting {
+
+    private static final DecimalFormat df = new DecimalFormat("0.0");
 
     // -b squared plus c squared = a squared
     // C is the TD from limelight
     // B is the height of the goal - height of limelight
     // A is the distance between limelight and base of goal
     public static double findZ() {
-        return (Math.sqrt((Math.pow(getTD(), 2) - Math.pow((Constants.Targeting.kFieldGoalHeightFromGround-Constants.Targeting.kLimelightHeightFromGround), 2))));
+        double z = (Math.sqrt((Math.pow(getTD(), 2) - Math.pow((Constants.Targeting.kFieldGoalHeightFromGround-Constants.Targeting.kLimelightHeightFromGround), 2))));
+        String stringZ = df.format(z);
+        return Double.parseDouble(stringZ);
+        
     }
 
     // Returns hypotenuse distance to target
