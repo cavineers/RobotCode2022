@@ -3,7 +3,6 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
-import frc.robot.Constants.Shooter;
 
 public class Autonomous extends CommandBase {
     private RobotContainer rc;
@@ -22,22 +21,32 @@ public class Autonomous extends CommandBase {
     @Override
     public void execute() { 
 //Drives forward for 3 seconds and enables shooter/stops and disables shooter
-        if(this.startTime >= 1){
+        if(this.startTime >= 0){
             this.rc.drivetrain.drive(-0.3, 0, true);
             // enable shooter
             this.rc.m_autoShootCommand.execute();
-        } else if (this.startTime <= 3){
+        } else if (this.startTime <= 0.3){
             this.rc.drivetrain.drive(0, 0, true);
             //disable shooter
             this.rc.m_autoShootCommand.end(true);
         }
 
 //Go to closest (teams) cargo, toggle intake ON, enable shooter
-        if(this.startTime >= 4){
-            this.rc.drivetrain.drive(0, 0, true); //TODO change the values in .drive()
-            //TODO Toggle Intake
-            this.rc.m_autoShootCommand.execute();
-        } //else if(startTime )
+        if(this.startTime >= 0.4){
+            this.rc.drivetrain.drive(0, 0.1, true);//Turns 
+            //this.rc.drivetrain.drive(0, -0.1, true);//Turns 
+        } else if (this.startTime <= 0.45){
+            this.rc.drivetrain.drive(0, 0, true);
+        }
+        
+        if (this.startTime >= 0.45){
+            this.rc.drivetrain.drive(-0.3, 0, true);
+        } else if (this.startTime <= 0.5){
+            this.rc.drivetrain.drive(0, 0, true);
+            //TODO toggle intake on
+        } else if(this.startTime >= 0.6){
+            //TODO toggle intake off
+        }
     }
 
     @Override
