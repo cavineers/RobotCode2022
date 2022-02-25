@@ -1,9 +1,11 @@
 package frc.robot.commands;
 
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.lib.ShooterTargeting;
+import frc.robot.Constants;
 import frc.robot.Limelight;
 import frc.robot.Limelight.LedMode;
 import frc.robot.subsystems.Shooter;
@@ -17,6 +19,8 @@ public class AutoShoot extends CommandBase {
     private double m_timestamp;
 
     private double endTime;
+
+    double cycleTime = Timer.getFPGATimestamp() - m_timestamp;
 
     // Finished Command
     private boolean m_finished = false;
@@ -47,13 +51,22 @@ public class AutoShoot extends CommandBase {
         SmartDashboard.putNumber("TD Value", ShooterTargeting.getTD());
         SmartDashboard.putNumber("Z Value", ShooterTargeting.findZ());
         SmartDashboard.putNumber("ActiveSpeed", this.shooter.m_shooterMotor.getEncoder().getVelocity());
+        SmartDashboard.putBoolean("IR SENSOR", this.shooter.getSensorBallState());
+        SmartDashboard.putBoolean("Shooter Ready", (this.shooter.atAngle() == true && this.shooter.atSetpoint() == true));
+        
 
         // Move the angle of the Shooter
         this.shooter.turnToAngle(this.shooter.setShooterAngle(ShooterTargeting.findZ()));
 
         // Start spinning up shooter
-        this.shooter.enableShooter(ShooterTargeting.findZ());
-        
+        if (Timer.getFPGATimestamp() - this.endTime >= 0.5 && ShooterTargeting.findZ() > .1) {
+            this.shooter.enableShooter(ShooterTargeting.findZ());
+        }
+
+        if (this.shooter.atSetpoint() == true) {
+            SmartDashboard.putNumber("Cycle Time", cycleTime);
+        }
+    
         if(this.shooter.atAngle() == true && this.shooter.atSetpoint() == true) {
             this.shooter.enableFeeder();
 
@@ -78,6 +91,7 @@ public class AutoShoot extends CommandBase {
     @Override
     public boolean isFinished() {
         // End if command takes longer than 15 seconds or finished firing
-        return Timer.getFPGATimestamp() - this.m_timestamp >= 15.0 || this.m_finished;
+        // return Timer.getFPGATimestamp() - this.m_timestamp >= 15.0 || this.m_finished;
+        return false;
     }
 }

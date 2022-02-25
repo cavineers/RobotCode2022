@@ -6,6 +6,7 @@ package frc.robot;
 
 import frc.robot.commands.AutoShoot;
 import frc.robot.commands.SwitchMode;
+import frc.robot.commands.ToggleIntake;
 import frc.robot.commands.homing.HomeAngle;
 import frc.robot.commands.homing.HomeElevator;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -67,6 +68,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
     this.right_menu.whenPressed(new ParallelCommandGroup(new HomeAngle(), new HomeElevator()));
     this.povUp.whenPressed(new SwitchMode(this));
+    this.b_button.whenPressed(new ToggleIntake());
 
     //Shoot
     this.a_button.whenPressed(new InstantCommand() {
