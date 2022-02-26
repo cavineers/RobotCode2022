@@ -16,11 +16,8 @@ public class AutoShoot extends CommandBase {
     // Timestamp
     private double m_timestamp;
 
-<<<<<<< Updated upstream
-=======
     private double endTime;
 
->>>>>>> Stashed changes
     // Finished Command
     private boolean m_finished = false;
 

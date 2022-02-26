@@ -32,13 +32,11 @@ public class Autonomous extends CommandBase {
         }
 
 //Go to closest (teams) cargo, toggle intake ON, enable shooter
-<<<<<<< HEAD
         if(this.startTime >= 3.005){
             this.rc.drivetrain.drive(0, 0, true); //TODO change the values in .drive() to turn
         } else if (this.startTime <= 3.01){
             this.rc.drivetrain.drive(0, 0, true);
         }
-=======
         if(this.startTime >= 0.4){
             this.rc.drivetrain.drive(0, 0.1, true);//Turns 
             //this.rc.drivetrain.drive(0, -0.1, true);//Turns 
@@ -54,7 +52,6 @@ public class Autonomous extends CommandBase {
         } else if(this.startTime >= 0.6){
             //TODO toggle intake off
         }
->>>>>>> 9301d8c78cd27620aaa216952f2ab05527e63488
     }
 
     @Override
