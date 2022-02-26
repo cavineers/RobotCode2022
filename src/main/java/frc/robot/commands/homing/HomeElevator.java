@@ -1,38 +1,36 @@
 package frc.robot.commands.homing;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.RobotContainer;
+import frc.robot.Robot;
 import frc.robot.subsystems.Elevator.ElevatorMotorState;
 
 public class HomeElevator extends CommandBase {
     // Check if elevator systems are homed
     boolean isElevatorHomed = false;
-    RobotContainer rc;
 
-    public HomeElevator(RobotContainer container) {
-        this.rc = container;
-        addRequirements(container.elevator);
+    public HomeElevator() {
+        addRequirements(Robot.elevator);
     }
 
     @Override
     public void initialize() {
-        if (this.rc.elevator.getRightElevatorSwitch() == true) {
-            this.rc.elevator.getElevatorMotor().set(0.1);
+        if (Robot.elevator.getRightElevatorSwitch() == true) {
+            Robot.elevator.getElevatorMotor().set(0.1);
         } else {
-            this.rc.elevator.getElevatorMotor().set(-0.1);
+            Robot.elevator.getElevatorMotor().set(-0.1);
         }
     }
 
     @Override
     public void execute() {
-        if(this.rc.elevator.getRightElevatorSwitch() == false) {
+        if(Robot.elevator.getRightElevatorSwitch() == false) {
             // Keep elevator moving downward
-            this.rc.elevator.getElevatorMotor().set(-0.1);
-        } else if (this.rc.elevator.getRightElevatorSwitch() == true) {
+            Robot.elevator.getElevatorMotor().set(-0.1);
+        } else if (Robot.elevator.getRightElevatorSwitch() == true) {
             // Turn off elevator
-            this.rc.elevator.setElevMotorState(ElevatorMotorState.OFF);
+            Robot.elevator.setElevMotorState(ElevatorMotorState.OFF);
             // Reset encoder revolution count to 0
-            this.rc.elevator.setElevatorMotorPosition(0.0);
+            Robot.elevator.setElevatorMotorPosition(0.0);
             // Set homing as true
             this.isElevatorHomed = true;
         }
@@ -40,7 +38,7 @@ public class HomeElevator extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-        this.rc.elevator.setElevMotorState(ElevatorMotorState.OFF);
+        Robot.elevator.setElevMotorState(ElevatorMotorState.OFF);
     }
 
     @Override

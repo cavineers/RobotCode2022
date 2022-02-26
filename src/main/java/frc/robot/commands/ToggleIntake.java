@@ -23,7 +23,9 @@ public class ToggleIntake extends CommandBase {
     public void execute() {}
 
     @Override
-    public void end(boolean interrupted) {}
+    public void end(boolean interrupted) {
+        Robot.intake.setMotorState(Intake.IntakeMotorState.OFF);
+    }
 
     @Override
     public boolean isFinished() {

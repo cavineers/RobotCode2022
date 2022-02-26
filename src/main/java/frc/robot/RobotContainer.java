@@ -6,6 +6,7 @@ package frc.robot;
 
 import frc.robot.commands.AutoShoot;
 import frc.robot.commands.SwitchMode;
+import frc.robot.commands.ToggleIntake;
 import frc.robot.commands.homing.HomeAngle;
 import frc.robot.commands.homing.HomeElevator;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -15,9 +16,6 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.Shooter;
-import frc.robot.subsystems.Elevator;
-import frc.robot.subsystems.Climber;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -26,15 +24,7 @@ import frc.robot.subsystems.Climber;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  // The robot's subsystems and commands are defined here...
-
-  public Shooter shooter = new Shooter();
-  private final SwitchMode switchDriveMode = new SwitchMode(this);
-  
   public DriveTrain drivetrain = new DriveTrain(this.joy);
-  public Climber climber = new Climber();
-  public Elevator elevator = new Elevator();
-
   public Dashboard dashboard = new Dashboard(this);
 
   public Command m_autoShootCommand;
@@ -72,28 +62,29 @@ public class RobotContainer {
       configureButtonBindingsClimb();
     }
 
-    this.m_autoShootCommand = new AutoShoot(shooter);
+    this.m_autoShootCommand = new AutoShoot(Robot.shooter, Robot.limelight);
   }
 
   private void configureButtonBindings() {
-    this.right_menu.whenPressed(new ParallelCommandGroup(new HomeAngle(this), new HomeElevator(this)));
-    this.povUp.whenPressed(this.switchDriveMode);
+    this.right_menu.whenPressed(new ParallelCommandGroup(new HomeAngle(), new HomeElevator()));
+    this.povUp.whenPressed(new SwitchMode(this));
+    this.b_button.whenPressed(new ToggleIntake());
 
     //Shoot
     this.a_button.whenPressed(new InstantCommand() {
       @Override
       public void initialize() {
-        if (Robot.robotContainer.m_autoShootCommand.isScheduled()) {
-          Robot.robotContainer.m_autoShootCommand.cancel();
+        if (m_autoShootCommand.isScheduled()) {
+          m_autoShootCommand.cancel();
         } else {
-          Robot.robotContainer.m_autoShootCommand.schedule();
+          m_autoShootCommand.schedule();
         }
       }
     });
   }
 
   private void configureButtonBindingsClimb() {
-    this.povUp.whenPressed(this.switchDriveMode);
+    this.povUp.whenPressed(new SwitchMode(this));
   }
 
   /**

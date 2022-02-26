@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveTrain;
 import frc.lib.DriveMotion;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class TeleopDrive extends CommandBase {
     private DriveTrain driveTrain;
@@ -17,16 +16,12 @@ public class TeleopDrive extends CommandBase {
     }
 
     @Override
-    public void initialize() {}
+    public void initialize() {
+        // Put numbers on logging platform
+    }
 
     @Override
     public void execute() {
-        // Put numbers on logging platform
-        SmartDashboard.putNumber("Joystick steering value", this.joystick.getRawAxis(4));
-        SmartDashboard.putNumber("Joystick drive value", this.joystick.getRawAxis(1));
-        SmartDashboard.putNumber("Left Drive Speed", this.driveTrain.getActiveLeftSpeed());
-        SmartDashboard.putNumber("Right Drive Speed", this.driveTrain.getActiveRightSpeed());
-
         // Get the joystick to drive forward and turn the robot
         double steer = -DriveMotion.add(this.joystick.getRawAxis(4), 0.05);
         double drive = DriveMotion.add(this.joystick.getRawAxis(1), 0.05);
