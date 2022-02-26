@@ -16,6 +16,11 @@ public class AutoShoot extends CommandBase {
     // Timestamp
     private double m_timestamp;
 
+<<<<<<< Updated upstream
+=======
+    private double endTime;
+
+>>>>>>> Stashed changes
     // Finished Command
     private boolean m_finished = false;
 
@@ -69,7 +74,6 @@ public class AutoShoot extends CommandBase {
     @Override
     public boolean isFinished() {
         // End if command takes longer than 15 seconds or finished firing
-        // return Timer.getFPGATimestamp() - this.m_timestamp >= 15.0 || this.m_finished;
-        return false;
+        return Timer.getFPGATimestamp() - this.m_timestamp >= 15.0 || this.m_finished;
     }
 }
