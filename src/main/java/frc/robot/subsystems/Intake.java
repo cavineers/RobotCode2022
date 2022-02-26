@@ -12,17 +12,23 @@ import frc.robot.Constants;
 public class Intake extends SubsystemBase {
       
     public enum IntakeMotorState {
-      ON,
-      OFF,
-      REVERSED
+        ON,
+        OFF,
+        REVERSED
     }
+
+    public enum IntakeDropMotorState {
+        ON,
+        OFF,
+        REVERSED
+      }
 
 
     public CANSparkMax m_intakeMotor = new CANSparkMax(Constants.Intake.IntakeID, MotorType.kBrushless);
 
     public CANSparkMax m_intakeDropMotor = new CANSparkMax(Constants.Intake.IntakeDropID, MotorType.kBrushless);
 
-    public IntakeMotorState m_dropMotorState = IntakeMotorState.OFF;
+    public IntakeDropMotorState m_dropMotorState = IntakeDropMotorState.OFF;
 
     public IntakeMotorState m_intakeMotorState = IntakeMotorState.OFF;
 
@@ -74,7 +80,7 @@ public class Intake extends SubsystemBase {
      * Set the desired intake state.
      * @param state wanted intake state
      */
-    public void setDropMotorState(IntakeMotorState state) {
+    public void setDropMotorState(IntakeDropMotorState state) {
         // set the current drop motor state
         this.m_dropMotorState = state;
         
@@ -93,7 +99,7 @@ public class Intake extends SubsystemBase {
                 this.m_intakeDropMotor.set(Constants.Intake.LiftSpeed);
                 break;
             default:
-                this.setDropMotorState(IntakeMotorState.OFF);
+                this.setDropMotorState(IntakeDropMotorState.OFF);
         }
     }
 
@@ -101,7 +107,7 @@ public class Intake extends SubsystemBase {
      * Get the current intake state.
      * @return intake state
      */
-    public IntakeMotorState getDropMotorState() {
+    public IntakeDropMotorState getDropMotorState() {
         // return the current motor state
         return this.m_dropMotorState;
     }
