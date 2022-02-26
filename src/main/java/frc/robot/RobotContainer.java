@@ -5,8 +5,11 @@
 package frc.robot;
 
 import frc.robot.commands.AutoShoot;
+import frc.robot.commands.LowerIntake;
+import frc.robot.commands.RaiseIntake;
 import frc.robot.commands.SwitchMode;
 import frc.robot.commands.ToggleIntake;
+import frc.robot.commands.ToggleReverseIntake;
 import frc.robot.commands.homing.HomeAngle;
 import frc.robot.commands.homing.HomeElevator;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -69,6 +72,9 @@ public class RobotContainer {
     this.right_menu.whenPressed(new ParallelCommandGroup(new HomeAngle(), new HomeElevator()));
     this.povUp.whenPressed(new SwitchMode(this));
     this.b_button.whenPressed(new ToggleIntake());
+    this.x_button.whenPressed(new LowerIntake());
+    this.y_button.whenPressed(new RaiseIntake());
+    this.right_menu.whenPressed(new ToggleReverseIntake());
 
     //Shoot
     this.a_button.whenPressed(new InstantCommand() {
