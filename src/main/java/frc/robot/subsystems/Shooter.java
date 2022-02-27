@@ -64,6 +64,8 @@ public class Shooter extends SubsystemBase {
 
       // Sets 39 amp limit on motor
       this.m_shooterMotor.setSmartCurrentLimit(39);
+      this.m_shooterAngleMotor.setSmartCurrentLimit(39);
+      this.m_shooterFeeder.setSmartCurrentLimit(39);
 
       this.m_shootPID.setIZone(0.0);
       this.m_shootPID.setOutputRange(-1.0, 1.0);

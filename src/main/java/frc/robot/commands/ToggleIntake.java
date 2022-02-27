@@ -23,10 +23,10 @@ public class ToggleIntake extends CommandBase {
         this.m_timestamp = Timer.getFPGATimestamp();
         if (Robot.intake.getIntakeMotorState() == Intake.IntakeMotorState.OFF) {
             Robot.intake.setMotorState(Intake.IntakeMotorState.ON);
-            isDone = false;
+            this.isDone = false;
         } else {
             Robot.intake.setMotorState(Intake.IntakeMotorState.OFF);
-            isDone = true;
+            this.isDone = true;
         }
     }
 
@@ -35,7 +35,7 @@ public class ToggleIntake extends CommandBase {
         SmartDashboard.putBoolean("Intake Sensor", Robot.intake.getSensorOneState());
         if (Robot.intake.getSensorOneState() == true) {
             Robot.intake.setMotorState(Intake.IntakeMotorState.OFF);
-            isDone = true;
+            this.isDone = true;
        } 
     }
 
@@ -55,6 +55,6 @@ public class ToggleIntake extends CommandBase {
             this.isDone = true;
         }
 
-        return isDone;
+        return this.isDone;
     }
 }

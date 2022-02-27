@@ -19,6 +19,7 @@ public class AutoShoot extends CommandBase {
     private double m_timestamp;
 
     private double endTime;
+    private double middleTime;
 
     double cycleTime = Timer.getFPGATimestamp() - m_timestamp;
 
@@ -38,6 +39,7 @@ public class AutoShoot extends CommandBase {
         // Set start timestamp
         this.m_timestamp = Timer.getFPGATimestamp();
         this.endTime = Timer.getFPGATimestamp();
+        this.middleTime = Timer.getFPGATimestamp();
         
         // Set finished to false
         this.m_finished = false;
@@ -59,7 +61,7 @@ public class AutoShoot extends CommandBase {
         this.shooter.turnToAngle(this.shooter.setShooterAngle(ShooterTargeting.findZ()));
 
         // Start spinning up shooter
-        if (Timer.getFPGATimestamp() - this.endTime >= 0.5 && ShooterTargeting.findZ() > .1) {
+        if (Timer.getFPGATimestamp() - this.endTime >= 0.5 && ShooterTargeting.findZ() > .01) {
             this.shooter.enableShooter(ShooterTargeting.findZ());
         }
 
@@ -67,7 +69,7 @@ public class AutoShoot extends CommandBase {
             SmartDashboard.putNumber("Cycle Time", cycleTime);
         }
     
-        if(this.shooter.atAngle() == true && this.shooter.atSetpoint() == true) {
+        if(this.shooter.atAngle() == true && this.shooter.atSetpoint() == true && Timer.getFPGATimestamp() - this.middleTime >= 3.0) {
             this.shooter.enableFeeder();
 
             if (this.setEndTimer == false) {
@@ -75,7 +77,7 @@ public class AutoShoot extends CommandBase {
                 this.endTime = Timer.getFPGATimestamp();
             }
 
-            if (this.shooter.getSensorBallState() == false && Timer.getFPGATimestamp() - this.endTime >= 1) {
+            if (this.shooter.getSensorBallState() == false && Timer.getFPGATimestamp() - this.endTime >= 2.0) {
                 this.m_finished = true;
             }
         }
@@ -91,7 +93,7 @@ public class AutoShoot extends CommandBase {
     @Override
     public boolean isFinished() {
         // End if command takes longer than 15 seconds or finished firing
-        // return Timer.getFPGATimestamp() - this.m_timestamp >= 15.0 || this.m_finished;
-        return false;
+        return Timer.getFPGATimestamp() - this.m_timestamp >= 15.0 || this.m_finished;
+        //return false;
     }
 }

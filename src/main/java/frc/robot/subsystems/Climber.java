@@ -37,6 +37,9 @@ public class Climber extends SubsystemBase {
 
     // Set amps on secondary angles to follow primary angles
     this.m_climberAngleTwo.follow(this.m_climberAngleOne);
+
+    this.m_climberAngleOne.setSmartCurrentLimit(39);
+    this.m_climberAngleTwo.setSmartCurrentLimit(39);
   }
 
   public CANSparkMax getAngleMotor() {

@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.commands.Autonomous;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -30,7 +31,8 @@ public class RobotContainer {
   public DriveTrain drivetrain = new DriveTrain(this.joy);
   public Dashboard dashboard = new Dashboard(this);
 
-  public Command m_autoShootCommand;
+  public Command m_autoCommand;
+  public Command m_autoShoot;
 
   //* Driver Controller
   public Joystick joy = new Joystick(0);
@@ -65,7 +67,8 @@ public class RobotContainer {
       configureButtonBindingsClimb();
     }
 
-    this.m_autoShootCommand = new AutoShoot(Robot.shooter, Robot.limelight);
+    this.m_autoCommand = new Autonomous(this);
+    this.m_autoShoot = new AutoShoot(Robot.shooter, Robot.limelight);
   }
 
   private void configureButtonBindings() {
@@ -80,10 +83,10 @@ public class RobotContainer {
     this.a_button.whenPressed(new InstantCommand() {
       @Override
       public void initialize() {
-        if (m_autoShootCommand.isScheduled()) {
-          m_autoShootCommand.cancel();
+        if (m_autoShoot.isScheduled()) {
+          m_autoShoot.cancel();
         } else {
-          m_autoShootCommand.schedule();
+          m_autoShoot.schedule();
         }
       }
     });
@@ -99,7 +102,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return this.m_autoShootCommand;
+    return this.m_autoCommand;
   }
 }
 

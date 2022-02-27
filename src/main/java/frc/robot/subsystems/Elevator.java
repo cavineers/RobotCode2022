@@ -29,6 +29,9 @@ public class Elevator extends SubsystemBase {
         this.m_climberElevatorTwo.setIdleMode(IdleMode.kBrake);
 
         this.m_climberElevatorTwo.follow(this.m_climberElevatorOne);
+
+        this.m_climberElevatorOne.setSmartCurrentLimit(39);
+        this.m_climberElevatorTwo.setSmartCurrentLimit(39);
     }
 
 
