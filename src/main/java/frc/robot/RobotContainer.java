@@ -32,7 +32,8 @@ public class RobotContainer {
 
   public Command m_autoCommand;
   public Command m_autoShoot;
-  public Command m_intakeCommand;
+  public Command m_lowerIntake;
+  public Command m_toggleIntake;
 
   //* Driver Controller
   public Joystick joy = new Joystick(0);
@@ -69,6 +70,8 @@ public class RobotContainer {
 
     this.m_autoCommand = new Autonomous(this);
     this.m_autoShoot = new AutoShoot(Robot.shooter, Robot.limelight);
+    this.m_lowerIntake = new LowerIntake();
+    this.m_toggleIntake = new ToggleIntake();
   }
 
   private void configureButtonBindings() {

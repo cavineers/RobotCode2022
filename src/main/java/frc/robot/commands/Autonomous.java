@@ -20,39 +20,45 @@ public class Autonomous extends CommandBase {
 
     @Override
     public void execute() { 
-//Drives forward for 3 seconds and enables shooter/stops and disables shooter
+//Drives backwards for 5 seconds and enables shooter/stops and disables shooter
         if(this.startTime >= 0){
             this.rc.drivetrain.drive(-0.3, 0, true);
             // enable shooter
-            this.rc.m_autoShoot.execute();
-        } else if (this.startTime <= 0.3){
+            this.rc.m_autoShoot.schedule();
+        } else if (this.startTime <= 5){
             this.rc.drivetrain.drive(0, 0, true);
             //disable shooter
-            this.rc.m_autoShoot.end(true);
+            this.rc.m_autoShoot.cancel();
         }
-
 //Go to closest (teams) cargo, toggle intake ON, enable shooter
-        if(this.startTime >= 3.005){
-            this.rc.drivetrain.drive(0, 0, true); //TODO change the values in .drive() to turn
-        } else if (this.startTime <= 3.01){
+        if(this.startTime >= 6){
+            this.rc.drivetrain.drive(0, 0, true); 
+        } else if (this.startTime <= 6.5){
             this.rc.drivetrain.drive(0, 0, true);
         }
-        if(this.startTime >= 0.4){
-            this.rc.drivetrain.drive(0, 0.1, true);//Turns 
-            //this.rc.drivetrain.drive(0, -0.1, true);//Turns 
-        } else if (this.startTime <= 0.45){
+        if(this.startTime >= 7.5){
+            this.rc.drivetrain.drive(0, 0.1, true);//Turns right
+            //this.rc.drivetrain.drive(0, -0.1, true);//Turns left
+        } else if (this.startTime <= 8){
             this.rc.drivetrain.drive(0, 0, true);
         }
-        
-        if (this.startTime >= 0.45){
+        if (this.startTime >= 8.5){
             this.rc.drivetrain.drive(-0.3, 0, true);
-        } else if (this.startTime <= 0.5){
+        } else if (this.startTime <= 10){
             this.rc.drivetrain.drive(0, 0, true);
-            this.rc.m_intakeCommand.execute();
-        } else if(this.startTime >= 0.6){
-            //TODO toggle intake off
-            this.rc.m_intakeCommand.end(true);
+            this.rc.m_lowerIntake.schedule();
+            this.rc.m_toggleIntake.schedule();
+        } else if(this.startTime >= 11){
+            this.rc.m_lowerIntake.cancel();
+            this.rc.m_toggleIntake.cancel();
         }
+        if (this.startTime >= 13){
+            this.rc.m_autoShoot.schedule();
+        } else if (this.startTime >= 14){
+            this.rc.m_autoShoot.cancel();
+        }
+       // if all else fail (Fnaf.Lore.explain){
+
     }
 
     @Override
@@ -62,6 +68,6 @@ public class Autonomous extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return (Timer.getFPGATimestamp()-this.startTime > 1.5);
+        return (Timer.getFPGATimestamp()-this.startTime > 15);
     }
 }
