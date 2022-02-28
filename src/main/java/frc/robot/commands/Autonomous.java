@@ -48,9 +48,10 @@ public class Autonomous extends CommandBase {
             this.rc.drivetrain.drive(-0.3, 0, true);
         } else if (this.startTime <= 0.5){
             this.rc.drivetrain.drive(0, 0, true);
-            //TODO toggle intake on
+            this.rc.m_intakeCommand.execute();
         } else if(this.startTime >= 0.6){
             //TODO toggle intake off
+            this.rc.m_intakeCommand.end();
         }
     }
 
