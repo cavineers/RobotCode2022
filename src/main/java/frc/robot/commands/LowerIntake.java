@@ -1,5 +1,6 @@
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
@@ -15,22 +16,23 @@ public class LowerIntake extends CommandBase {
     // Set Motor State to ON / OFF
     @Override
     public void initialize() {
-        Robot.intake.setDropMotorState(Intake.IntakeMotorState.OFF);
+        Robot.intake.setDropMotorState(Intake.IntakeDropMotorState.OFF);
     }
 
     @Override
     public void execute() {
+        SmartDashboard.putNumber("Intake Position", (Robot.intake.getDropMotor().getEncoder().getPosition()));
         if (Robot.intake.getDropMotor().getEncoder().getPosition() > Constants.Intake.RevolutionsToLower) {
-            Robot.intake.setDropMotorState(Intake.IntakeMotorState.ON);
-        } else if (Robot.intake.getDropMotor().getEncoder().getPosition() < Constants.Intake.RevolutionsToLower) {
+            Robot.intake.setDropMotorState(Intake.IntakeDropMotorState.ON);
+        } else if (Robot.intake.getDropMotor().getEncoder().getPosition() <= Constants.Intake.RevolutionsToLower) {
             this.inPosition = true;
-            Robot.intake.setMotorState(Intake.IntakeMotorState.OFF);
+            Robot.intake.setDropMotorState(Intake.IntakeDropMotorState.OFF);
         }
     }
 
     @Override
     public void end(boolean interrupted) {
-        Robot.intake.setMotorState(Intake.IntakeMotorState.OFF);
+        Robot.intake.setDropMotorState(Intake.IntakeDropMotorState.OFF);
     }
 
     @Override

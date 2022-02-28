@@ -55,17 +55,20 @@ public class Shooter extends SubsystemBase {
     //private SparkMaxPIDController m_pidController = m_shooterMotor.getPIDController();
     //private PIDController m_pidController = new PIDController(Constants.Shooter.kP, Constants.Shooter.kI, Constants.Shooter.kD);
 
-    private double lengthZ = ShooterTargeting.findZ();
-
-
     public Shooter() {
       this.m_shooterMotor.restoreFactoryDefaults();
 
       // Sets motor to coast mode
       this.m_shooterMotor.setIdleMode(IdleMode.kCoast);
+      this.m_shooterAngleMotor.setIdleMode(IdleMode.kBrake);
 
       // Sets 39 amp limit on motor
       this.m_shooterMotor.setSmartCurrentLimit(39);
+      this.m_shooterAngleMotor.setSmartCurrentLimit(39);
+      this.m_shooterFeeder.setSmartCurrentLimit(39);
+
+      this.m_shootPID.setIZone(0.0);
+      this.m_shootPID.setOutputRange(-1.0, 1.0);
     }
 
     public enum ShooterStatus {
@@ -92,7 +95,7 @@ public class Shooter extends SubsystemBase {
     public ShooterAngle setShooterAngle(double z) {
       if (z >= 6) {
         return ShooterAngle.LOW;
-      } else if ((z < 6) && (z > 3)) {
+      } else if ((z <= 6) && (z >= 3)) {
         return ShooterAngle.MEDIUM;
       } else {
         return ShooterAngle.HIGH;
@@ -111,9 +114,9 @@ public class Shooter extends SubsystemBase {
           currentAngle = Constants.Shooter.shooterAngleLow;
           this.currentAngleSetpoint = (currentAngle / Constants.Shooter.degreesPerRevolution);
           if (getCurrentAngleMotorPosition() < currentAngleSetpoint - 2) {
-            this.m_shooterAngleMotor.set(.1);
+            this.m_shooterAngleMotor.set(.05);
           } else if (getCurrentAngleMotorPosition() > currentAngleSetpoint + 2) {
-            this.m_shooterAngleMotor.set(-.1);
+            this.m_shooterAngleMotor.set(-.05);
           } else {
             this.m_shooterAngleMotor.set(0);
             isPositioned = true;
@@ -122,9 +125,9 @@ public class Shooter extends SubsystemBase {
           currentAngle = Constants.Shooter.shooterAngleMedium;
           this.currentAngleSetpoint = (currentAngle / Constants.Shooter.degreesPerRevolution);
           if (getCurrentAngleMotorPosition() < currentAngleSetpoint - 2) {
-            this.m_shooterAngleMotor.set(.1);
+            this.m_shooterAngleMotor.set(.05);
           } else if (getCurrentAngleMotorPosition() > currentAngleSetpoint + 2) {
-            this.m_shooterAngleMotor.set(-.1);
+            this.m_shooterAngleMotor.set(-.05);
           } else {
             this.m_shooterAngleMotor.set(0);
             isPositioned = true;
@@ -133,9 +136,9 @@ public class Shooter extends SubsystemBase {
           currentAngle = Constants.Shooter.shooterAngleHigh;
           this.currentAngleSetpoint = (currentAngle / Constants.Shooter.degreesPerRevolution);
           if (getCurrentAngleMotorPosition() < currentAngleSetpoint - 2) {
-            this.m_shooterAngleMotor.set(.1);
+            this.m_shooterAngleMotor.set(.05);
           } else if (getCurrentAngleMotorPosition() > currentAngleSetpoint + 2) {
-            this.m_shooterAngleMotor.set(-.1);
+            this.m_shooterAngleMotor.set(-.05);
           } else {
             this.m_shooterAngleMotor.set(0);
             isPositioned = true;
@@ -158,8 +161,7 @@ public class Shooter extends SubsystemBase {
 
     public void disableShooter() {
       this.m_shooterState = ShooterStatus.DISABLED;
-      // this.setSpeed(0.0);
-      this.m_shooterMotor.set(0.0);
+      this.setSpeed(0.0);
     }
 
     public ShooterStatus getCurrentState() {
@@ -177,7 +179,7 @@ public class Shooter extends SubsystemBase {
 
     // Returns true of the shooter motor is at it's target setpoint
     public boolean atSetpoint() {
-      return (Math.abs(this.getCurrentSpeedSetpoint() - Math.abs(this.m_shootEncoder.getVelocity())) < 120);
+      return (Math.abs(this.getCurrentSpeedSetpoint() - Math.abs(this.m_shootEncoder.getVelocity())) < 50);
     }
 
     public boolean atAngle() {
@@ -206,7 +208,7 @@ public class Shooter extends SubsystemBase {
 
     @Override
     public void periodic() {
-      this.m_shootPID.setReference(this.getCurrentSpeedSetpoint(), ControlType.kVelocity);
+      this.m_shootPID.setReference(this.getCurrentSpeedSetpoint(), CANSparkMax.ControlType.kVelocity);
 
       this.m_shootPID.setP(Constants.Shooter.kP);
       this.m_shootPID.setI(Constants.Shooter.kI);

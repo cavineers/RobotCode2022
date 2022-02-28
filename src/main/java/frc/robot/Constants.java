@@ -39,11 +39,11 @@ public final class Constants {
     public static class Targeting {
         // TODO Update these values
         public static double kFieldGoalHeightFromGroundIn = 69; // Math constants 104
-        public static double kLimelightHeightFromGroundIn = 37; // vertical distance from limelight to ground
+        public static double kLimelightHeightFromGroundIn = 40; // vertical distance from limelight to ground
     
         public static double kFieldGoalHeightFromGround = Units.inchesToMeters(kFieldGoalHeightFromGroundIn); // Math constants
         public static double kLimelightHeightFromGround = Units.inchesToMeters(kLimelightHeightFromGroundIn); // vertical distance from limelight to ground
-        public static double kLimelightMountingAngle    = 20; // Angle Mounted on Robot
+        public static double kLimelightMountingAngle    = 25; // Angle Mounted on Robot 20.1
     }
 
     public static class Shooter {
@@ -65,10 +65,10 @@ public final class Constants {
 
         public static double flywheelRadius = .0508; //checked with shooter, 2 in = .0508 m
 
-        public static double kP = 0.00095; //.00095; Proportional
-        public static double kI = 0.0000001; //0.0; Integral
-        public static double kD = 0.0095; //0.009; Derivative
-        public static double kF = 0.00015; // 0.00015; Feed Forwar
+        public static double kP = 0.00072; //.0008; Proportional
+        public static double kI = 0.0; //0.0; Integral
+        public static double kD = 0.02; //0.009; Derivative
+        public static double kF = 0.00017; // 0.00017; Feed Forward
     }
 
     public static class Intake {
@@ -78,8 +78,8 @@ public final class Constants {
         public static double IntakeSpeed = 0.1; // Intake motor speed (-1.0 -- 1.0)
         public static double IntakeSpeedRev = -0.1; // Intake reverse speed
 
-        public static double DropSpeed = 0.2;
-        public static double LiftSpeed = -0.2;
+        public static double DropSpeed = -0.2;
+        public static double LiftSpeed = 0.2;
 
         public static double RevolutionsToLower = -20;
     }

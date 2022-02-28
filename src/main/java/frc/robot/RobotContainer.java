@@ -5,7 +5,11 @@
 package frc.robot;
 
 import frc.robot.commands.AutoShoot;
+import frc.robot.commands.LowerIntake;
+import frc.robot.commands.RaiseIntake;
 import frc.robot.commands.SwitchMode;
+import frc.robot.commands.ToggleIntake;
+import frc.robot.commands.ToggleReverseIntake;
 import frc.robot.commands.homing.HomeAngle;
 import frc.robot.commands.homing.HomeElevator;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -15,6 +19,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.commands.Autonomous;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -26,7 +31,8 @@ public class RobotContainer {
   public DriveTrain drivetrain = new DriveTrain(this.joy);
   public Dashboard dashboard = new Dashboard(this);
 
-  public Command m_autoShootCommand;
+  public Command m_autoCommand;
+  public Command m_autoShoot;
 
   //* Driver Controller
   public Joystick joy = new Joystick(0);
@@ -61,21 +67,26 @@ public class RobotContainer {
       configureButtonBindingsClimb();
     }
 
-    this.m_autoShootCommand = new AutoShoot(Robot.shooter, Robot.limelight);
+    this.m_autoCommand = new Autonomous(this);
+    this.m_autoShoot = new AutoShoot(Robot.shooter, Robot.limelight);
   }
 
   private void configureButtonBindings() {
     this.right_menu.whenPressed(new ParallelCommandGroup(new HomeAngle(), new HomeElevator()));
     this.povUp.whenPressed(new SwitchMode(this));
+    this.b_button.whenPressed(new ToggleIntake());
+    this.x_button.whenPressed(new LowerIntake());
+    this.y_button.whenPressed(new RaiseIntake());
+    this.right_menu.whenPressed(new ToggleReverseIntake());
 
     //Shoot
     this.a_button.whenPressed(new InstantCommand() {
       @Override
       public void initialize() {
-        if (m_autoShootCommand.isScheduled()) {
-          m_autoShootCommand.cancel();
+        if (m_autoShoot.isScheduled()) {
+          m_autoShoot.cancel();
         } else {
-          m_autoShootCommand.schedule();
+          m_autoShoot.schedule();
         }
       }
     });
@@ -91,7 +102,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return this.m_autoShootCommand;
+    return this.m_autoCommand;
   }
 }
 
