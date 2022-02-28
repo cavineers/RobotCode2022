@@ -24,11 +24,11 @@ public class Autonomous extends CommandBase {
         if(this.startTime >= 0){
             this.rc.drivetrain.drive(-0.3, 0, true);
             // enable shooter
-            this.rc.m_autoShootCommand.execute();
+            this.rc.m_autoShoot.execute();
         } else if (this.startTime <= 0.3){
             this.rc.drivetrain.drive(0, 0, true);
             //disable shooter
-            this.rc.m_autoShootCommand.end(true);
+            this.rc.m_autoShoot.end(true);
         }
 
 //Go to closest (teams) cargo, toggle intake ON, enable shooter
@@ -51,7 +51,7 @@ public class Autonomous extends CommandBase {
             this.rc.m_intakeCommand.execute();
         } else if(this.startTime >= 0.6){
             //TODO toggle intake off
-            this.rc.m_intakeCommand.end();
+            this.rc.m_intakeCommand.end(true);
         }
     }
 

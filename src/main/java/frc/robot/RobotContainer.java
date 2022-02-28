@@ -6,7 +6,6 @@ package frc.robot;
 
 import frc.robot.commands.AutoShoot;
 import frc.robot.commands.LowerIntake;
-import frc.robot.commands.RaiseIntake;
 import frc.robot.commands.SwitchMode;
 import frc.robot.commands.ToggleIntake;
 import frc.robot.commands.ToggleReverseIntake;
@@ -33,6 +32,7 @@ public class RobotContainer {
 
   public Command m_autoCommand;
   public Command m_autoShoot;
+  public Command m_intakeCommand;
 
   //* Driver Controller
   public Joystick joy = new Joystick(0);
@@ -76,7 +76,6 @@ public class RobotContainer {
     this.povUp.whenPressed(new SwitchMode(this));
     this.b_button.whenPressed(new ToggleIntake());
     this.x_button.whenPressed(new LowerIntake());
-    this.y_button.whenPressed(new RaiseIntake());
     this.right_menu.whenPressed(new ToggleReverseIntake());
 
     //Shoot
