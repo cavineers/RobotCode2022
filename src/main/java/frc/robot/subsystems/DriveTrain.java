@@ -26,7 +26,7 @@ public class DriveTrain extends SubsystemBase {
 
   public DriveTrain(Joystick joy) {
     // Create a new drivetrain with primary motors
-    this.differentialDrive = new DifferentialDrive(left1, right1);
+    this.differentialDrive = new DifferentialDrive(this.left1, this.right1);
 
     // Reset all of the motors to default settings
     this.left1.restoreFactoryDefaults();

@@ -23,8 +23,8 @@ public class TeleopDrive extends CommandBase {
     @Override
     public void execute() {
         // Get the joystick to drive forward and turn the robot
-        double steer = -DriveMotion.add(this.joystick.getRawAxis(4), 0.05);
-        double drive = DriveMotion.add(this.joystick.getRawAxis(1), 0.05);
+        double drive = -DriveMotion.add(this.joystick.getRawAxis(4), 0.05);
+        double steer = DriveMotion.add(this.joystick.getRawAxis(1), 0.05);
 
         this.driveTrain.drive(drive, steer, true);
     }
