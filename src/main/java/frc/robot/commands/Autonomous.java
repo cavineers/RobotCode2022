@@ -15,45 +15,42 @@ public class Autonomous extends CommandBase {
     }
 
     @Override
-    public void initialize() {
-        this.startTime = Timer.getFPGATimestamp();
-    }
+    public void initialize() {}
 
     @Override
     public void execute() { 
-        if(this.startTime >= 0){
-            this.rc.drivetrain.drive(-0.3, 0, true);
-            this.rc.m_autoShoot.execute();
-        } else if (this.startTime <= 3){
-            this.rc.drivetrain.drive(0, 0, true);
-            this.rc.m_autoShoot.end(true);
-        }
+        this.startTime = Timer.getFPGATimestamp();
 
-        if(this.startTime >= 3.05){
-            this.rc.drivetrain.drive(0, 0, true); 
-        } else if (this.startTime <= 3.5){
+        if(this.startTime >= 1 && this.startTime < 3){
+            this.rc.drivetrain.drive(-0.3, 0, true);
+            this.rc.m_autoShoot.schedule();
+        } else if (this.startTime >= 3 && this.startTime < 3.05){
+            this.rc.drivetrain.drive(0, 0, true);
+            this.rc.m_autoShoot.cancel(); 
+        } else if (this.startTime <= 3.05 && this.startTime < 5){
             this.rc.drivetrain.drive(0.3, 0, true);
-        }
-        if(this.startTime >= 4){
+        } else if(this.startTime >= 5 && this.startTime < 7){
             this.rc.drivetrain.drive(0, 0.1, true);// Turns Right
             //this.rc.drivetrain.drive(0, -0.1, true);//Turns Left 
-        } else if (this.startTime <= 4.5){
+        } else if (this.startTime <= 7 && this.startTime < 7.5){
             this.rc.drivetrain.drive(0, 0, true);
-        }
-        
-        if (this.startTime >= 5){
+        } else if (this.startTime >= 7.5 && this.startTime < 9){
             this.rc.drivetrain.drive(-0.3, 0, true);
-        } else if (this.startTime <= 0.5){
+        } else if (this.startTime <= 9 && this.startTime < 9.5){
             this.rc.drivetrain.drive(0, 0, true);
             this.rc.m_lowerIntake.schedule();
             this.rc.m_toggleIntake.schedule();
-
-        } else if(this.startTime >= 6){
-        this.rc.m_toggleIntake.cancel();
-        this.rc.drivetrain.drive(-0.3, 0, true);
-        this.rc.m_autoShoot.schedule();
+        } else if(this.startTime >= 9.5 && this.startTime < 13){
+            this.rc.m_toggleIntake.cancel();
+            this.rc.drivetrain.drive(-0.3, 0, true);
+            this.rc.m_autoShoot.schedule();
+        } else if(this.startTime == 15){
+            this.rc.drivetrain.drive(0, 0, true);
+            this.rc.m_autoShoot.cancel();
+            this.rc.m_toggleIntake.cancel();
         }
     }
+
 
     @Override
     public void end(boolean interrupted) {
@@ -65,6 +62,6 @@ public class Autonomous extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return (Timer.getFPGATimestamp()-this.startTime > 1.5);
+        return (Timer.getFPGATimestamp()-this.startTime > 15);
     }
 }
