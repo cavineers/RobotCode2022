@@ -37,7 +37,7 @@ public class Shooter extends SubsystemBase {
     // See the shooter to disabled by default
     private ShooterStatus m_shooterState = ShooterStatus.DISABLED;
 
-    private FeederStatus m_feederState = FeederStatus.DISABLED;
+    public FeederStatus feederState = FeederStatus.DISABLED;
  
     // Shooter systems setpoint speed (setpoint in RPM)
     private double m_speedSetpoint = 0;
@@ -78,7 +78,8 @@ public class Shooter extends SubsystemBase {
 
     public enum FeederStatus {
       ENABLED,
-      DISABLED
+      DISABLED,
+      REVERSED
     }
     
     //Enum for shooter angle
@@ -192,14 +193,19 @@ public class Shooter extends SubsystemBase {
 
     public void enableFeeder(){
       if(getSensorBallState() == true) {
-        this.m_feederState = FeederStatus.ENABLED;
+        this.feederState = FeederStatus.ENABLED;
         this.m_shooterFeeder.set(.1);
       }
     }
 
     public void disableFeeder(){
-      this.m_shooterState = ShooterStatus.DISABLED;
+      this.feederState = FeederStatus.DISABLED;
       this.m_shooterFeeder.set(0);
+    }
+
+    public void reverseFeeder(){
+      this.feederState = FeederStatus.REVERSED;
+      this.m_shooterFeeder.set(-0.1);
     }
 
     public double getShooterMotorPosition() {
