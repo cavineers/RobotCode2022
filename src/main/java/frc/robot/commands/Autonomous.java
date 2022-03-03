@@ -21,29 +21,30 @@ public class Autonomous extends CommandBase {
     public void execute() { 
         this.startTime = Timer.getFPGATimestamp();
 
-        if(this.startTime >= 1 && this.startTime < 3){
+        if(this.startTime < 3){
             this.rc.drivetrain.drive(-0.3, 0, true);
-            this.rc.m_autoShoot.schedule();
         } else if (this.startTime >= 3 && this.startTime < 3.05){
             this.rc.drivetrain.drive(0, 0, true);
+            this.rc.m_autoShoot.schedule();
+        } else if (this.startTime >= 3.05 && this.startTime < 5){
             this.rc.m_autoShoot.cancel(); 
-        } else if (this.startTime <= 3.05 && this.startTime < 5){
-            this.rc.drivetrain.drive(0.3, 0, true);
         } else if(this.startTime >= 5 && this.startTime < 7){
+            //Change these based on where we are placed at start of match
             this.rc.drivetrain.drive(0, 0.1, true);// Turns Right
-            //this.rc.drivetrain.drive(0, -0.1, true);//Turns Left 
-        } else if (this.startTime <= 7 && this.startTime < 7.5){
-            this.rc.drivetrain.drive(0, 0, true);
+            //this.rc.drivetrain.drive(0, -0.1, true);//Turns Left
+            //this.rc.drivetrain.drive(-0.3, 0, true); //Drive  
+        } else if (this.startTime >= 7 && this.startTime < 7.5){
+            this.rc.drivetrain.drive(0.3, 0, true);
         } else if (this.startTime >= 7.5 && this.startTime < 9){
-            this.rc.drivetrain.drive(-0.3, 0, true);
-        } else if (this.startTime <= 9 && this.startTime < 9.5){
             this.rc.drivetrain.drive(0, 0, true);
             this.rc.m_lowerIntake.schedule();
             this.rc.m_toggleIntake.schedule();
-        } else if(this.startTime >= 9.5 && this.startTime < 13){
+        } else if(this.startTime >= 9 && this.startTime < 11){
             this.rc.m_toggleIntake.cancel();
             this.rc.drivetrain.drive(-0.3, 0, true);
             this.rc.m_autoShoot.schedule();
+        } else if (this.startTime >= 11.5 && this.startTime < 13){
+            this.rc.m_autoShoot.cancel();
         } else if(this.startTime == 15){
             this.rc.drivetrain.drive(0, 0, true);
             this.rc.m_autoShoot.cancel();
