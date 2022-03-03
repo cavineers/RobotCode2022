@@ -13,9 +13,11 @@ import frc.robot.commands.ToggleIntake;
 import frc.robot.commands.ToggleReverseIntake;
 import frc.robot.commands.homing.HomeAngle;
 import frc.robot.commands.homing.HomeElevator;
+import frc.robot.commands.homing.HomeShooter;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
@@ -33,7 +35,7 @@ public class RobotContainer {
   public Dashboard dashboard = new Dashboard(this);
 
   public Command m_autoCommand;
-  public Command m_autoShoot;
+  public SequentialCommandGroup m_autoShoot;
 
   //* Driver Controller
   public Joystick joy = new Joystick(0);
@@ -69,7 +71,7 @@ public class RobotContainer {
     }
 
     this.m_autoCommand = new Autonomous(this);
-    this.m_autoShoot = new AutoShoot(Robot.shooter, Robot.limelight);
+    this.m_autoShoot = new SequentialCommandGroup(new AutoShoot(Robot.shooter, Robot.limelight), new HomeShooter());
   }
 
   private void configureButtonBindings() {
@@ -107,4 +109,3 @@ public class RobotContainer {
     return this.m_autoCommand;
   }
 }
-

@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.lib.ShooterTargeting;
 import frc.robot.Constants;
 import frc.robot.Limelight;
+import frc.robot.Robot;
 import frc.robot.Limelight.LedMode;
 import frc.robot.subsystems.Shooter;
 
@@ -29,7 +30,7 @@ public class AutoShoot extends CommandBase {
 
     public AutoShoot(Shooter shoot, Limelight limelight) {
         // Add requirements for shooter and limelight systems
-        this.addRequirements(shoot);
+        this.addRequirements(Robot.shooter);
         this.shooter = shoot;
         this.limelight = limelight;
     }
