@@ -53,14 +53,14 @@ public final class Constants {
         public static int ShooterAngle = CANIds.ShooterAngle;
         public static int ShooterFeeder = CANIds.ShooterFeeder;
 
-        public static double shooterAngleLow = 44;
-        public static double shooterAngleMedium = 63;
-        public static double shooterAngleHigh = 84;
+        public static double shooterAngleLow = 90 - 44;
+        public static double shooterAngleMedium = 90 - 63;
+        public static double shooterAngleHigh = 90 - 84;
 
         public static double shooterHeight = Units.inchesToMeters(38); // 12.4
 
         //TODO Check values with shooter sub-team
-        public static double degreesPerRevolution = 1.8; //27.78 revolutions = 50 degrees, 1:5 for flywheel
+        public static double degreesPerRevolution = 1.3; //27.78 revolutions = 50 degrees, 1:5 for flywheel
         public static double flywheelRotationsPerRevolution = .2;
 
         public static double flywheelRadius = .0508; //checked with shooter, 2 in = .0508 m
