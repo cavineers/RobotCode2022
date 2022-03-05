@@ -60,7 +60,7 @@ public final class Constants {
         public static double shooterHeight = Units.inchesToMeters(38); // 12.4
 
         //TODO Check values with shooter sub-team
-        public static double degreesPerRevolution = 1.3; //27.78 revolutions = 50 degrees, 1:5 for flywheel
+        public static double degreesPerRevolution = 1.625;
         public static double flywheelRotationsPerRevolution = .2;
 
         public static double flywheelRadius = .0508; //checked with shooter, 2 in = .0508 m
