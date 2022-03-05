@@ -18,7 +18,6 @@ public class AutoShoot extends CommandBase {
 
     // Timestamp
     private double m_timestamp;
-
     private double endTime;
     private double middleTime;
 
@@ -56,45 +55,47 @@ public class AutoShoot extends CommandBase {
         SmartDashboard.putNumber("ActiveSpeed", this.shooter.m_shooterMotor.getEncoder().getVelocity());
         SmartDashboard.putBoolean("IR SENSOR", this.shooter.getSensorBallState());
         SmartDashboard.putBoolean("Shooter Ready", (this.shooter.atAngle() == true && this.shooter.atSetpoint() == true));
-        
+        SmartDashboard.putString("Setpoint of Angle", this.shooter.setShooterAngle(ShooterTargeting.findZ()).toString());
+
 
         // Move the angle of the Shooter
         this.shooter.turnToAngle(this.shooter.setShooterAngle(ShooterTargeting.findZ()));
 
         // Start spinning up shooter
-        // if (Timer.getFPGATimestamp() - this.endTime >= 0.5 && ShooterTargeting.findZ() > .01) {
-        //     this.shooter.enableShooter(ShooterTargeting.findZ());
-        // }
+        if (Timer.getFPGATimestamp() - this.endTime >= 0.5 && ShooterTargeting.findZ() > .1) {
+            this.shooter.enableShooter(ShooterTargeting.findZ());
+        }
 
-        // if (this.shooter.atSetpoint() == true) {
-        //     SmartDashboard.putNumber("Cycle Time", cycleTime);
-        // }
+        if (this.shooter.atSetpoint() == true) {
+            SmartDashboard.putNumber("Cycle Time", cycleTime);
+        }
     
-        // if(this.shooter.atAngle() == true && this.shooter.atSetpoint() == true && Timer.getFPGATimestamp() - this.middleTime >= 3.0) {
-        //     this.shooter.enableFeeder();
+        if(this.shooter.atAngle() == true && this.shooter.atSetpoint() == true && Timer.getFPGATimestamp() - this.middleTime >= 3.0) {
+            this.shooter.enableFeeder();
 
-        //     if (this.setEndTimer == false) {
-        //         this.setEndTimer = true;
-        //         this.endTime = Timer.getFPGATimestamp();
-        //     }
+            if (this.setEndTimer == false) {
+                this.setEndTimer = true;
+                this.endTime = Timer.getFPGATimestamp();
+            }
 
-        //     if (this.shooter.getSensorBallState() == false && Timer.getFPGATimestamp() - this.endTime >= 2.0) {
-        //         this.m_finished = true;
-        //     }
-        // }
+            if (this.shooter.getSensorBallState() == false && Timer.getFPGATimestamp() - this.endTime >= 2.0) {
+                this.m_finished = true;
+            }
+        }
     }
 
     @Override
     public void end(boolean interrupted) {
-        // shooter.disableShooter();
-        // shooter.disableFeeder();
+        shooter.disableShooter();
+        shooter.disableFeeder();
+        shooter.resetPosition();
         this.limelight.setLightMode(LedMode.OFF);
     }
 
     @Override
     public boolean isFinished() {
-        // End if command takes longer than 15 seconds or finished firing
-        // return Timer.getFPGATimestamp() - this.m_timestamp >= 15.0 || this.m_finished;
-        return false;
+        // End if command takes longer than 10 seconds or finished firing
+        return Timer.getFPGATimestamp() - this.m_timestamp >= 10.0 || this.m_finished;
+        // return false;
     }
 }

@@ -5,7 +5,6 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-import com.revrobotics.CANSparkMax.ControlType;
 import com.revrobotics.CANSparkMax.IdleMode;
 import frc.lib.ShooterTargeting;
 import frc.robot.Constants;
@@ -60,7 +59,12 @@ public class Shooter extends SubsystemBase {
 
       // Sets motor to coast mode
       this.m_shooterMotor.setIdleMode(IdleMode.kCoast);
+      this.m_shooterFeeder.setIdleMode(IdleMode.kCoast);
       this.m_shooterAngleMotor.setIdleMode(IdleMode.kBrake);
+
+      this.m_shooterMotor.setInverted(true);
+      this.m_shooterFeeder.setInverted(true);
+      this.m_shooterAngleMotor.setInverted(true);
 
       // Sets 39 amp limit on motor
       this.m_shooterMotor.setSmartCurrentLimit(39);
@@ -71,75 +75,84 @@ public class Shooter extends SubsystemBase {
       this.m_shootPID.setOutputRange(-1.0, 1.0);
     }
 
+    // Enum for shooter status
     public enum ShooterStatus {
       ENABLED,
       DISABLED
     }
 
+    // Enum for feeder status
     public enum FeederStatus {
       ENABLED,
       DISABLED,
       REVERSED
     }
     
-    //Enum for shooter angle
+    // Enum for shooter angle
     public enum ShooterAngle {
       HIGH,
       LOW,
       MEDIUM
     }
 
+    // Returns true if the sensor is tripped and ball is in holding
     public boolean getSensorBallState() {
       return !m_sensorBall.get();
     }
 
+    // Returns which angle constant is set
     public ShooterAngle setShooterAngle(double z) {
       if (z >= 6) {
         return ShooterAngle.LOW;
-      } else if ((z <= 6) && (z >= 3)) {
+      } else if ((z <= 6) && (z >= 2)) {
         return ShooterAngle.MEDIUM;
       } else {
         return ShooterAngle.HIGH;
       }
     }
 
+    // Returns the angle motor revolution positions
     public double getCurrentAngleMotorPosition(){
       currentAngleMotorPosition = m_angleEncoder.getPosition();
       return currentAngleMotorPosition;
     }
 
-    // Constant shooting angles
+    // Turns to the angle setpoint
     public void turnToAngle(ShooterAngle angle) {
         double currentAngle;
+
         if (angle == ShooterAngle.LOW) {
-          currentAngle = Constants.Shooter.shooterAngleLow;
+          currentAngle = 90 - Constants.Shooter.shooterAngleLow;
           this.currentAngleSetpoint = (currentAngle / Constants.Shooter.degreesPerRevolution);
-          if (getCurrentAngleMotorPosition() < currentAngleSetpoint - 2) {
-            this.m_shooterAngleMotor.set(-.03);
-          } else if (getCurrentAngleMotorPosition() > currentAngleSetpoint + 2) {
-            this.m_shooterAngleMotor.set(.03);
+
+          if (getCurrentAngleMotorPosition() < this.currentAngleSetpoint - 0.5) {
+            this.m_shooterAngleMotor.set(.04);
+          } else if (getCurrentAngleMotorPosition() > this.currentAngleSetpoint + 0.5) {
+            this.m_shooterAngleMotor.set(-.04);
           } else {
             this.m_shooterAngleMotor.set(0);
             isPositioned = true;
           }
         } else if (angle == ShooterAngle.MEDIUM) {
-          currentAngle = Constants.Shooter.shooterAngleMedium;
+          currentAngle = 90 - Constants.Shooter.shooterAngleMedium;
           this.currentAngleSetpoint = (currentAngle / Constants.Shooter.degreesPerRevolution);
-          if (getCurrentAngleMotorPosition() < currentAngleSetpoint - 2) {
-            this.m_shooterAngleMotor.set(-.03);
-          } else if (getCurrentAngleMotorPosition() > currentAngleSetpoint + 2) {
-            this.m_shooterAngleMotor.set(.03);
+
+          if (getCurrentAngleMotorPosition() < this.currentAngleSetpoint - 0.5) {
+            this.m_shooterAngleMotor.set(.04);
+          } else if (getCurrentAngleMotorPosition() > this.currentAngleSetpoint + 0.5) {
+            this.m_shooterAngleMotor.set(-.04);
           } else {
             this.m_shooterAngleMotor.set(0);
             isPositioned = true;
           }
         } else if (angle == ShooterAngle.HIGH) {
-          currentAngle = Constants.Shooter.shooterAngleHigh;
+          currentAngle = 90 - Constants.Shooter.shooterAngleHigh;
           this.currentAngleSetpoint = (currentAngle / Constants.Shooter.degreesPerRevolution);
-          if (getCurrentAngleMotorPosition() < currentAngleSetpoint - 2) {
-            this.m_shooterAngleMotor.set(-.03);
-          } else if (getCurrentAngleMotorPosition() > currentAngleSetpoint + 2) {
-            this.m_shooterAngleMotor.set(.03);
+
+          if (getCurrentAngleMotorPosition() < this.currentAngleSetpoint - 0.5) {
+            this.m_shooterAngleMotor.set(.04);
+          } else if (getCurrentAngleMotorPosition() > this.currentAngleSetpoint + 0.5) {
+            this.m_shooterAngleMotor.set(-.04);
           } else {
             this.m_shooterAngleMotor.set(0);
             isPositioned = true;
@@ -147,6 +160,7 @@ public class Shooter extends SubsystemBase {
         }
     }
 
+    // Enables the shooter
     public void enableShooter(double z) {
       this.m_shooterState = ShooterStatus.ENABLED;
       double angle;
@@ -157,14 +171,18 @@ public class Shooter extends SubsystemBase {
       } else {
         angle = Constants.Shooter.shooterAngleLow;
       }
-      this.setSpeed(ShooterTargeting.calculateVelocity(z, Units.degreesToRadians(angle), Constants.Shooter.shooterHeight));
+      if (ShooterTargeting.calculateVelocity(z, Units.degreesToRadians(angle)) > 0.2) {
+        this.setSpeed(ShooterTargeting.calculateVelocity(z, Units.degreesToRadians(angle)));
+      }
     }
 
+    // Disables the shooter
     public void disableShooter() {
       this.m_shooterState = ShooterStatus.DISABLED;
       this.setSpeed(0.0);
     }
 
+    // Returns if the shooter is enabled or disabled
     public ShooterStatus getCurrentState() {
       return this.m_shooterState;
     }
@@ -174,40 +192,47 @@ public class Shooter extends SubsystemBase {
       this.m_speedSetpoint = speed;
     }
 
+    // Returns the target speed setpoint of the shooter
     public double getCurrentSpeedSetpoint() {
       return this.m_speedSetpoint;
     }
 
-    // Returns true of the shooter motor is at it's target setpoint
+    // Returns true if the shooter motor is at it's target setpoint
     public boolean atSetpoint() {
       return (Math.abs(this.getCurrentSpeedSetpoint() - Math.abs(this.m_shootEncoder.getVelocity())) < 50);
     }
 
+    // Returns true if the shooter motor is at it's target setpoint
     public boolean atAngle() {
         return this.isPositioned;
     }
 
-    public void togglePosition(boolean position) {
-      this.isPositioned = position;
+    // Resets the isPositioned variable to false when command ends
+    public void resetPosition() {
+      this.isPositioned = false;
     }
 
+    // Turns on the feeder system
     public void enableFeeder(){
       if(getSensorBallState() == true) {
         this.feederState = FeederStatus.ENABLED;
-        this.m_shooterFeeder.set(.1);
+        this.m_shooterFeeder.set(.3);
       }
     }
 
+    // Disables the feeder systems
     public void disableFeeder(){
       this.feederState = FeederStatus.DISABLED;
       this.m_shooterFeeder.set(0);
     }
 
+    // Sets the feeder in reverse
     public void reverseFeeder(){
       this.feederState = FeederStatus.REVERSED;
-      this.m_shooterFeeder.set(-0.1);
+      this.m_shooterFeeder.set(-0.3);
     }
 
+    // Returns the position of the shooter motor
     public double getShooterMotorPosition() {
      return m_shootEncoder.getPosition();
     }

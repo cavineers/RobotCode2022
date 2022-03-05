@@ -78,7 +78,8 @@ public class Limelight {
         double height2 = Constants.Targeting.kFieldGoalHeightFromGround;
         double angle1 = Constants.Targeting.kLimelightMountingAngle;
         double angle2 = this.m_limeLightTable.getEntry("ty").getDouble(0.0);
-        double distance = (height2 - height1) * (1 / Math.tan(Math.toRadians(angle1 + angle2)));
+        // double distance = (height2 - height1) * (1 / Math.tan(Math.toRadians(angle1 + angle2)));
+        double distance = (height2 - height1) / (Math.sin(Math.toRadians(angle1 + angle2)));
         return this.llCatch(distance);
         // return (Math.round(this.llCatch(distance) * 10) / 10);
     }

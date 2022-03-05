@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.Intake;
+import frc.robot.Limelight.LedMode;
 import frc.robot.RobotContainer.CurrentMode;
 import frc.robot.commands.TeleopDrive;
 import frc.robot.commands.climber.ClimberDrive;
@@ -55,7 +56,9 @@ public class Robot extends TimedRobot {
    * initialization code.
    */
   @Override
-  public void robotInit() {}
+  public void robotInit() {
+    limelight.setLightMode(LedMode.OFF);
+  }
 
   /**
    * This function is called every robot packet, no matter the mode. Use this for items like
@@ -110,7 +113,7 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-      if(m_robotContainer.mode == CurrentMode.DRIVE) {
+    if(m_robotContainer.mode == CurrentMode.DRIVE) {
       if(this.climbingSystem.isScheduled()) {
         this.climbingSystem.cancel();
       }
