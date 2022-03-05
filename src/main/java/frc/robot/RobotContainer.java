@@ -35,7 +35,8 @@ public class RobotContainer {
   public Dashboard dashboard = new Dashboard(this);
 
   public Command m_autoCommand;
-  public SequentialCommandGroup m_autoShoot;
+  // public SequentialCommandGroup m_autoShoot;
+  public Command m_autoShoot;
 
   //* Driver Controller
   public Joystick joy = new Joystick(0);
@@ -71,7 +72,8 @@ public class RobotContainer {
     }
 
     this.m_autoCommand = new Autonomous(this);
-    this.m_autoShoot = new SequentialCommandGroup(new AutoShoot(Robot.shooter, Robot.limelight), new HomeShooter());
+    // this.m_autoShoot = new SequentialCommandGroup(new AutoShoot(Robot.shooter, Robot.limelight), new HomeShooter());
+    this.m_autoShoot = new AutoShoot(Robot.shooter, Robot.limelight).andThen(new HomeShooter());
   }
 
   private void configureButtonBindings() {
@@ -90,7 +92,7 @@ public class RobotContainer {
         if (m_autoShoot.isScheduled()) {
           m_autoShoot.cancel();
         } else {
-          m_autoShoot.schedule();
+          m_autoShoot.schedule(false);
         }
       }
     });
