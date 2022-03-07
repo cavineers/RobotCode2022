@@ -38,8 +38,8 @@ public final class Constants {
 
     public static class Targeting {
         // TODO Update these values
-        public static double kFieldGoalHeightFromGroundIn = 69; // Math constants 104
-        public static double kLimelightHeightFromGroundIn = 40; // vertical distance from limelight to ground
+        public static double kFieldGoalHeightFromGroundIn = 104; // Math constants 104
+        public static double kLimelightHeightFromGroundIn = 23; // vertical distance from limelight to ground
     
         public static double kFieldGoalHeightFromGround = Units.inchesToMeters(kFieldGoalHeightFromGroundIn); // Math constants
         public static double kLimelightHeightFromGround = Units.inchesToMeters(kLimelightHeightFromGroundIn); // vertical distance from limelight to ground
@@ -53,9 +53,9 @@ public final class Constants {
         public static int ShooterAngle = CANIds.ShooterAngle;
         public static int ShooterFeeder = CANIds.ShooterFeeder;
 
-        public static double shooterAngleLow = 90 - 44;
-        public static double shooterAngleMedium = 90 - 63;
-        public static double shooterAngleHigh = 90 - 84;
+        public static double shooterAngleLow = 44;
+        public static double shooterAngleMedium = 64;
+        public static double shooterAngleHigh = 75;
 
         public static double shooterHeight = Units.inchesToMeters(38); // 12.4
 
@@ -68,7 +68,9 @@ public final class Constants {
         public static double kP = 0.00072; //.0008; Proportional
         public static double kI = 0.0; //0.0; Integral
         public static double kD = 0.02; //0.009; Derivative
-        public static double kF = 0.00017; // 0.00017; Feed Forward
+        public static double kF = 0.00022; // 0.00017; Feed Forward
+
+        public static double offset = 1000;
     }
 
     public static class Intake {

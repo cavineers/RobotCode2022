@@ -32,13 +32,13 @@ public class ShooterTargeting {
     }
 
     // Calculate Variable Velocity
-    public static double calculateVelocity(double z, double angle, double height) {
+    public static double calculateVelocity(double z, double angle) {
         //height is height of the goal - height of shooter shooter
         double x = Constants.Targeting.kFieldGoalHeightFromGround-Constants.Targeting.kLimelightHeightFromGround;
         double velocityMPS = Math.sqrt((4.9 * Math.pow(z, 2)) / ((Math.pow(Math.cos(angle), 2) * Math.tan(angle) * z) - (x * Math.pow(Math.cos(angle), 2))));
         
         SmartDashboard.putNumber("Velocity M/S", velocityMPS);
-        double velocityRPM = velocityMPS * 60 / (Constants.Shooter.flywheelRadius * (2*Math.PI));
+        double velocityRPM = (velocityMPS * 60 / (Constants.Shooter.flywheelRadius * (2*Math.PI))) * 1.9;
         
         SmartDashboard.putNumber("Velocity RPM", velocityRPM);
         return velocityRPM;
