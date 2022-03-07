@@ -124,7 +124,7 @@ public class Shooter extends SubsystemBase {
         if (angle == ShooterAngle.LOW) {
           currentAngle = 90 - Constants.Shooter.shooterAngleLow;
           this.currentAngleSetpoint = (currentAngle / Constants.Shooter.degreesPerRevolution);
-
+          
           if (getCurrentAngleMotorPosition() < this.currentAngleSetpoint - 0.5) {
             this.m_shooterAngleMotor.set(.04);
           } else if (getCurrentAngleMotorPosition() > this.currentAngleSetpoint + 0.5) {
