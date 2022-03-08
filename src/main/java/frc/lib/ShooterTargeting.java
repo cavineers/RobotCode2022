@@ -24,6 +24,14 @@ public class ShooterTargeting {
     public static double getTD() {
         return Robot.limelight.getDistance();
     }
+
+    public static double getTx() {
+        return Robot.limelight.getHorizontalOffset();
+    }
+
+    public static double getTy() {
+        return Robot.limelight.getVerticalOffset();
+    }
     
     // Calculate optimal angle
     public static double calculateAngle(double z) {

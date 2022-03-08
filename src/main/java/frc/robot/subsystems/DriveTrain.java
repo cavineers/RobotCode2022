@@ -38,8 +38,8 @@ public class DriveTrain extends SubsystemBase {
     this.left2.follow(left1);
     this.right2.follow(right1);
 
-    // Set the drivetrain to coast mode
-    this.setCoastBrakeMode(DriveCoastBrake.COAST);
+    // Set the drivetrain to brake mode
+    this.setCoastBrakeMode(DriveCoastBrake.BRAKE);
 
     this.left1.setSmartCurrentLimit(39);
     this.left2.setSmartCurrentLimit(39);

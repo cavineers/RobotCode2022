@@ -1,11 +1,9 @@
 package frc.robot.commands;
 
-import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.lib.ShooterTargeting;
-import frc.robot.Constants;
 import frc.robot.Limelight;
 import frc.robot.Robot;
 import frc.robot.Limelight.LedMode;
@@ -56,6 +54,7 @@ public class AutoShoot extends CommandBase {
         SmartDashboard.putBoolean("IR SENSOR", this.shooter.getSensorBallState());
         SmartDashboard.putBoolean("Shooter Ready", (this.shooter.atAngle() == true && this.shooter.atSetpoint() == true));
         SmartDashboard.putString("Setpoint of Angle", this.shooter.setShooterAngle(ShooterTargeting.findZ()).toString());
+        SmartDashboard.putNumber("TX Offset", ShooterTargeting.getTx());
 
 
         // Move the angle of the Shooter

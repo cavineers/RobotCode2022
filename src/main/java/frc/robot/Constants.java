@@ -47,7 +47,6 @@ public final class Constants {
     }
 
     public static class Shooter {
-        // TODO Update these values
         public static double shooterVelocityConstant = 0;
         public static int ShooterMotor = CANIds.ShooterMotor;
         public static int ShooterAngle = CANIds.ShooterAngle;
@@ -59,25 +58,25 @@ public final class Constants {
 
         public static double shooterHeight = Units.inchesToMeters(38); // 12.4
 
-        //TODO Check values with shooter sub-team
         public static double degreesPerRevolution = 1.625;
         public static double flywheelRotationsPerRevolution = .2;
 
         public static double flywheelRadius = .0508; //checked with shooter, 2 in = .0508 m
 
-        public static double kP = 0.00072; //.0008; Proportional
-        public static double kI = 0.0; //0.0; Integral
-        public static double kD = 0.02; //0.009; Derivative
+        public static double kP = 0.00072; // 0.0008; Proportional
+        public static double kI = 0.0; // 0.0; Integral
+        public static double kD = 0.02; // 0.009; Derivative
         public static double kF = 0.00022; // 0.00017; Feed Forward
 
-        public static double offset = 1000;
+        public static double angleSpeed = 0.07; // Angle motor speed 0-1 bounds
+        public static double feederSpeed = 0.04; // Angle motor speed 0-1 bounds
     }
 
     public static class Intake {
         public static int IntakeID = CANIds.IntakeMotor;
         public static int IntakeDropID = CANIds.IntakeMotorDrop;
 
-        public static double IntakeSpeed = 0.1; // Intake motor speed (-1.0 -- 1.0)
+        public static double IntakeSpeed = 0.2; // Intake motor speed (-1.0 -- 1.0)
         public static double IntakeSpeedRev = -0.1; // Intake reverse speed
 
         public static double DropSpeed = -0.2;

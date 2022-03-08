@@ -126,9 +126,9 @@ public class Shooter extends SubsystemBase {
           this.currentAngleSetpoint = (currentAngle / Constants.Shooter.degreesPerRevolution);
           
           if (getCurrentAngleMotorPosition() < this.currentAngleSetpoint - 0.5) {
-            this.m_shooterAngleMotor.set(.04);
+            this.m_shooterAngleMotor.set(Constants.Shooter.angleSpeed);
           } else if (getCurrentAngleMotorPosition() > this.currentAngleSetpoint + 0.5) {
-            this.m_shooterAngleMotor.set(-.04);
+            this.m_shooterAngleMotor.set(-Constants.Shooter.angleSpeed);
           } else {
             this.m_shooterAngleMotor.set(0);
             isPositioned = true;
@@ -138,9 +138,9 @@ public class Shooter extends SubsystemBase {
           this.currentAngleSetpoint = (currentAngle / Constants.Shooter.degreesPerRevolution);
 
           if (getCurrentAngleMotorPosition() < this.currentAngleSetpoint - 0.5) {
-            this.m_shooterAngleMotor.set(.04);
+            this.m_shooterAngleMotor.set(Constants.Shooter.angleSpeed);
           } else if (getCurrentAngleMotorPosition() > this.currentAngleSetpoint + 0.5) {
-            this.m_shooterAngleMotor.set(-.04);
+            this.m_shooterAngleMotor.set(-Constants.Shooter.angleSpeed);
           } else {
             this.m_shooterAngleMotor.set(0);
             isPositioned = true;
@@ -150,9 +150,9 @@ public class Shooter extends SubsystemBase {
           this.currentAngleSetpoint = (currentAngle / Constants.Shooter.degreesPerRevolution);
 
           if (getCurrentAngleMotorPosition() < this.currentAngleSetpoint - 0.5) {
-            this.m_shooterAngleMotor.set(.04);
+            this.m_shooterAngleMotor.set(Constants.Shooter.angleSpeed);
           } else if (getCurrentAngleMotorPosition() > this.currentAngleSetpoint + 0.5) {
-            this.m_shooterAngleMotor.set(-.04);
+            this.m_shooterAngleMotor.set(-Constants.Shooter.angleSpeed);
           } else {
             this.m_shooterAngleMotor.set(0);
             isPositioned = true;
@@ -216,8 +216,14 @@ public class Shooter extends SubsystemBase {
     public void enableFeeder(){
       if(getSensorBallState() == true) {
         this.feederState = FeederStatus.ENABLED;
-        this.m_shooterFeeder.set(.3);
+        this.m_shooterFeeder.set(Constants.Shooter.feederSpeed);
       }
+    }
+
+    // Overloaded method for feeder systems 0 - 1 speed
+    public void enableFeeder(double speed){
+        this.feederState = FeederStatus.ENABLED;
+        this.m_shooterFeeder.set(speed);
     }
 
     // Disables the feeder systems
@@ -229,7 +235,7 @@ public class Shooter extends SubsystemBase {
     // Sets the feeder in reverse
     public void reverseFeeder(){
       this.feederState = FeederStatus.REVERSED;
-      this.m_shooterFeeder.set(-0.3);
+      this.m_shooterFeeder.set(-Constants.Shooter.feederSpeed);
     }
 
     // Returns the position of the shooter motor

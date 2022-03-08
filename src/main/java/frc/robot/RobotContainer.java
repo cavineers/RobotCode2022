@@ -17,7 +17,6 @@ import frc.robot.commands.homing.HomeShooter;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
@@ -81,6 +80,7 @@ public class RobotContainer {
     this.povUp.whenPressed(new SwitchMode(this));
     this.b_button.whenPressed(new ToggleIntake());
     this.x_button.whenPressed(new LowerIntake());
+    // this.x_button.whenReleased(new RaiseIntake()); // This will raise the intake when the x button is released creating a hold feature
     this.y_button.whenPressed(new RaiseIntake());
     this.right_menu.whenPressed(new ToggleReverseIntake());
     this.povLeft.whenPressed(new ReverseFeeder());

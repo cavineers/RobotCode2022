@@ -39,6 +39,7 @@ public class Intake extends SubsystemBase {
      */
     public Intake() {
         this.setMotorState(IntakeMotorState.OFF);
+        this.m_intakeMotor.setInverted(true);
     }
 
     /**
