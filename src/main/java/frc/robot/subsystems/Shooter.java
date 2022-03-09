@@ -243,6 +243,14 @@ public class Shooter extends SubsystemBase {
      return m_shootEncoder.getPosition();
     }
 
+    public boolean withinXTolerance() {
+      if (ShooterTargeting.getTx() >= -5.2 && ShooterTargeting.getTx() <= 5.2) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
     @Override
     public void periodic() {
       this.m_shootPID.setReference(this.getCurrentSpeedSetpoint(), CANSparkMax.ControlType.kVelocity);
@@ -252,7 +260,15 @@ public class Shooter extends SubsystemBase {
       this.m_shootPID.setD(Constants.Shooter.kD);
       this.m_shootPID.setFF(Constants.Shooter.kF);
 
-      SmartDashboard.putNumber("SetPoint2", this.getCurrentSpeedSetpoint());
-      SmartDashboard.putNumber("Actual2", this.m_shootEncoder.getVelocity());
+      SmartDashboard.putNumber("Shooter SetPoint (RPM)", this.getCurrentSpeedSetpoint());
+      SmartDashboard.putNumber("Shooter Actual (RPM)", this.m_shootEncoder.getVelocity());
+      SmartDashboard.putNumber("TX Offset", ShooterTargeting.getTx());
+      SmartDashboard.putString("Setpoint of Angle", this.setShooterAngle(ShooterTargeting.findZ()).toString());
+      SmartDashboard.putBoolean("Shooter IR Sensor", this.getSensorBallState());
+      SmartDashboard.putBoolean("Shooter Ready", (this.atAngle() == true && this.atSetpoint() == true));
+      SmartDashboard.putBoolean("Within X Offset", this.withinXTolerance());
+      SmartDashboard.putNumber("TD Value", ShooterTargeting.getTD());
+      SmartDashboard.putNumber("Z Value", ShooterTargeting.findZ());
+      SmartDashboard.putNumber("Motor Position - Angle", this.getCurrentAngleMotorPosition());
     }
 }

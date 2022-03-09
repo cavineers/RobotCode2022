@@ -89,10 +89,12 @@ public class RobotContainer {
     this.a_button.whenPressed(new InstantCommand() {
       @Override
       public void initialize() {
-        m_autoShoot = new AutoShoot(Robot.shooter, Robot.limelight).andThen(new HomeShooter());
+        // Test this!
+        // m_autoShoot = new AutoShoot(Robot.shooter, Robot.limelight).andThen(new HomeShooter());
         if (m_autoShoot.isScheduled()) {
           m_autoShoot.cancel();
         } else {
+          m_autoShoot = new AutoShoot(Robot.shooter, Robot.limelight).andThen(new HomeShooter());
           m_autoShoot.schedule(false);
         }
       }

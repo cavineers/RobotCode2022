@@ -69,7 +69,7 @@ public final class Constants {
         public static double kF = 0.00022; // 0.00017; Feed Forward
 
         public static double angleSpeed = 0.07; // Angle motor speed 0-1 bounds
-        public static double feederSpeed = 0.06; // Angle motor speed 0-1 bounds
+        public static double feederSpeed = 0.3; // Angle motor speed 0-1 bounds
     }
 
     public static class Intake {

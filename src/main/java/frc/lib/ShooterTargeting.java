@@ -17,7 +17,6 @@ public class ShooterTargeting {
         double z = (Math.sqrt((Math.pow(getTD(), 2) - Math.pow((Constants.Targeting.kFieldGoalHeightFromGround-Constants.Targeting.kLimelightHeightFromGround), 2))));
         String stringZ = df.format(z);
         return Double.parseDouble(stringZ);
-        
     }
 
     // Returns hypotenuse distance to target
@@ -46,7 +45,7 @@ public class ShooterTargeting {
         double velocityMPS = Math.sqrt((4.9 * Math.pow(z, 2)) / ((Math.pow(Math.cos(angle), 2) * Math.tan(angle) * z) - (x * Math.pow(Math.cos(angle), 2))));
         
         SmartDashboard.putNumber("Velocity M/S", velocityMPS);
-        double velocityRPM = (velocityMPS * 60 / (Constants.Shooter.flywheelRadius * (2*Math.PI))) * 1.9;
+        double velocityRPM = (velocityMPS * 60 / (Constants.Shooter.flywheelRadius * (2*Math.PI))) * 1.85;
         
         SmartDashboard.putNumber("Velocity RPM", velocityRPM);
         return velocityRPM;

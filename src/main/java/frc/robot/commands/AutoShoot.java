@@ -47,15 +47,14 @@ public class AutoShoot extends CommandBase {
 
     @Override
     public void execute() {
-        SmartDashboard.putNumber("Motor Position - Angle", this.shooter.getCurrentAngleMotorPosition());
-        SmartDashboard.putNumber("TD Value", ShooterTargeting.getTD());
-        SmartDashboard.putNumber("Z Value", ShooterTargeting.findZ());
-        SmartDashboard.putNumber("ActiveSpeed", this.shooter.m_shooterMotor.getEncoder().getVelocity());
-        SmartDashboard.putBoolean("IR SENSOR", this.shooter.getSensorBallState());
-        SmartDashboard.putBoolean("Shooter Ready", (this.shooter.atAngle() == true && this.shooter.atSetpoint() == true));
-        SmartDashboard.putString("Setpoint of Angle", this.shooter.setShooterAngle(ShooterTargeting.findZ()).toString());
-        SmartDashboard.putNumber("TX Offset", ShooterTargeting.getTx());
-
+        // Test this!
+        // if (this.shooter.withinXTolerance() == false) {
+        //     if (ShooterTargeting.getTx() > 0) {
+        //         Robot.m_robotContainer.drivetrain.drive(0, 0.1, true);
+        //     } else {
+        //         Robot.m_robotContainer.drivetrain.drive(0, -0.1, true);
+        //     }
+        // }
 
         // Move the angle of the Shooter
         this.shooter.turnToAngle(this.shooter.setShooterAngle(ShooterTargeting.findZ()));
