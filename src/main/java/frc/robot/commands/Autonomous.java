@@ -2,12 +2,14 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Robot;
 import frc.robot.RobotContainer;
 
 public class Autonomous extends CommandBase {
     private RobotContainer rc;
 
     private double startTime = 0;
+    private double kP = 1;
 
     public Autonomous(RobotContainer rc) {
         this.rc = rc;
@@ -20,11 +22,14 @@ public class Autonomous extends CommandBase {
 
     @Override
     public void execute() {
+        // Get GryoSphere heading to keep at 0 and account for errors in drive chain
+        double error = -Robot.gyro.getRate();
+
         if (Timer.getFPGATimestamp() - this.startTime >= 3) {
             this.rc.drivetrain.drive(0, 0, true);
             this.rc.m_autoShoot.schedule();
         } else {
-            this.rc.drivetrain.drive(-0.3, 0, true);
+            this.rc.drivetrain.drive(-0.3 + kP * error, 0, true);
         }
     }
 

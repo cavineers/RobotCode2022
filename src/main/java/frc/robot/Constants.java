@@ -43,7 +43,7 @@ public final class Constants {
     
         public static double kFieldGoalHeightFromGround = Units.inchesToMeters(kFieldGoalHeightFromGroundIn); // Math constants
         public static double kLimelightHeightFromGround = Units.inchesToMeters(kLimelightHeightFromGroundIn); // vertical distance from limelight to ground
-        public static double kLimelightMountingAngle    = 25; // Angle Mounted on Robot 20.1
+        public static double kLimelightMountingAngle    = 35; // Angle Mounted on Robot 20.1
     }
 
     public static class Shooter {
@@ -58,7 +58,7 @@ public final class Constants {
 
         public static double shooterHeight = Units.inchesToMeters(38); // 12.4
 
-        public static double degreesPerRevolution = 1.625;
+        public static double degreesPerRevolution = 3.33; // 1.625 on 100:1 with 2:1 increase
         public static double flywheelRotationsPerRevolution = .2;
 
         public static double flywheelRadius = .0508; //checked with shooter, 2 in = .0508 m
@@ -76,13 +76,13 @@ public final class Constants {
         public static int IntakeID = CANIds.IntakeMotor;
         public static int IntakeDropID = CANIds.IntakeMotorDrop;
 
-        public static double IntakeSpeed = 0.2; // Intake motor speed (-1.0 -- 1.0)
+        public static double IntakeSpeed = 0.3; // Intake motor speed (-1.0 -- 1.0)
         public static double IntakeSpeedRev = -0.1; // Intake reverse speed
 
         public static double DropSpeed = -0.2;
         public static double LiftSpeed = 0.2;
 
-        public static double RevolutionsToLower = -20;
+        public static double RevolutionsToLower = -31;
     }
 
     public static class Climber {

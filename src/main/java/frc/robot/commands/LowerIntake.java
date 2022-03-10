@@ -15,9 +15,7 @@ public class LowerIntake extends CommandBase {
 
     // Set Motor State to ON / OFF
     @Override
-    public void initialize() {
-        Robot.intake.setDropMotorState(Intake.IntakeDropMotorState.OFF);
-    }
+    public void initialize() {}
 
     @Override
     public void execute() {
@@ -26,17 +24,16 @@ public class LowerIntake extends CommandBase {
             Robot.intake.setDropMotorState(Intake.IntakeDropMotorState.ON);
         } else if (Robot.intake.getDropMotor().getEncoder().getPosition() <= Constants.Intake.RevolutionsToLower) {
             this.inPosition = true;
+            Robot.m_robotContainer.m_intake.schedule();
             Robot.intake.setDropMotorState(Intake.IntakeDropMotorState.OFF);
         }
     }
 
     @Override
-    public void end(boolean interrupted) {
-        Robot.intake.setDropMotorState(Intake.IntakeDropMotorState.OFF);
-    }
+    public void end(boolean interrupted) {}
 
     @Override
     public boolean isFinished() {
-        return this.inPosition;
+        return false;
     }
 }

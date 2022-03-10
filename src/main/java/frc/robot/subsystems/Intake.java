@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -21,7 +22,7 @@ public class Intake extends SubsystemBase {
         ON,
         OFF,
         REVERSED
-      }
+    }
 
 
     public CANSparkMax m_intakeMotor = new CANSparkMax(Constants.Intake.IntakeID, MotorType.kBrushless);
@@ -40,6 +41,7 @@ public class Intake extends SubsystemBase {
     public Intake() {
         this.setMotorState(IntakeMotorState.OFF);
         this.m_intakeMotor.setInverted(true);
+        this.m_intakeDropMotor.setIdleMode(IdleMode.kBrake);
     }
 
     /**
@@ -99,8 +101,6 @@ public class Intake extends SubsystemBase {
                 // Reversed
                 this.m_intakeDropMotor.set(Constants.Intake.LiftSpeed);
                 break;
-            default:
-                this.setDropMotorState(IntakeDropMotorState.OFF);
         }
     }
 

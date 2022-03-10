@@ -36,6 +36,9 @@ public class RobotContainer {
   public Command m_autoCommand;
   // public SequentialCommandGroup m_autoShoot;
   public Command m_autoShoot;
+  public Command m_intakeDropLower;
+  public Command m_intakeDropRaise;
+  public Command m_intake;
 
   //* Driver Controller
   public Joystick joy = new Joystick(0);
@@ -73,15 +76,39 @@ public class RobotContainer {
     this.m_autoCommand = new Autonomous(this);
     // this.m_autoShoot = new SequentialCommandGroup(new AutoShoot(Robot.shooter, Robot.limelight), new HomeShooter());
     this.m_autoShoot = new AutoShoot(Robot.shooter, Robot.limelight).andThen(new HomeShooter());
+
+    this.m_intakeDropLower = new LowerIntake();
+    this.m_intakeDropRaise = new RaiseIntake();
+    this.m_intake = new ToggleIntake();
   }
 
   private void configureButtonBindings() {
     this.left_menu.whenPressed(new ParallelCommandGroup(new HomeAngle(), new HomeElevator()));
     this.povUp.whenPressed(new SwitchMode(this));
     this.b_button.whenPressed(new ToggleIntake());
-    this.x_button.whenPressed(new LowerIntake());
-    // this.x_button.whenReleased(new RaiseIntake()); // This will raise the intake when the x button is released creating a hold feature
-    this.y_button.whenPressed(new RaiseIntake());
+
+    this.r_bump.whenPressed(new InstantCommand() {
+      @Override
+      public void initialize() {
+        if (m_intakeDropRaise.isScheduled()) {
+          m_intakeDropRaise.cancel();
+        }
+        m_intakeDropLower = new LowerIntake();
+        m_intakeDropLower.schedule();
+      }
+    });
+
+    this.r_bump.whenReleased(new InstantCommand() {
+      @Override
+      public void initialize() {
+        if (m_intakeDropLower.isScheduled()) {
+          m_intakeDropLower.cancel();
+        }
+        m_intakeDropRaise = new RaiseIntake();
+        m_intakeDropRaise.schedule();
+      }
+    });
+
     this.right_menu.whenPressed(new ToggleReverseIntake());
     this.povLeft.whenPressed(new ReverseFeeder());
 

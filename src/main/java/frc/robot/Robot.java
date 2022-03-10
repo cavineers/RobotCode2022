@@ -4,6 +4,9 @@
 
 package frc.robot;
 
+import com.kauailabs.navx.frc.AHRS;
+
+import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -26,6 +29,7 @@ public class Robot extends TimedRobot {
   
   // Sensors
   public static Limelight limelight;
+  public static AHRS gyro;
 
   // Subsystems
   public static Shooter shooter;
@@ -49,6 +53,8 @@ public class Robot extends TimedRobot {
     elevator = new Elevator();
 
     m_robotContainer = new RobotContainer();
+
+    gyro = new AHRS(Port.kMXP);
   }
 
   /**
