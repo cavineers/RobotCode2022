@@ -43,7 +43,7 @@ public final class Constants {
     
         public static double kFieldGoalHeightFromGround = Units.inchesToMeters(kFieldGoalHeightFromGroundIn); // Math constants
         public static double kLimelightHeightFromGround = Units.inchesToMeters(kLimelightHeightFromGroundIn); // vertical distance from limelight to ground
-        public static double kLimelightMountingAngle    = 35; // Angle Mounted on Robot 20.1
+        public static double kLimelightMountingAngle    = 32;
     }
 
     public static class Shooter {
@@ -52,8 +52,8 @@ public final class Constants {
         public static int ShooterAngle = CANIds.ShooterAngle;
         public static int ShooterFeeder = CANIds.ShooterFeeder;
 
-        public static double shooterAngleLow = 44;
-        public static double shooterAngleMedium = 64;
+        public static double shooterAngleLow = 45;
+        public static double shooterAngleMedium = 65;
         public static double shooterAngleHigh = 75;
 
         public static double shooterHeight = Units.inchesToMeters(38); // 12.4
@@ -66,23 +66,23 @@ public final class Constants {
         public static double kP = 0.00072; // 0.0008; Proportional
         public static double kI = 0.0; // 0.0; Integral
         public static double kD = 0.02; // 0.009; Derivative
-        public static double kF = 0.00022; // 0.00017; Feed Forward
+        public static double kF = 0.0002; // 0.00017; Feed Forward
 
-        public static double angleSpeed = 0.07; // Angle motor speed 0-1 bounds
-        public static double feederSpeed = 0.3; // Angle motor speed 0-1 bounds
+        public static double angleSpeed = 0.08; // Angle motor speed 0-1 bounds
+        public static double feederSpeed = 0.4; // Angle motor speed 0-1 bounds
     }
 
     public static class Intake {
         public static int IntakeID = CANIds.IntakeMotor;
         public static int IntakeDropID = CANIds.IntakeMotorDrop;
 
-        public static double IntakeSpeed = 0.3; // Intake motor speed (-1.0 -- 1.0)
-        public static double IntakeSpeedRev = -0.1; // Intake reverse speed
+        public static double IntakeSpeed = 0.6; // Intake motor speed (-1.0 -- 1.0)
+        public static double IntakeSpeedRev = -0.3; // Intake reverse speed
 
         public static double DropSpeed = -0.2;
         public static double LiftSpeed = 0.2;
 
-        public static double RevolutionsToLower = -31;
+        public static double RevolutionsToLower = -27;
     }
 
     public static class Climber {

@@ -47,14 +47,14 @@ public class AutoShoot extends CommandBase {
 
     @Override
     public void execute() {
-        // Test this!
-        // if (this.shooter.withinXTolerance() == false) {
-        //     if (ShooterTargeting.getTx() > 0) {
-        //         Robot.m_robotContainer.drivetrain.drive(0, 0.1, true);
-        //     } else {
-        //         Robot.m_robotContainer.drivetrain.drive(0, -0.1, true);
-        //     }
-        // }
+        // Adjusts for X offset and turns robot automatically to align with tape
+        if (this.shooter.withinXTolerance() == false) {
+            if (ShooterTargeting.getTx() > 0) {
+                Robot.m_robotContainer.drivetrain.drive(-0.1, 0, true);
+            } else {
+                Robot.m_robotContainer.drivetrain.drive(0.1, 0, true);
+            }
+        }
 
         // Move the angle of the Shooter
         this.shooter.turnToAngle(this.shooter.setShooterAngle(ShooterTargeting.findZ()));
@@ -76,7 +76,7 @@ public class AutoShoot extends CommandBase {
                 this.endTime = Timer.getFPGATimestamp();
             }
 
-            if (this.shooter.getSensorBallState() == false && Timer.getFPGATimestamp() - this.endTime >= 2.0) {
+            if (this.shooter.getSensorBallState() == false && Timer.getFPGATimestamp() - this.endTime >= 1.5) {
                 this.m_finished = true;
             }
         }

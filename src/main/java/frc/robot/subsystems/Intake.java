@@ -6,6 +6,7 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -121,5 +122,10 @@ public class Intake extends SubsystemBase {
     // Tell when ball is properly in the intake.
     public boolean getSensorOneState() {
         return !m_sensorOne.get();
+    }
+
+    @Override
+    public void periodic() {
+        SmartDashboard.putBoolean("IntakeSensor", getSensorOneState());
     }
 }

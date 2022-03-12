@@ -10,6 +10,7 @@ public class Autonomous extends CommandBase {
 
     private double startTime = 0;
     private double kP = 1;
+    private boolean scheduled = false;
 
     public Autonomous(RobotContainer rc) {
         this.rc = rc;
@@ -27,16 +28,19 @@ public class Autonomous extends CommandBase {
 
         if (Timer.getFPGATimestamp() - this.startTime >= 3) {
             this.rc.drivetrain.drive(0, 0, true);
-            this.rc.m_autoShoot.schedule();
+            if (this.scheduled == false) {
+                this.scheduled = true;
+                this.rc.m_autoShoot.schedule();
+            }
         } else {
-            this.rc.drivetrain.drive(-0.3 + kP * error, 0, true);
+            this.rc.drivetrain.drive(0, 0.1 + kP * error, true);
         }
     }
 
     @Override
     public void end(boolean interrupted) {
         this.rc.drivetrain.drive(0, 0, true);
-        this.rc.m_autoShoot.cancel();
+        // this.rc.m_autoShoot.cancel();
     }
 
     @Override

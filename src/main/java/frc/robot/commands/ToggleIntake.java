@@ -14,6 +14,9 @@ public class ToggleIntake extends CommandBase {
 
     private double m_timestamp;
 
+    private double m_timestampIntake;
+    private boolean timeSet = false;
+
     public ToggleIntake() {
         this.addRequirements(Robot.intake);
     }
@@ -44,11 +47,18 @@ public class ToggleIntake extends CommandBase {
 
         if (this.holding == true) {
             if (Robot.intake.getSensorOneState() == true) {
-                Robot.intake.setMotorState(Intake.IntakeMotorState.OFF);
-                this.isDone = true;
+                if (this.timeSet == false) {
+                    this.timeSet = true;
+                    this.m_timestampIntake = Timer.getFPGATimestamp();
+                } else {
+                    if (Timer.getFPGATimestamp() - this.m_timestampIntake >= 0.5) {
+                        Robot.intake.setMotorState(Intake.IntakeMotorState.OFF);
+                        this.isDone = true;
+                    }
+                }
             }
         } else {
-            Robot.shooter.enableFeeder(0.3);
+            Robot.shooter.enableFeeder(0.4);
             if (Robot.shooter.getSensorBallState() == true) {
                 Robot.intake.setMotorState(Intake.IntakeMotorState.OFF);
                 Robot.shooter.disableFeeder();

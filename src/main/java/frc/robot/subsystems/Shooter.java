@@ -104,7 +104,7 @@ public class Shooter extends SubsystemBase {
     public ShooterAngle setShooterAngle(double z) {
       if (z >= 6) {
         return ShooterAngle.LOW;
-      } else if ((z <= 6) && (z >= 2)) {
+      } else if ((z <= 6) && (z >= 3)) {
         return ShooterAngle.MEDIUM;
       } else {
         return ShooterAngle.HIGH;
@@ -264,7 +264,7 @@ public class Shooter extends SubsystemBase {
       SmartDashboard.putNumber("Shooter Actual (RPM)", this.m_shootEncoder.getVelocity());
       SmartDashboard.putNumber("TX Offset", ShooterTargeting.getTx());
       SmartDashboard.putString("Setpoint of Angle", this.setShooterAngle(ShooterTargeting.findZ()).toString());
-      SmartDashboard.putBoolean("Shooter IR Sensor", this.getSensorBallState());
+      SmartDashboard.putBoolean("ShooterSensor", this.getSensorBallState());
       SmartDashboard.putBoolean("Shooter Ready", (this.atAngle() == true && this.atSetpoint() == true));
       SmartDashboard.putBoolean("Within X Offset", this.withinXTolerance());
       SmartDashboard.putNumber("TD Value", ShooterTargeting.getTD());
