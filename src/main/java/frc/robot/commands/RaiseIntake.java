@@ -1,6 +1,5 @@
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
@@ -19,7 +18,6 @@ public class RaiseIntake extends CommandBase {
 
     @Override
     public void execute() {
-        SmartDashboard.putNumber("Intake Position", (Robot.intake.getDropMotor().getEncoder().getPosition()));
         if (Robot.intake.getDropMotor().getEncoder().getPosition() <= Constants.Intake.RevolutionsToLower) {
             Robot.intake.setDropMotorState(Intake.IntakeDropMotorState.REVERSED);
         } else if (Robot.intake.getDropMotor().getEncoder().getPosition() >= 0) {

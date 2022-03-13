@@ -8,10 +8,11 @@ import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.Intake;
+import frc.lib.ShooterTargeting;
 import frc.robot.Limelight.LedMode;
 import frc.robot.RobotContainer.CurrentMode;
 import frc.robot.commands.TeleopDrive;
@@ -42,8 +43,7 @@ public class Robot extends TimedRobot {
   public Command m_autonomousCommand;
 
   public Robot() {
-    super(0.02); // 50Hz run rate
-
+    super(0.02); // 0.02 - 50Hz run rate | 0.0167 - 60Hz run rate
     limelight = new Limelight();
 
     // Subsystems
@@ -72,8 +72,37 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    Shuffleboard.update();
     CommandScheduler.getInstance().run();
+
+    // Logs
+    // Shooter
+    SmartDashboard.putNumber("Shooter SetPoint", shooter.getCurrentSpeedSetpoint());
+    SmartDashboard.putNumber("Shooter Actual", shooter.m_shootEncoder.getVelocity());
+    SmartDashboard.putNumber("TX Offset", ShooterTargeting.getTx());
+    SmartDashboard.putBoolean("Within X Offset", shooter.withinXTolerance());
+    SmartDashboard.putString("Angle Setpoint", shooter.setShooterAngle(ShooterTargeting.findZ()).toString());
+    SmartDashboard.putNumber("Angle Actual", shooter.getCurrentAngleMotorPosition());
+    SmartDashboard.putBoolean("Shooter Ready", (shooter.atAngle() == true && shooter.atSetpoint() == true));
+
+    // Targeting
+    SmartDashboard.putNumber("TD", ShooterTargeting.getTD());
+    SmartDashboard.putNumber("Z", ShooterTargeting.findZ());
+
+    // Sensors
+    SmartDashboard.putBoolean("Intake Sensor", intake.getSensorOneState());
+    SmartDashboard.putBoolean("Shooter Sensor", shooter.getSensorBallState());
+    SmartDashboard.putString("Drive Mode", m_robotContainer.mode.toString());
+
+    // Intake
+    SmartDashboard.putNumber("Intake Position", intake.getDropMotor().getEncoder().getPosition());
+
+    // Climber
+    SmartDashboard.putNumber("Elevator Position", elevator.getElevatorMotor().getEncoder().getPosition());
+    SmartDashboard.putNumber("Climber Angle Position", climber.getAngleMotorPosition());
+    
+    // Drive
+    SmartDashboard.putNumber("Drive Speed Right", m_robotContainer.drivetrain.getActiveRightSpeed());
+    SmartDashboard.putNumber("Drive Speed Left", m_robotContainer.drivetrain.getActiveLeftSpeed());
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
@@ -119,12 +148,12 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    if(m_robotContainer.mode == CurrentMode.DRIVE) {
+    if (m_robotContainer.mode == CurrentMode.DRIVE) {
       if(this.climbingSystem.isScheduled()) {
         this.climbingSystem.cancel();
       }
       this.drivingSystem.schedule();
-    } else if(m_robotContainer.mode == CurrentMode.CLIMB) {
+    } else if (m_robotContainer.mode == CurrentMode.CLIMB) {
       this.drivingSystem.cancel();
       this.climbingSystem.schedule();
     }

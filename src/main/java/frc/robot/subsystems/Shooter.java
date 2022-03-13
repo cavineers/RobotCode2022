@@ -12,8 +12,6 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DigitalInput;
 import com.revrobotics.SparkMaxPIDController;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 public class Shooter extends SubsystemBase {
     
     private boolean isPositioned = false;
@@ -176,6 +174,11 @@ public class Shooter extends SubsystemBase {
       }
     }
 
+    // Enables the shooter at constnt speed
+    public void enableManualShooter(double speed) {
+      this.setSpeed(speed);
+    }
+
     // Disables the shooter
     public void disableShooter() {
       this.m_shooterState = ShooterStatus.DISABLED;
@@ -214,10 +217,8 @@ public class Shooter extends SubsystemBase {
 
     // Turns on the feeder system
     public void enableFeeder(){
-      if(getSensorBallState() == true) {
-        this.feederState = FeederStatus.ENABLED;
-        this.m_shooterFeeder.set(Constants.Shooter.feederSpeed);
-      }
+      this.feederState = FeederStatus.ENABLED;
+      this.m_shooterFeeder.set(Constants.Shooter.feederSpeed);
     }
 
     // Overloaded method for feeder systems 0 - 1 speed
@@ -259,16 +260,5 @@ public class Shooter extends SubsystemBase {
       this.m_shootPID.setI(Constants.Shooter.kI);
       this.m_shootPID.setD(Constants.Shooter.kD);
       this.m_shootPID.setFF(Constants.Shooter.kF);
-
-      SmartDashboard.putNumber("Shooter SetPoint (RPM)", this.getCurrentSpeedSetpoint());
-      SmartDashboard.putNumber("Shooter Actual (RPM)", this.m_shootEncoder.getVelocity());
-      SmartDashboard.putNumber("TX Offset", ShooterTargeting.getTx());
-      SmartDashboard.putString("Setpoint of Angle", this.setShooterAngle(ShooterTargeting.findZ()).toString());
-      SmartDashboard.putBoolean("ShooterSensor", this.getSensorBallState());
-      SmartDashboard.putBoolean("Shooter Ready", (this.atAngle() == true && this.atSetpoint() == true));
-      SmartDashboard.putBoolean("Within X Offset", this.withinXTolerance());
-      SmartDashboard.putNumber("TD Value", ShooterTargeting.getTD());
-      SmartDashboard.putNumber("Z Value", ShooterTargeting.findZ());
-      SmartDashboard.putNumber("Motor Position - Angle", this.getCurrentAngleMotorPosition());
     }
 }

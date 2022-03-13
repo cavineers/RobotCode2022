@@ -1,7 +1,6 @@
-package frc.robot.commands;
+package frc.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.lib.ShooterTargeting;
 import frc.robot.Limelight;
@@ -18,8 +17,6 @@ public class AutoShoot extends CommandBase {
     private double m_timestamp;
     private double endTime;
     private double middleTime;
-
-    double cycleTime = Timer.getFPGATimestamp() - m_timestamp;
 
     // Finished Command
     private boolean m_finished = false;
@@ -63,12 +60,8 @@ public class AutoShoot extends CommandBase {
         if (Timer.getFPGATimestamp() - this.endTime >= 0.5 && ShooterTargeting.findZ() > .1) {
             this.shooter.enableShooter(ShooterTargeting.findZ());
         }
-
-        if (this.shooter.atSetpoint() == true) {
-            SmartDashboard.putNumber("Cycle Time", cycleTime);
-        }
     
-        if(this.shooter.atAngle() == true && this.shooter.atSetpoint() == true && Timer.getFPGATimestamp() - this.middleTime >= 3.0) {
+        if(this.shooter.atAngle() == true && this.shooter.atSetpoint() == true && Timer.getFPGATimestamp() - this.middleTime >= 2.5) {
             this.shooter.enableFeeder();
 
             if (this.setEndTimer == false) {
@@ -77,6 +70,8 @@ public class AutoShoot extends CommandBase {
             }
 
             if (this.shooter.getSensorBallState() == false && Timer.getFPGATimestamp() - this.endTime >= 1.5) {
+                this.m_finished = true;
+            } else if (Timer.getFPGATimestamp() - this.endTime >= 2.3) {
                 this.m_finished = true;
             }
         }

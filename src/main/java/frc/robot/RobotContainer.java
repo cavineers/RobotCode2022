@@ -4,8 +4,8 @@
 
 package frc.robot;
 
-import frc.robot.commands.AutoShoot;
 import frc.robot.commands.LowerIntake;
+import frc.robot.commands.ManualShoot;
 import frc.robot.commands.RaiseIntake;
 import frc.robot.commands.ReverseFeeder;
 import frc.robot.commands.SwitchMode;
@@ -14,6 +14,8 @@ import frc.robot.commands.ToggleReverseIntake;
 import frc.robot.commands.homing.HomeAngle;
 import frc.robot.commands.homing.HomeElevator;
 import frc.robot.commands.homing.HomeShooter;
+import frc.robot.commands.shooter.AutoShoot;
+import frc.robot.commands.shooter.AutoShootNoAdjust;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
@@ -36,6 +38,8 @@ public class RobotContainer {
   public Command m_autoCommand;
   // public SequentialCommandGroup m_autoShoot;
   public Command m_autoShoot;
+  public Command m_autoShootNoDrive;
+  public Command m_manualShoot;
   public Command m_intakeDropLower;
   public Command m_intakeDropRaise;
   public Command m_intake;
@@ -76,6 +80,8 @@ public class RobotContainer {
     this.m_autoCommand = new Autonomous(this);
     // this.m_autoShoot = new SequentialCommandGroup(new AutoShoot(Robot.shooter, Robot.limelight), new HomeShooter());
     this.m_autoShoot = new AutoShoot(Robot.shooter, Robot.limelight).andThen(new HomeShooter());
+    this.m_autoShootNoDrive = new AutoShootNoAdjust(Robot.shooter, Robot.limelight).andThen(new HomeShooter());
+    this.m_manualShoot = new ManualShoot(Robot.shooter).andThen(new HomeShooter());
 
     this.m_intakeDropLower = new LowerIntake();
     this.m_intakeDropRaise = new RaiseIntake();
@@ -123,6 +129,30 @@ public class RobotContainer {
         } else {
           m_autoShoot = new AutoShoot(Robot.shooter, Robot.limelight).andThen(new HomeShooter());
           m_autoShoot.schedule(false);
+        }
+      }
+    });
+
+    this.x_button.whenPressed(new InstantCommand() {
+      @Override
+      public void initialize() {
+        if (m_autoShootNoDrive.isScheduled()) {
+          m_autoShootNoDrive.cancel();
+        } else {
+          m_autoShootNoDrive = new AutoShootNoAdjust(Robot.shooter, Robot.limelight).andThen(new HomeShooter());
+          m_autoShootNoDrive.schedule(false);
+        }
+      }
+    });
+
+    this.y_button.whenPressed(new InstantCommand() {
+      @Override
+      public void initialize() {
+        if (m_manualShoot.isScheduled()) {
+          m_manualShoot.cancel();
+        } else {
+          m_manualShoot = new ManualShoot(Robot.shooter).andThen(new HomeShooter());
+          m_manualShoot.schedule(false);
         }
       }
     });
