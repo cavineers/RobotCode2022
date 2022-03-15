@@ -98,7 +98,10 @@ public class Robot extends TimedRobot {
 
     // Climber
     SmartDashboard.putNumber("Elevator Position", elevator.getElevatorMotor().getEncoder().getPosition());
-    SmartDashboard.putNumber("Climber Angle Position", climber.getAngleMotorPosition());
+    SmartDashboard.putNumber("Right Angle Position", climber.getAngleMotorPositionRight());
+    SmartDashboard.putBoolean("Right Angle Switch", climber.getRightAngleSwitch());
+    SmartDashboard.putNumber("Left Angle Position", climber.getAngleMotorPositionLeft());
+    SmartDashboard.putBoolean("Left Angle Switch", climber.getLeftAngleSwitch());
     
     // Drive
     SmartDashboard.putNumber("Drive Speed Right", m_robotContainer.drivetrain.getActiveRightSpeed());

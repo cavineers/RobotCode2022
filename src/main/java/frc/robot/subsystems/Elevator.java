@@ -28,7 +28,7 @@ public class Elevator extends SubsystemBase {
         this.m_climberElevatorOne.setIdleMode(IdleMode.kBrake);
         this.m_climberElevatorTwo.setIdleMode(IdleMode.kBrake);
 
-        this.m_climberElevatorTwo.follow(this.m_climberElevatorOne);
+        this.m_climberElevatorTwo.follow(this.m_climberElevatorOne, true);
 
         this.m_climberElevatorOne.setSmartCurrentLimit(39);
         this.m_climberElevatorTwo.setSmartCurrentLimit(39);
@@ -62,7 +62,7 @@ public class Elevator extends SubsystemBase {
     }
 
     public double getElevatorPosition() {
-        return this.m_climberElevatorOne.getEncoder().getPosition();
+        return -this.m_climberElevatorOne.getEncoder().getPosition();
     }
 
     public void setElevatorMotorPosition(double position) {

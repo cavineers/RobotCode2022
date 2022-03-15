@@ -15,9 +15,9 @@ public class HomeElevator extends CommandBase {
     @Override
     public void initialize() {
         if (Robot.elevator.getRightElevatorSwitch() == true) {
-            Robot.elevator.getElevatorMotor().set(0.1);
+            Robot.elevator.getElevatorMotor().set(0.05);
         } else {
-            Robot.elevator.getElevatorMotor().set(-0.1);
+            Robot.elevator.getElevatorMotor().set(-0.05);
         }
     }
 
@@ -25,7 +25,7 @@ public class HomeElevator extends CommandBase {
     public void execute() {
         if(Robot.elevator.getRightElevatorSwitch() == false) {
             // Keep elevator moving downward
-            Robot.elevator.getElevatorMotor().set(-0.1);
+            Robot.elevator.getElevatorMotor().set(-0.05);
         } else if (Robot.elevator.getRightElevatorSwitch() == true) {
             // Turn off elevator
             Robot.elevator.setElevMotorState(ElevatorMotorState.OFF);

@@ -89,7 +89,8 @@ public class RobotContainer {
   }
 
   private void configureButtonBindings() {
-    this.left_menu.whenPressed(new ParallelCommandGroup(new HomeAngle(), new HomeElevator()));
+    // this.left_menu.whenPressed(new ParallelCommandGroup(new HomeAngle(), new HomeElevator()));
+    this.left_menu.whenPressed(new HomeAngle());
     this.povUp.whenPressed(new SwitchMode(this));
     this.b_button.whenPressed(new ToggleIntake());
 

@@ -20,8 +20,8 @@ public final class Constants {
         public static int DriveTrainMotorRight2 = 4;  // Right 2 (neo)
         public static int ClimberElevMotorOne   = 5;  // CliberElevatorMotor (neo)
         public static int ClimberElevMotorTwo   = 6;  // CliberElevatorMotorTwo (neo)
-        public static int ClimberAngleMotorOne  = 7;  // ClimberAngleMotor (minineo)
-        public static int ClimberAngleMotorTwo  = 8;  // ClimberAngleMotor (minineo)
+        public static int ClimberAngleMotorRight  = 7;  // ClimberAngleMotor (minineo)
+        public static int ClimberAngleMotorLeft  = 8;  // ClimberAngleMotor (minineo)
         public static int IntakeMotor           = 9;  // IntakeMotor (neo)
         public static int IntakeMotorDrop       = 10;  // IntakeDrop (minineo)
         public static int ShooterAngle          = 11;  // ShooterAngle(neo)
@@ -88,8 +88,8 @@ public final class Constants {
     public static class Climber {
         public static int ClimberElevMotorOne = CANIds.ClimberElevMotorOne;
         public static int ClimberElevMotorTwo = CANIds.ClimberElevMotorTwo;
-        public static int ClimberAngleMotorOne = CANIds.ClimberAngleMotorOne;
-        public static int ClimberAngleMotorTwo = CANIds.ClimberAngleMotorTwo;
+        public static int ClimberAngleMotorRight = CANIds.ClimberAngleMotorRight;
+        public static int ClimberAngleMotorLeft = CANIds.ClimberAngleMotorLeft;
 
         public static double ElevatorSpeed = -0.1;
         public static double ElevatorSpeedRev = 0.1;
@@ -97,9 +97,10 @@ public final class Constants {
 
         public static double AngleSpeed = -0.1;
         public static double AngleSpeedRev = 0.1;
+        public static double LeftAngleConstant = 0.01;
 
-        public static double MaxElevatorRevolutions = 243.6;
-        public static double MaxSwivelRevolutions = 700.0;
+        public static double MaxElevatorRevolutions = 90.6;
+        public static double MaxSwivelRevolutions = 30.6;
     }
     public static class DIO {
         public static int IntakeSensor = 0;
