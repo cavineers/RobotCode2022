@@ -64,6 +64,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     limelight.setLightMode(LedMode.OFF);
+    // intake.m_intakeDropMotor.getEncoder().setPosition(0.0);
   }
 
   /**

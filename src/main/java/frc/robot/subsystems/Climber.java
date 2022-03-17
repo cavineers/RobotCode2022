@@ -23,8 +23,8 @@ public class Climber extends SubsystemBase {
 
   public Climber() {
     // Set all motors to run in brake mode
-    // this.m_climberAngleRight.setIdleMode(IdleMode.kBrake);
-    // this.m_climberAngleLeft.setIdleMode(IdleMode.kBrake);
+    this.m_climberAngleRight.setIdleMode(IdleMode.kBrake);
+    this.m_climberAngleLeft.setIdleMode(IdleMode.kBrake);
 
     // Set amps on secondary angles to follow primary angles
     // this.m_climberAngleLeft.follow(this.m_climberAngleRight, true);

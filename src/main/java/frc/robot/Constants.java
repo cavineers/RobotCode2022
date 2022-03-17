@@ -20,7 +20,7 @@ public final class Constants {
         public static int DriveTrainMotorRight2 = 4;  // Right 2 (neo)
         public static int ClimberElevMotorOne   = 5;  // CliberElevatorMotor (neo)
         public static int ClimberElevMotorTwo   = 6;  // CliberElevatorMotorTwo (neo)
-        public static int ClimberAngleMotorRight  = 7;  // ClimberAngleMotor (minineo)
+        public static int ClimberAngleMotorRight = 7;  // ClimberAngleMotor (minineo)
         public static int ClimberAngleMotorLeft  = 8;  // ClimberAngleMotor (minineo)
         public static int IntakeMotor           = 9;  // IntakeMotor (neo)
         public static int IntakeMotorDrop       = 10;  // IntakeDrop (minineo)
@@ -58,7 +58,7 @@ public final class Constants {
 
         public static double shooterHeight = Units.inchesToMeters(38); // 12.4
 
-        public static double degreesPerRevolution = 3.33; // 1.625 on 100:1 with 2:1 increase
+        public static double degreesPerRevolution = 3.327; // 1.625 on 100:1 with 2:1 increase
         public static double flywheelRotationsPerRevolution = .2;
 
         public static double flywheelRadius = .0508; //checked with shooter, 2 in = .0508 m
@@ -66,9 +66,9 @@ public final class Constants {
         public static double kP = 0.00072; // 0.0008; Proportional
         public static double kI = 0.0; // 0.0; Integral
         public static double kD = 0.02; // 0.009; Derivative
-        public static double kF = 0.0002; // 0.00017; Feed Forward
+        public static double kF = 0.000205; // 0.00017; Feed Forward
 
-        public static double angleSpeed = 0.09; // Angle motor speed 0-1 bounds
+        public static double angleSpeed = 0.15; // Angle motor speed 0-1 bounds
         public static double feederSpeed = 0.41; // Angle motor speed 0-1 bounds
     }
 
@@ -97,17 +97,17 @@ public final class Constants {
 
         public static double AngleSpeed = -0.1;
         public static double AngleSpeedRev = 0.1;
-        public static double LeftAngleConstant = 0.01;
+        public static double LeftAngleConstant = 0.012;
 
-        public static double MaxElevatorRevolutions = 90.6;
-        public static double MaxSwivelRevolutions = 30.6;
+        public static double MaxElevatorRevolutions = 94.4;
+        public static double MaxSwivelRevolutions = 34.6;
     }
     public static class DIO {
         public static int IntakeSensor = 0;
         public static int ElevatorSwitchRight = 1;
-        public static int ElevatorSwitchLeft = 2;
-        public static int ClimberAngleSwitchRight = 3;
+        public static int ElevatorSwitchLeft = 6;
+        public static int ClimberAngleSwitchRight = 2;
         public static int ClimberAngleSwitchLeft = 4;
-        public static int BallSensorShooter = 5;
+        public static int BallSensorShooter = 9;
     }
 }
