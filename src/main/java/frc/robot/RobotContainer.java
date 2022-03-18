@@ -5,7 +5,7 @@
 package frc.robot;
 
 import frc.robot.commands.LowerIntake;
-import frc.robot.commands.ManualShoot;
+import frc.robot.commands.shooter.ManualShoot;
 import frc.robot.commands.RaiseIntake;
 import frc.robot.commands.ReverseFeeder;
 import frc.robot.commands.SwitchMode;
@@ -161,7 +161,6 @@ public class RobotContainer {
 
   private void configureButtonBindingsClimb() {
     this.povUp.whenPressed(new SwitchMode(this));
-    this.left_menu.whenPressed(new HomeAngle());
   }
 
   /**

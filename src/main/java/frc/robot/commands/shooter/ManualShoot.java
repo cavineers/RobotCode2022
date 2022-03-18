@@ -14,6 +14,9 @@ public class ManualShoot extends CommandBase {
     private Shooter shooter;
 
     private double m_timestamp;
+    
+    private boolean setEndTimer = false;
+    private double endTime;
 
     private boolean m_finished = false;
 
@@ -35,7 +38,15 @@ public class ManualShoot extends CommandBase {
 
         if (Timer.getFPGATimestamp() - this.m_timestamp >= 3.5) {
             shooter.enableFeeder();
-            this.m_finished = true;
+            
+            if (this.setEndTimer == false) {
+                this.setEndTimer = true;
+                this.endTime = Timer.getFPGATimestamp();
+            }
+
+            if (Timer.getFPGATimestamp() - this.endTime >= 1.5) {
+                this.m_finished = true;
+            }
         }
     }
 

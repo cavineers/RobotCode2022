@@ -82,7 +82,7 @@ public final class Constants {
         public static double DropSpeed = -0.2;
         public static double LiftSpeed = 0.2;
 
-        public static double RevolutionsToLower = -27;
+        public static double RevolutionsToLower = -27.5;
     }
 
     public static class Climber {
@@ -97,10 +97,10 @@ public final class Constants {
 
         public static double AngleSpeed = -0.1;
         public static double AngleSpeedRev = 0.1;
-        public static double LeftAngleConstant = 0.012;
+        public static double LeftAngleConstant = 0.01; // 0.012
 
         public static double MaxElevatorRevolutions = 93.5;
-        public static double MaxSwivelRevolutions = 34.6;
+        public static double MaxSwivelRevolutions = 32.6;
     }
     public static class DIO {
         public static int IntakeSensor = 0;
