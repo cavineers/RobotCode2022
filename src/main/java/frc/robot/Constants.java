@@ -39,7 +39,7 @@ public final class Constants {
     public static class Targeting {
         // TODO Update these values
         public static double kFieldGoalHeightFromGroundIn = 104; // Math constants 104
-        public static double kLimelightHeightFromGroundIn = 23; // vertical distance from limelight to ground
+        public static double kLimelightHeightFromGroundIn = 23.5; // vertical distance from limelight to ground
     
         public static double kFieldGoalHeightFromGround = Units.inchesToMeters(kFieldGoalHeightFromGroundIn); // Math constants
         public static double kLimelightHeightFromGround = Units.inchesToMeters(kLimelightHeightFromGroundIn); // vertical distance from limelight to ground
@@ -66,9 +66,9 @@ public final class Constants {
         public static double kP = 0.00072; // 0.0008; Proportional
         public static double kI = 0.0; // 0.0; Integral
         public static double kD = 0.02; // 0.009; Derivative
-        public static double kF = 0.000205; // 0.00017; Feed Forward
+        public static double kF = 0.00021; // 0.00017; Feed Forward
 
-        public static double angleSpeed = 0.15; // Angle motor speed 0-1 bounds
+        public static double angleSpeed = 0.1; // Angle motor speed 0-1 bounds
         public static double feederSpeed = 0.41; // Angle motor speed 0-1 bounds
     }
 
@@ -77,7 +77,7 @@ public final class Constants {
         public static int IntakeDropID = CANIds.IntakeMotorDrop;
 
         public static double IntakeSpeed = 0.6; // Intake motor speed (-1.0 -- 1.0)
-        public static double IntakeSpeedRev = -0.3; // Intake reverse speed
+        public static double IntakeSpeedRev = -0.5; // Intake reverse speed
 
         public static double DropSpeed = -0.2;
         public static double LiftSpeed = 0.2;
@@ -99,7 +99,7 @@ public final class Constants {
         public static double AngleSpeedRev = 0.1;
         public static double LeftAngleConstant = 0.012;
 
-        public static double MaxElevatorRevolutions = 94.4;
+        public static double MaxElevatorRevolutions = 93.5;
         public static double MaxSwivelRevolutions = 34.6;
     }
     public static class DIO {

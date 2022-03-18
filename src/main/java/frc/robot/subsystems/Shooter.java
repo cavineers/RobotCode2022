@@ -100,9 +100,9 @@ public class Shooter extends SubsystemBase {
 
     // Returns which angle constant is set
     public ShooterAngle setShooterAngle(double z) {
-      if (z >= 6) {
-        return ShooterAngle.LOW;
-      } else if ((z <= 6) && (z >= 3)) {
+      if (z >= 5) {
+        return ShooterAngle.MEDIUM;
+      } else if ((z <= 5) && (z >= 2.2)) {
         return ShooterAngle.MEDIUM;
       } else {
         return ShooterAngle.HIGH;

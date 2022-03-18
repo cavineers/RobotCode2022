@@ -116,7 +116,7 @@ public class RobotContainer {
       }
     });
 
-    this.right_menu.whenPressed(new ToggleReverseIntake());
+    this.povDown.whenPressed(new ToggleReverseIntake());
     this.povLeft.whenPressed(new ReverseFeeder());
 
     //Shoot
@@ -161,6 +161,7 @@ public class RobotContainer {
 
   private void configureButtonBindingsClimb() {
     this.povUp.whenPressed(new SwitchMode(this));
+    this.left_menu.whenPressed(new HomeAngle());
   }
 
   /**

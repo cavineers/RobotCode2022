@@ -14,7 +14,7 @@ public class ToggleReverseIntake extends CommandBase {
     public void initialize() {
         if (Robot.intake.getIntakeMotorState() == Intake.IntakeMotorState.OFF) {
             Robot.intake.setMotorState(Intake.IntakeMotorState.REVERSED);
-            Robot.shooter.enableFeeder(-0.22);
+            Robot.shooter.enableFeeder(-0.4);
         } else {
             Robot.intake.setMotorState(Intake.IntakeMotorState.OFF);
             Robot.shooter.disableFeeder();
