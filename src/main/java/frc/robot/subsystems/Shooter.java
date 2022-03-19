@@ -245,7 +245,7 @@ public class Shooter extends SubsystemBase {
     }
 
     public boolean withinXTolerance() {
-      if (ShooterTargeting.getTx() >= -5.2 && ShooterTargeting.getTx() <= 5.2) {
+      if (ShooterTargeting.getTx() >= -4.8 && ShooterTargeting.getTx() <= 4.8) {
         return true;
       } else {
         return false;

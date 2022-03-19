@@ -26,9 +26,9 @@ public class Autonomous extends CommandBase {
     @Override
     public void execute() {
         // Get GyroSphere heading to keep at 0 and account for errors in drive chain
-        double error = -Robot.gyro.getRate();
+        // double error = -Robot.gyro.getRate();
 
-        if (Timer.getFPGATimestamp() - this.startTime >= 4) {
+        if (Timer.getFPGATimestamp() - this.startTime >= 4.3) {
             this.rc.drivetrain.drive(0, 0, true);
             if (this.scheduled == false) {
                 this.scheduled = true;
@@ -36,7 +36,7 @@ public class Autonomous extends CommandBase {
                 this.rc.m_autoShoot.schedule();
             }
         } else {
-            this.rc.drivetrain.drive(0, 0.14 + kP * error, true);
+            this.rc.drivetrain.drive(0, 0.14, true);
         }
     }
 
