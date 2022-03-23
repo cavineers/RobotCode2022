@@ -52,7 +52,7 @@ public final class Constants {
         public static int ShooterAngle = CANIds.ShooterAngle;
         public static int ShooterFeeder = CANIds.ShooterFeeder;
 
-        public static double shooterAngleLow = 45;
+        public static double shooterAngleLow = 63;
         public static double shooterAngleMedium = 65;
         public static double shooterAngleHigh = 75;
 
@@ -68,8 +68,8 @@ public final class Constants {
         public static double kD = 0.02; // 0.009; Derivative
         public static double kF = 0.00021; // 0.00017; Feed Forward
 
-        public static double angleSpeed = 0.1; // Angle motor speed 0-1 bounds
-        public static double feederSpeed = 0.41; // Angle motor speed 0-1 bounds
+        public static double angleSpeed = 0.2; // Angle motor speed 0-1 bounds 0.1
+        public static double feederSpeed = 0.32; // Angle motor speed 0-1 bounds
     }
 
     public static class Intake {
@@ -100,6 +100,7 @@ public final class Constants {
         public static double LeftAngleConstant = 0.01; // 0.012
 
         public static double MaxElevatorRevolutions = 93.5;
+        public static double MaxElevatorRevolutionsInital = 60.5;
         public static double MaxSwivelRevolutions = 32.6;
     }
     public static class DIO {

@@ -101,7 +101,7 @@ public class Shooter extends SubsystemBase {
     // Returns which angle constant is set
     public ShooterAngle setShooterAngle(double z) {
       if (z >= 5) {
-        return ShooterAngle.MEDIUM;
+        return ShooterAngle.LOW;
       } else if ((z <= 5) && (z >= 2.2)) {
         return ShooterAngle.MEDIUM;
       } else {
@@ -202,7 +202,7 @@ public class Shooter extends SubsystemBase {
 
     // Returns true if the shooter motor is at it's target setpoint
     public boolean atSetpoint() {
-      return (Math.abs(this.getCurrentSpeedSetpoint() - Math.abs(this.m_shootEncoder.getVelocity())) < 50);
+      return (Math.abs(this.getCurrentSpeedSetpoint() - Math.abs(this.m_shootEncoder.getVelocity())) < 20);
     }
 
     // Returns true if the shooter motor is at it's target setpoint
@@ -245,7 +245,7 @@ public class Shooter extends SubsystemBase {
     }
 
     public boolean withinXTolerance() {
-      if (ShooterTargeting.getTx() >= -4.8 && ShooterTargeting.getTx() <= 4.8) {
+      if (ShooterTargeting.getTx() >= -3.8 && ShooterTargeting.getTx() <= 3.8) {
         return true;
       } else {
         return false;

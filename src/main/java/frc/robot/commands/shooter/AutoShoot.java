@@ -57,7 +57,7 @@ public class AutoShoot extends CommandBase {
         this.shooter.turnToAngle(this.shooter.setShooterAngle(ShooterTargeting.findZ()));
 
         // Start spinning up shooter
-        if (Timer.getFPGATimestamp() - this.endTime >= 0.5 && ShooterTargeting.findZ() > .1) {
+        if (Timer.getFPGATimestamp() - this.endTime >= 0.1 && ShooterTargeting.findZ() > .1) {
             this.shooter.enableShooter(ShooterTargeting.findZ());
         }
     

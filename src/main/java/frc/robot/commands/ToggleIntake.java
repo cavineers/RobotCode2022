@@ -57,6 +57,7 @@ public class ToggleIntake extends CommandBase {
         } else {
             Robot.shooter.enableFeeder(0.4);
             if (Robot.shooter.getSensorBallState() == true) {
+                Timer.delay(0.016);
                 Robot.intake.setMotorState(Intake.IntakeMotorState.OFF);
                 Robot.shooter.disableFeeder();
                 this.isDone = true; 

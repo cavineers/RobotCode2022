@@ -34,7 +34,7 @@ public class ManualShoot extends CommandBase {
     public void execute() {
         shooter.turnToAngle(ShooterAngle.MEDIUM);
 
-        shooter.enableShooter(5.17); // Safe bounds 0 - 5400 RPM
+        shooter.enableShooter(2.49); // Safe bounds 0 - 5400 RPM
 
         if (Timer.getFPGATimestamp() - this.m_timestamp >= 3.5) {
             shooter.enableFeeder();
