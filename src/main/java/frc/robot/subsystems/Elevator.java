@@ -9,64 +9,45 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Elevator extends SubsystemBase {
-    private CANSparkMax m_climberElevatorOne = new CANSparkMax(Constants.Climber.ClimberElevMotorOne, MotorType.kBrushless);
-    private CANSparkMax m_climberElevatorTwo = new CANSparkMax(Constants.Climber.ClimberElevMotorTwo, MotorType.kBrushless);
-  
-    // Climber Motor States
-    private ElevatorMotorState m_motorElevState = ElevatorMotorState.OFF;
+    private CANSparkMax m_climberElevatorRight = new CANSparkMax(Constants.Climber.ClimberElevMotorRight, MotorType.kBrushless);
+    private CANSparkMax m_climberElevatorLeft = new CANSparkMax(Constants.Climber.ClimberElevMotorLeft, MotorType.kBrushless);
 
     private DigitalInput m_elevatorLimitSwtichRight = new DigitalInput(Constants.DIO.ElevatorSwitchRight);
     private DigitalInput m_elevatorLimitSwtichLeft = new DigitalInput(Constants.DIO.ElevatorSwitchLeft);
-  
-    public enum ElevatorMotorState {
-        ON,
-        OFF,
-        REVERSED
-    }  
 
     public Elevator() {
-        this.m_climberElevatorOne.setIdleMode(IdleMode.kBrake);
-        this.m_climberElevatorTwo.setIdleMode(IdleMode.kBrake);
+        this.m_climberElevatorRight.setIdleMode(IdleMode.kBrake);
+        this.m_climberElevatorLeft.setIdleMode(IdleMode.kBrake);
 
-        this.m_climberElevatorTwo.follow(this.m_climberElevatorOne, true);
+        // this.m_climberElevatorTwo.follow(this.m_climberElevatorOne, true);
 
-        this.m_climberElevatorOne.setSmartCurrentLimit(39);
-        this.m_climberElevatorTwo.setSmartCurrentLimit(39);
+        this.m_climberElevatorRight.setSmartCurrentLimit(39);
+        this.m_climberElevatorLeft.setSmartCurrentLimit(39);
     }
 
 
-    public CANSparkMax getElevatorMotor() {
-        return this.m_climberElevatorOne;
+    public CANSparkMax getElevatorRightMotor() {
+        return this.m_climberElevatorRight;
     }
 
-    public void setElevMotorState(ElevatorMotorState state) {
-        this.m_motorElevState = state;
-
-        switch (state) {
-        case ON:
-            this.m_climberElevatorOne.set(Constants.Climber.ElevatorSpeed);
-            break;
-        case OFF:
-            this.m_climberElevatorOne.set(0.0);
-            break;
-        case REVERSED:
-            this.m_climberElevatorOne.set(Constants.Climber.ElevatorSpeedRev);
-            break;
-        default:
-            this.setElevMotorState(ElevatorMotorState.OFF);
-        }
+    public CANSparkMax getElevatorLeftMotor() {
+        return this.m_climberElevatorLeft;
     }
 
-    public ElevatorMotorState getElevState() {
-        return this.m_motorElevState;
+    public double getElevatorRightPosition() {
+        return -this.m_climberElevatorRight.getEncoder().getPosition();
     }
 
-    public double getElevatorPosition() {
-        return -this.m_climberElevatorOne.getEncoder().getPosition();
+    public void setElevatorRightMotorPosition(double position) {
+        this.m_climberElevatorRight.getEncoder().setPosition(position);
     }
 
-    public void setElevatorMotorPosition(double position) {
-        this.m_climberElevatorOne.getEncoder().setPosition(position);
+    public double getElevatorLeftPosition() {
+        return -this.m_climberElevatorLeft.getEncoder().getPosition();
+    }
+
+    public void setElevatorLeftMotorPosition(double position) {
+        this.m_climberElevatorLeft.getEncoder().setPosition(position);
     }
 
     public boolean getRightElevatorSwitch() {

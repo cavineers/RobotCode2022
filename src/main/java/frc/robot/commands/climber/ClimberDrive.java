@@ -7,7 +7,6 @@ import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
 import frc.robot.RobotContainer.CurrentMode;
-import frc.robot.subsystems.Elevator.ElevatorMotorState;
 
 public class ClimberDrive extends CommandBase {
 
@@ -22,7 +21,8 @@ public class ClimberDrive extends CommandBase {
 
     @Override
     public void initialize() {
-        Robot.elevator.setElevMotorState(ElevatorMotorState.OFF);
+        Robot.elevator.getElevatorRightMotor().set(0.0);
+        Robot.elevator.getElevatorLeftMotor().set(0.0);
         Robot.climber.getAngleMotorRight().set(0.0);
         Robot.climber.getAngleMotorLeft().set(0.0);
     }
@@ -30,81 +30,120 @@ public class ClimberDrive extends CommandBase {
     @Override
     public void execute() {
         // Elevator
-        if (Robot.climber.getAngleMotorPositionRight() < 21) {
-            if (Robot.elevator.getElevatorPosition() < Constants.Climber.MaxElevatorRevolutionsInital && Robot.elevator.getElevatorPosition() > 0) {
-                Robot.elevator.getElevatorMotor().set(DriveMotion.add(this.joy.getRawAxis(1) / 1.5, 0.05));
-            } else if (Robot.elevator.getElevatorPosition() > Constants.Climber.MaxElevatorRevolutionsInital) {
+        // double elevatorSetpoint = height / 0.34;
+
+        // Right Elevator
+        if (Robot.climber.getAngleMotorPositionRight() < 70) {
+            if (Robot.elevator.getElevatorRightPosition() < Constants.Climber.MaxElevatorRevolutionsInital && Robot.elevator.getElevatorRightPosition() > 0) {
+                Robot.elevator.getElevatorRightMotor().set(DriveMotion.add(this.joy.getRawAxis(1) / 1.5, 0.05));
+            } else if (Robot.elevator.getElevatorRightPosition() > Constants.Climber.MaxElevatorRevolutionsInital) {
                 if(DriveMotion.add(this.joy.getRawAxis(1) / 1.5, 0.05) > 0) {
-                    Robot.elevator.getElevatorMotor().set(DriveMotion.add(this.joy.getRawAxis(1) / 1.5, 0.05));
+                    Robot.elevator.getElevatorRightMotor().set(DriveMotion.add(this.joy.getRawAxis(1) / 1.5, 0.05));
                 } else {
-                    Robot.elevator.setElevMotorState(ElevatorMotorState.OFF);
+                    Robot.elevator.getElevatorRightMotor().set(0.0);
                 }
-            } else if (Robot.elevator.getElevatorPosition() <= 0) {
+            } else if (Robot.elevator.getElevatorRightPosition() <= 0) {
                 if(DriveMotion.add(this.joy.getRawAxis(1) / 1.5, 0.05) < 0) {
-                    Robot.elevator.getElevatorMotor().set(DriveMotion.add(this.joy.getRawAxis(1) / 1.5, 0.05));
+                    Robot.elevator.getElevatorRightMotor().set(DriveMotion.add(this.joy.getRawAxis(1) / 1.5, 0.05));
                 } else {
-                    Robot.elevator.setElevMotorState(ElevatorMotorState.OFF);
+                    Robot.elevator.getElevatorRightMotor().set(0.0);
                 }
             }
         } else {
-            if (Robot.elevator.getElevatorPosition() < Constants.Climber.MaxElevatorRevolutions && Robot.elevator.getElevatorPosition() > 0) {
-                Robot.elevator.getElevatorMotor().set(DriveMotion.add(this.joy.getRawAxis(1) / 1.5, 0.05));
-            } else if (Robot.elevator.getElevatorPosition() > Constants.Climber.MaxElevatorRevolutions) {
+            if (Robot.elevator.getElevatorRightPosition() < Constants.Climber.MaxElevatorRevolutions && Robot.elevator.getElevatorRightPosition() > 0) {
+                Robot.elevator.getElevatorRightMotor().set(DriveMotion.add(this.joy.getRawAxis(1) / 1.5, 0.05));
+            } else if (Robot.elevator.getElevatorRightPosition() > Constants.Climber.MaxElevatorRevolutions) {
                 if(DriveMotion.add(this.joy.getRawAxis(1) / 1.5, 0.05) > 0) {
-                    Robot.elevator.getElevatorMotor().set(DriveMotion.add(this.joy.getRawAxis(1) / 1.5, 0.05));
+                    Robot.elevator.getElevatorRightMotor().set(DriveMotion.add(this.joy.getRawAxis(1) / 1.5, 0.05));
                 } else {
-                    Robot.elevator.setElevMotorState(ElevatorMotorState.OFF);
+                    Robot.elevator.getElevatorRightMotor().set(0.0);
                 }
-            } else if (Robot.elevator.getElevatorPosition() <= 0) {
+            } else if (Robot.elevator.getElevatorRightPosition() <= 0) {
                 if(DriveMotion.add(this.joy.getRawAxis(1) / 1.5, 0.05) < 0) {
-                    Robot.elevator.getElevatorMotor().set(DriveMotion.add(this.joy.getRawAxis(1) / 1.5, 0.05));
+                    Robot.elevator.getElevatorRightMotor().set(DriveMotion.add(this.joy.getRawAxis(1) / 1.5, 0.05));
                 } else {
-                    Robot.elevator.setElevMotorState(ElevatorMotorState.OFF);
+                    Robot.elevator.getElevatorRightMotor().set(0.0);
                 }
             }
         }
 
+        // Left Elevator
+        if (Robot.climber.getAngleMotorPositionRight() < 70) {
+            if (Robot.elevator.getElevatorLeftPosition() < Constants.Climber.MaxElevatorRevolutionsInital && Robot.elevator.getElevatorLeftPosition() > 0) {
+                Robot.elevator.getElevatorLeftMotor().set(DriveMotion.add(this.joy.getRawAxis(1) / 1.5, 0.05));
+            } else if (Robot.elevator.getElevatorLeftPosition() > Constants.Climber.MaxElevatorRevolutionsInital) {
+                if(DriveMotion.add(this.joy.getRawAxis(1) / 1.5, 0.05) > 0) {
+                    Robot.elevator.getElevatorLeftMotor().set(DriveMotion.add(this.joy.getRawAxis(1) / 1.5, 0.05));
+                } else {
+                    Robot.elevator.getElevatorLeftMotor().set(0.0);
+                }
+            } else if (Robot.elevator.getElevatorLeftPosition() <= 0) {
+                if(DriveMotion.add(this.joy.getRawAxis(1) / 1.5, 0.05) < 0) {
+                    Robot.elevator.getElevatorLeftMotor().set(DriveMotion.add(this.joy.getRawAxis(1) / 1.5, 0.05));
+                } else {
+                    Robot.elevator.getElevatorLeftMotor().set(0.0);
+                }
+            }
+        } else {
+            if (Robot.elevator.getElevatorLeftPosition() < Constants.Climber.MaxElevatorRevolutions && Robot.elevator.getElevatorLeftPosition() > 0) {
+                Robot.elevator.getElevatorLeftMotor().set(DriveMotion.add(this.joy.getRawAxis(1) / 1.5, 0.05));
+            } else if (Robot.elevator.getElevatorLeftPosition() > Constants.Climber.MaxElevatorRevolutions) {
+                if(DriveMotion.add(this.joy.getRawAxis(1) / 1.5, 0.05) > 0) {
+                    Robot.elevator.getElevatorLeftMotor().set(DriveMotion.add(this.joy.getRawAxis(1) / 1.5, 0.05));
+                } else {
+                    Robot.elevator.getElevatorLeftMotor().set(0.0);
+                }
+            } else if (Robot.elevator.getElevatorLeftPosition() <= 0) {
+                if(DriveMotion.add(this.joy.getRawAxis(1) / 1.5, 0.05) < 0) {
+                    Robot.elevator.getElevatorLeftMotor().set(DriveMotion.add(this.joy.getRawAxis(1) / 1.5, 0.05));
+                } else {
+                    Robot.elevator.getElevatorLeftMotor().set(0.0);
+                }
+            }
+        }
+
+
         // Angle Right
-        if (Robot.climber.getAngleMotorPositionRight() < Constants.Climber.MaxSwivelRevolutions && Robot.climber.getAngleMotorPositionRight() > 0) {
-            Robot.climber.getAngleMotorRight().set(-DriveMotion.add(this.joy.getRawAxis(4) / 2.3, 0.05));
+        if (Robot.climber.getAngleMotorPositionRight() < Constants.Climber.MaxSwivelRevolutions && Robot.climber.getAngleMotorPositionRight() > 1) {
+            Robot.climber.getAngleMotorRight().set(-DriveMotion.add(this.joy.getRawAxis(4) / 1.6, 0.05));
         } else if (Robot.climber.getAngleMotorPositionRight() > Constants.Climber.MaxSwivelRevolutions) {
-            if(-DriveMotion.add(this.joy.getRawAxis(4) / 2.3, 0.05) < 0) {
-                Robot.climber.getAngleMotorRight().set(-DriveMotion.add(this.joy.getRawAxis(4) / 2.3, 0.05));
+            if(-DriveMotion.add(this.joy.getRawAxis(4) / 1.6, 0.05) < 0) {
+                Robot.climber.getAngleMotorRight().set(-DriveMotion.add(this.joy.getRawAxis(4) / 1.6, 0.05));
             } else {
-                if (Robot.climber.getAngleMotorPositionRight() > Constants.Climber.MaxSwivelRevolutions + 1.2) {
+                if (Robot.climber.getAngleMotorPositionRight() > Constants.Climber.MaxSwivelRevolutions + 2.2) {
                     Robot.climber.getAngleMotorRight().set(-0.2);
                 } else {
                     Robot.climber.getAngleMotorRight().set(0.0);
                 }
             }
-        } else if (Robot.climber.getAngleMotorPositionRight() <= 0) {
-            if(-DriveMotion.add(this.joy.getRawAxis(4) / 2.3, 0.05) > 0) {
-                Robot.climber.getAngleMotorRight().set(-DriveMotion.add(this.joy.getRawAxis(4) / 2.3, 0.05));
+        } else if (Robot.climber.getAngleMotorPositionRight() <= 1) {
+            if(-DriveMotion.add(this.joy.getRawAxis(4) / 1.6, 0.05) > 0) {
+                Robot.climber.getAngleMotorRight().set(-DriveMotion.add(this.joy.getRawAxis(4) / 1.6, 0.05));
             } else {
                 Robot.climber.getAngleMotorRight().set(0.0);
             }
         }
 
         // Angle Left
-        if (Robot.climber.getAngleMotorPositionLeft() < Constants.Climber.MaxSwivelRevolutions && Robot.climber.getAngleMotorPositionLeft() > 0) {
-            if (-DriveMotion.add(this.joy.getRawAxis(4) / 2.3, 0.05) < 0) {
-                Robot.climber.getAngleMotorLeft().set(-DriveMotion.add((this.joy.getRawAxis(4) / 2.3) + Constants.Climber.LeftAngleConstant, 0.05));
+        if (Robot.climber.getAngleMotorPositionLeft() < Constants.Climber.MaxSwivelRevolutions && Robot.climber.getAngleMotorPositionLeft() > 1) {
+            if (-DriveMotion.add(this.joy.getRawAxis(4) / 1.6, 0.05) < 0) {
+                Robot.climber.getAngleMotorLeft().set(-DriveMotion.add((this.joy.getRawAxis(4) / 1.6) + Constants.Climber.LeftAngleConstant, 0.05));
             } else {
-                Robot.climber.getAngleMotorLeft().set(-DriveMotion.add((this.joy.getRawAxis(4) / 2.3) - Constants.Climber.LeftAngleConstant, 0.05));
+                Robot.climber.getAngleMotorLeft().set(-DriveMotion.add((this.joy.getRawAxis(4) / 1.6) - Constants.Climber.LeftAngleConstant, 0.05));
             }
         } else if (Robot.climber.getAngleMotorPositionLeft() > Constants.Climber.MaxSwivelRevolutions) {
-            if(-DriveMotion.add(this.joy.getRawAxis(4) / 2.3, 0.05) < 0) {
-                Robot.climber.getAngleMotorLeft().set(-DriveMotion.add((this.joy.getRawAxis(4) / 2.3) + Constants.Climber.LeftAngleConstant, 0.05));
+            if(-DriveMotion.add(this.joy.getRawAxis(4) / 1.6, 0.05) < 0) {
+                Robot.climber.getAngleMotorLeft().set(-DriveMotion.add((this.joy.getRawAxis(4) / 1.6) + Constants.Climber.LeftAngleConstant, 0.05));
             } else {
-                if (Robot.climber.getAngleMotorPositionLeft() > Constants.Climber.MaxSwivelRevolutions + 1.2) {
+                if (Robot.climber.getAngleMotorPositionLeft() > Constants.Climber.MaxSwivelRevolutions + 2.2) {
                     Robot.climber.getAngleMotorLeft().set(-0.2);
                 } else {
                     Robot.climber.getAngleMotorLeft().set(0.0);
                 }
             }
-        } else if (Robot.climber.getAngleMotorPositionLeft() <= 0) {
-            if(-DriveMotion.add(this.joy.getRawAxis(4) / 2.3, 0.05) > 0) {
-                Robot.climber.getAngleMotorLeft().set(-DriveMotion.add((this.joy.getRawAxis(4) / 2.3) - Constants.Climber.LeftAngleConstant, 0.05));
+        } else if (Robot.climber.getAngleMotorPositionLeft() <= 1) {
+            if(-DriveMotion.add(this.joy.getRawAxis(4) / 1.6, 0.05) > 0) {
+                Robot.climber.getAngleMotorLeft().set(-DriveMotion.add((this.joy.getRawAxis(4) / 1.6) - Constants.Climber.LeftAngleConstant, 0.05));
             } else {
                 Robot.climber.getAngleMotorLeft().set(0.0);
             }
@@ -114,7 +153,8 @@ public class ClimberDrive extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         // Turn off motors at the end
-        Robot.elevator.setElevMotorState(ElevatorMotorState.OFF);
+        Robot.elevator.getElevatorRightMotor().set(0.0);
+        Robot.elevator.getElevatorLeftMotor().set(0.0);
         Robot.climber.getAngleMotorRight().set(0.0);
         Robot.climber.getAngleMotorLeft().set(0.0);
     }

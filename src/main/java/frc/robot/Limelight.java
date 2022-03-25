@@ -29,6 +29,10 @@ public class Limelight {
         return this.m_limeLightTable.getEntry("ty").getDouble(0.0);
     }
 
+    public boolean validTargets() {
+        return this.m_limeLightTable.getEntry("tv").getDouble(0.0) > 0;
+    }
+
     public double getRange() {
         return this.m_limeLightTable.getEntry("ta").getDouble(0.0);
     }

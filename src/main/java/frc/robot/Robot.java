@@ -44,7 +44,7 @@ public class Robot extends TimedRobot {
   public Command m_autonomousCommand;
 
   public Robot() {
-    super(0.02); // 0.02 - 50Hz run rate | 0.0167 - 60Hz run rate
+    super(0.02); // 0.02 - 50Hz run rate | 0.0167 - 60Hz run rate | 0.01429 - 100Hz run rate
     limelight = new Limelight();
 
     // Subsystems
@@ -99,7 +99,8 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Intake Position", intake.getDropMotor().getEncoder().getPosition());
 
     // Climber
-    SmartDashboard.putNumber("Elevator Position", elevator.getElevatorMotor().getEncoder().getPosition());
+    SmartDashboard.putNumber("Right Elevator Position", -elevator.getElevatorRightMotor().getEncoder().getPosition());
+    SmartDashboard.putNumber("Left Elevator Position", -elevator.getElevatorLeftMotor().getEncoder().getPosition());
     SmartDashboard.putNumber("Right Angle Position", climber.getAngleMotorPositionRight());
     SmartDashboard.putBoolean("Right Angle Switch", climber.getRightAngleSwitch());
     SmartDashboard.putNumber("Left Angle Position", climber.getAngleMotorPositionLeft());

@@ -18,8 +18,8 @@ public final class Constants {
         public static int DriveTrainMotorRight1 = 3;  // Left 2 (neo)
         public static int DriveTrainMotorLeft2  = 2;  // Right 1 (neo)
         public static int DriveTrainMotorRight2 = 4;  // Right 2 (neo)
-        public static int ClimberElevMotorOne   = 5;  // CliberElevatorMotor (neo)
-        public static int ClimberElevMotorTwo   = 6;  // CliberElevatorMotorTwo (neo)
+        public static int ClimberElevMotorRight   = 5;  // ClimberElevatorMotor (neo)
+        public static int ClimberElevMotorLeft   = 6;  // ClimberElevatorMotorTwo (neo)
         public static int ClimberAngleMotorRight = 7;  // ClimberAngleMotor (minineo)
         public static int ClimberAngleMotorLeft  = 8;  // ClimberAngleMotor (minineo)
         public static int IntakeMotor           = 9;  // IntakeMotor (neo)
@@ -38,7 +38,7 @@ public final class Constants {
 
     public static class Targeting {
         // TODO Update these values
-        public static double kFieldGoalHeightFromGroundIn = 104; // Math constants 104
+        public static double kFieldGoalHeightFromGroundIn = 103; // Math constants 104
         public static double kLimelightHeightFromGroundIn = 23.5; // vertical distance from limelight to ground
     
         public static double kFieldGoalHeightFromGround = Units.inchesToMeters(kFieldGoalHeightFromGroundIn); // Math constants
@@ -52,8 +52,8 @@ public final class Constants {
         public static int ShooterAngle = CANIds.ShooterAngle;
         public static int ShooterFeeder = CANIds.ShooterFeeder;
 
-        public static double shooterAngleLow = 63;
-        public static double shooterAngleMedium = 65;
+        public static double shooterAngleLow = 60; // 64.8
+        public static double shooterAngleMedium = 69;
         public static double shooterAngleHigh = 75;
 
         public static double shooterHeight = Units.inchesToMeters(38); // 12.4
@@ -66,10 +66,14 @@ public final class Constants {
         public static double kP = 0.00072; // 0.0008; Proportional
         public static double kI = 0.0; // 0.0; Integral
         public static double kD = 0.02; // 0.009; Derivative
-        public static double kF = 0.00021; // 0.00017; Feed Forward
+        public static double kF = 0.000204; // 0.000206; Feed Forward
 
         public static double angleSpeed = 0.2; // Angle motor speed 0-1 bounds 0.1
-        public static double feederSpeed = 0.32; // Angle motor speed 0-1 bounds
+        public static double feederSpeed = 0.2; // Angle motor speed 0-1 bounds
+        
+        // Feederwheel distances - Right to wall => 1.68 inches
+        // Left to wall => 1.51 inches
+        // Distance between => 5.07 inches
     }
 
     public static class Intake {
@@ -86,8 +90,8 @@ public final class Constants {
     }
 
     public static class Climber {
-        public static int ClimberElevMotorOne = CANIds.ClimberElevMotorOne;
-        public static int ClimberElevMotorTwo = CANIds.ClimberElevMotorTwo;
+        public static int ClimberElevMotorRight = CANIds.ClimberElevMotorRight;
+        public static int ClimberElevMotorLeft = CANIds.ClimberElevMotorLeft;
         public static int ClimberAngleMotorRight = CANIds.ClimberAngleMotorRight;
         public static int ClimberAngleMotorLeft = CANIds.ClimberAngleMotorLeft;
 
@@ -97,11 +101,11 @@ public final class Constants {
 
         public static double AngleSpeed = -0.1;
         public static double AngleSpeedRev = 0.1;
-        public static double LeftAngleConstant = 0.01; // 0.012
+        public static double LeftAngleConstant = 0.011; // 0.012
 
-        public static double MaxElevatorRevolutions = 93.5;
-        public static double MaxElevatorRevolutionsInital = 60.5;
-        public static double MaxSwivelRevolutions = 32.6;
+        public static double MaxElevatorRevolutions = 87;
+        public static double MaxElevatorRevolutionsInital = 58;
+        public static double MaxSwivelRevolutions = 84;
     }
     public static class DIO {
         public static int IntakeSensor = 0;

@@ -30,8 +30,8 @@ public class Climber extends SubsystemBase {
     // this.m_climberAngleLeft.follow(this.m_climberAngleRight, true);
     this.m_climberAngleLeft.setInverted(true);
   
-    this.m_climberAngleRight.setSmartCurrentLimit(39);
-    this.m_climberAngleLeft.setSmartCurrentLimit(39);
+    this.m_climberAngleRight.setSmartCurrentLimit(38);
+    this.m_climberAngleLeft.setSmartCurrentLimit(38);
   }
 
   public CANSparkMax getAngleMotorRight() {

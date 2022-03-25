@@ -48,9 +48,9 @@ public class ShooterTargeting {
 
         double velocityRPM;
         if (z >= 5) {
-            velocityRPM = (velocityMPS * 60 / (Constants.Shooter.flywheelRadius * (2*Math.PI))) * 1.89;
+            velocityRPM = (velocityMPS * 60 / (Constants.Shooter.flywheelRadius * (2*Math.PI))) * 2.8;
         } else {
-            velocityRPM = (velocityMPS * 60 / (Constants.Shooter.flywheelRadius * (2*Math.PI))) * 1.82;
+            velocityRPM = (velocityMPS * 60 / (Constants.Shooter.flywheelRadius * (2*Math.PI))) * 1.827;
         }
         
         SmartDashboard.putNumber("Velocity RPM", velocityRPM);
