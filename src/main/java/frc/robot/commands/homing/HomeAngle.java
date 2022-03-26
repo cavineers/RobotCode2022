@@ -5,9 +5,11 @@ import frc.robot.Robot;
 
 public class HomeAngle extends CommandBase {
     // Check if angle systems are homed
-    boolean isAngleHomed = false;
     boolean isRightHomed = false;
     boolean isLeftHomed = false;
+
+    boolean zeroedRight = false;
+    boolean zeroedLeft = false;
 
     public HomeAngle() {
         addRequirements(Robot.climber);
@@ -18,27 +20,31 @@ public class HomeAngle extends CommandBase {
 
     @Override
     public void execute() {
-        if(Robot.climber.getRightAngleSwitch() == false) {
+        if(Robot.climber.getRightAngleSwitch() == false && this.zeroedRight == false) {
             // Keep angle motors moving downward
-            Robot.climber.getAngleMotorRight().set(-0.09);
-        } else if (Robot.climber.getRightAngleSwitch() == true) {
-            // Turn off angle motors
-            Robot.climber.getAngleMotorRight().set(0.0);
-            // Reset encoder revolution count to 0
+            Robot.climber.getAngleMotorRight().set(-0.06);
+        } else if (Robot.climber.getRightAngleSwitch() == true && this.zeroedRight == false) {
             Robot.climber.setAngleMotorPosition(0.0);
-            // Set homing as true
+            Robot.climber.getAngleMotorRight().set(0.06);
+            this.zeroedRight = true;
+        }
+
+        if (Robot.climber.getAngleMotorPositionRight() >= 5 && this.zeroedRight == true) {
+            Robot.climber.getAngleMotorRight().set(0);
             this.isRightHomed = true;
         }
 
-        if(Robot.climber.getLeftAngleSwitch() == false) {
+        if(Robot.climber.getLeftAngleSwitch() == false && this.zeroedLeft == false) {
             // Keep angle motors moving downward
-            Robot.climber.getAngleMotorLeft().set(-0.09);
-        } else if (Robot.climber.getLeftAngleSwitch() == true) {
-            // Turn off angle motors
-            Robot.climber.getAngleMotorLeft().set(0.0);
-            // Reset encoder revolution count to 0
+            Robot.climber.getAngleMotorLeft().set(-0.06);
+        } else if (Robot.climber.getLeftAngleSwitch() == true && this.zeroedLeft == false) {
             Robot.climber.setAngleMotorPositionLeft(0.0);
-            // Set homing as true
+            Robot.climber.getAngleMotorLeft().set(0.06);
+            this.zeroedLeft = true;
+        }
+
+        if (Robot.climber.getAngleMotorPositionLeft() >= 5 && this.zeroedLeft == true) {
+            Robot.climber.getAngleMotorLeft().set(0);
             this.isLeftHomed = true;
         }
     }
@@ -54,6 +60,8 @@ public class HomeAngle extends CommandBase {
         if (this.isLeftHomed && this.isRightHomed) {
             this.isLeftHomed = false;
             this.isRightHomed = false;
+            this.zeroedLeft = false;
+            this.zeroedRight = false;
             return true;
         } else {
             return false;

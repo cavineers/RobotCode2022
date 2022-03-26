@@ -1,7 +1,6 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
@@ -48,7 +47,6 @@ public class Autonomous extends CommandBase {
                         this.scheduledIntake = true;
                         this.rc.m_intake = new ToggleIntake();
                         this.rc.m_intake.schedule();
-                        this.rc.drivetrain.drive(0, 0.1, true);
                     } else if (this.rc.m_intake.isScheduled() == false) {
                         if (this.scheduledSecondShoot == false) {
                             this.rc.drivetrain.drive(0, 0.0, true);
@@ -57,6 +55,8 @@ public class Autonomous extends CommandBase {
                             this.rc.m_autoShoot = new AutoShoot(Robot.shooter, Robot.limelight).andThen(new HomeShooter());
                             this.rc.m_autoShoot.schedule();
                         }
+                    } else {
+                        this.rc.drivetrain.drive(0, 0.1, true);
                     }
                 }
             }
