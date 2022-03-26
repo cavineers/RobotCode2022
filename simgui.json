@@ -1,5 +1,10 @@
 {
   "HALProvider": {
+    "DIO": {
+      "window": {
+        "visible": true
+      }
+    },
     "Other Devices": {
       "SPARK MAX [2]": {
         "header": {
@@ -30,6 +35,20 @@
       "/LiveWindow/Ungrouped/navX-Sensor[4]": "Gyro",
       "/Shuffleboard/Dashboard/DriveTrain": "DifferentialDrive",
       "/Shuffleboard/DriveTrain/DriveTrain": "DifferentialDrive"
+    },
+    "windows": {
+      "/Shuffleboard/DriveTrain/DriveTrain": {
+        "window": {
+          "visible": true
+        }
+      }
+    }
+  },
+  "Plot": {
+    "Plot <0>": {
+      "window": {
+        "visible": false
+      }
     }
   }
 }

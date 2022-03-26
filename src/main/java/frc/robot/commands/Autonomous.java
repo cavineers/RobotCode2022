@@ -11,6 +11,8 @@ public class Autonomous extends CommandBase {
     private RobotContainer rc;
 
     private double startTime = 0;
+    private double middleTime = 0;
+
     private double kP = 1;
     private boolean scheduledInitalShoot = false;
     private boolean scheduledSecondShoot = false;
@@ -45,6 +47,7 @@ public class Autonomous extends CommandBase {
                 } else if (this.rc.m_intakeDropLower.isScheduled() == false) {
                     if (this.scheduledIntake == false) {
                         this.scheduledIntake = true;
+                        this.middleTime = Timer.getFPGATimestamp();
                         this.rc.m_intake = new ToggleIntake();
                         this.rc.m_intake.schedule();
                     } else if (this.rc.m_intake.isScheduled() == false) {
@@ -56,12 +59,16 @@ public class Autonomous extends CommandBase {
                             this.rc.m_autoShoot.schedule();
                         }
                     } else {
-                        this.rc.drivetrain.drive(0, 0.1, true);
+                        if (Timer.getFPGATimestamp() - this.middleTime >= 5) {
+                            this.rc.drivetrain.drive(0, 0.0, true);
+                        } else {
+                            this.rc.drivetrain.drive(0, 0.1, true);
+                        }
                     }
                 }
             }
         } else {
-            this.rc.drivetrain.drive(0, 0.14, true);
+            this.rc.drivetrain.drive(0.0, 0.14, true);
         }
     }
 
