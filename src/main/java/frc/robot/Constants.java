@@ -80,8 +80,8 @@ public final class Constants {
         public static int IntakeID = CANIds.IntakeMotor;
         public static int IntakeDropID = CANIds.IntakeMotorDrop;
 
-        public static double IntakeSpeed = 0.6; // Intake motor speed (-1.0 -- 1.0)
-        public static double IntakeSpeedRev = -0.5; // Intake reverse speed
+        public static double IntakeSpeed = 0.68; // Intake motor speed (-1.0 -- 1.0)
+        public static double IntakeSpeedRev = -0.6; // Intake reverse speed
 
         public static double DropSpeed = -0.2;
         public static double LiftSpeed = 0.2;

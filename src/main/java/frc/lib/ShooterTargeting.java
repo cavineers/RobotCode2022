@@ -50,9 +50,9 @@ public class ShooterTargeting {
         if (z >= 5.1) {
             velocityRPM = (velocityMPS * 60 / (Constants.Shooter.flywheelRadius * (2*Math.PI))) * 2.7;
         } else if (z >= 3.2) {
-            velocityRPM = (velocityMPS * 60 / (Constants.Shooter.flywheelRadius * (2*Math.PI))) * 1.85;    
+            velocityRPM = (velocityMPS * 60 / (Constants.Shooter.flywheelRadius * (2*Math.PI))) * 2.08;  
         } else {
-            velocityRPM = (velocityMPS * 60 / (Constants.Shooter.flywheelRadius * (2*Math.PI))) * 1.827;
+            velocityRPM = (velocityMPS * 60 / (Constants.Shooter.flywheelRadius * (2*Math.PI))) * 1.84;
         }
         
         SmartDashboard.putNumber("Velocity RPM", velocityRPM);

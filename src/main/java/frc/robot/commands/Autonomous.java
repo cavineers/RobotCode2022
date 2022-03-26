@@ -33,7 +33,7 @@ public class Autonomous extends CommandBase {
         // Get GyroSphere heading to keep at 0 and account for errors in drive chain
         // double error = -Robot.gyro.getRate();
 
-        if (Timer.getFPGATimestamp() - this.startTime >= 4) {
+        if (Timer.getFPGATimestamp() - this.startTime >= 3.8) {
             if (this.scheduledInitalShoot == false) {
                 this.scheduledInitalShoot = true;
                 this.rc.drivetrain.drive(0, 0, true);
@@ -51,8 +51,9 @@ public class Autonomous extends CommandBase {
                         this.rc.m_intake = new ToggleIntake();
                         this.rc.m_intake.schedule();
                     } else if (this.rc.m_intake.isScheduled() == false) {
+                        this.rc.drivetrain.drive(0, -0.08, true);
                         if (this.scheduledSecondShoot == false) {
-                            this.rc.drivetrain.drive(0, 0.0, true);
+                            this.scheduledSecondShoot = true;
                             this.rc.m_intakeDropRaise = new RaiseIntake();
                             this.rc.m_intakeDropRaise.schedule();
                             this.rc.m_autoShoot = new AutoShoot(Robot.shooter, Robot.limelight).andThen(new HomeShooter());
