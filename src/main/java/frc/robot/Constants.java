@@ -52,6 +52,7 @@ public final class Constants {
         public static int ShooterAngle = CANIds.ShooterAngle;
         public static int ShooterFeeder = CANIds.ShooterFeeder;
 
+        // Angles
         public static double shooterAngleLow = 60; // 64.8
         public static double shooterAngleMedium = 69;
         public static double shooterAngleHigh = 75;
