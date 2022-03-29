@@ -66,10 +66,10 @@ public final class Constants {
 
         public static double kP = 0.00072; // 0.0008; Proportional
         public static double kI = 0.0; // 0.0; Integral
-        public static double kD = 0.02; // 0.009; Derivative
+        public static double kD = 0.0204; // 0.009; Derivative
         public static double kF = 0.000204; // 0.000206; Feed Forward
 
-        public static double angleSpeed = 0.2; // Angle motor speed 0-1 bounds 0.1
+        public static double angleSpeed = 0.25; // Angle motor speed 0-1 bounds 0.1
         public static double feederSpeed = 0.2; // Angle motor speed 0-1 bounds
         
         // Feederwheel distances - Right to wall => 1.68 inches
@@ -81,8 +81,8 @@ public final class Constants {
         public static int IntakeID = CANIds.IntakeMotor;
         public static int IntakeDropID = CANIds.IntakeMotorDrop;
 
-        public static double IntakeSpeed = 0.68; // Intake motor speed (-1.0 -- 1.0)
-        public static double IntakeSpeedRev = -0.6; // Intake reverse speed
+        public static double IntakeSpeed = 0.7; // Intake motor speed (-1.0 -- 1.0)
+        public static double IntakeSpeedRev = -0.65; // Intake reverse speed
 
         public static double DropSpeed = -0.2;
         public static double LiftSpeed = 0.2;
