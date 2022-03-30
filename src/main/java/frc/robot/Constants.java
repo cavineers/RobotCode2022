@@ -53,9 +53,9 @@ public final class Constants {
         public static int ShooterFeeder = CANIds.ShooterFeeder;
 
         // Angles
-        public static double shooterAngleLow = 60; // 64.8
+        public static double shooterAngleLow = 67;
         public static double shooterAngleMedium = 69;
-        public static double shooterAngleHigh = 75;
+        public static double shooterAngleHigh = 78;
 
         public static double shooterHeight = Units.inchesToMeters(38); // 12.4
 
@@ -70,7 +70,7 @@ public final class Constants {
         public static double kF = 0.000204; // 0.000206; Feed Forward
 
         public static double angleSpeed = 0.25; // Angle motor speed 0-1 bounds 0.1
-        public static double feederSpeed = 0.2; // Angle motor speed 0-1 bounds
+        public static double feederSpeed = 0.65; // Angle motor speed 0-1 bounds
         
         // Feederwheel distances - Right to wall => 1.68 inches
         // Left to wall => 1.51 inches

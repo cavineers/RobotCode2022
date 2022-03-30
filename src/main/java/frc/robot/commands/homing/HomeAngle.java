@@ -29,7 +29,7 @@ public class HomeAngle extends CommandBase {
             this.zeroedRight = true;
         }
 
-        if (Robot.climber.getAngleMotorPositionRight() >= 5 && this.zeroedRight == true) {
+        if (Robot.climber.getAngleMotorPositionRight() >= 2 && this.zeroedRight == true) {
             Robot.climber.getAngleMotorRight().set(0);
             this.isRightHomed = true;
         }
@@ -43,7 +43,7 @@ public class HomeAngle extends CommandBase {
             this.zeroedLeft = true;
         }
 
-        if (Robot.climber.getAngleMotorPositionLeft() >= 5 && this.zeroedLeft == true) {
+        if (Robot.climber.getAngleMotorPositionLeft() >= 2 && this.zeroedLeft == true) {
             Robot.climber.getAngleMotorLeft().set(0);
             this.isLeftHomed = true;
         }
