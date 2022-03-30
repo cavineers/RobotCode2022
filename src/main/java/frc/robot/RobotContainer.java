@@ -41,6 +41,7 @@ public class RobotContainer {
   public Command m_intakeDropLower;
   public Command m_intakeDropRaise;
   public Command m_intake;
+  public Command homeOnAngle;
 
   //* Driver Controller
   public Joystick joy = new Joystick(0);
@@ -80,10 +81,10 @@ public class RobotContainer {
     this.m_autoShoot = new AutoShoot(Robot.shooter, Robot.limelight).andThen(new HomeShooter());
     this.m_autoShootNoDrive = new AutoShootNoAdjust(Robot.shooter, Robot.limelight).andThen(new HomeShooter());
     this.m_manualShoot = new ManualShoot(Robot.shooter).andThen(new HomeShooter());
-
     this.m_intakeDropLower = new LowerIntake();
     this.m_intakeDropRaise = new RaiseIntake();
     this.m_intake = new ToggleIntake();
+    this.homeOnAngle = new SwitchMode(this).andThen(new HomeAngle()).andThen(new SwitchMode(this));
   }
 
   private void configureButtonBindings() {
@@ -159,6 +160,18 @@ public class RobotContainer {
 
   private void configureButtonBindingsClimb() {
     this.povUp.whenPressed(new SwitchMode(this));
+
+    this.left_menu.whenPressed(new InstantCommand() {
+      @Override
+      public void initialize() {
+        if (homeOnAngle.isScheduled()) {
+          homeOnAngle.cancel();
+        } else {
+          homeOnAngle = new SwitchMode(Robot.m_robotContainer).andThen(new HomeAngle()).andThen(new SwitchMode(Robot.m_robotContainer));
+          homeOnAngle.schedule();
+        }
+      }
+    });
   }
 
   /**

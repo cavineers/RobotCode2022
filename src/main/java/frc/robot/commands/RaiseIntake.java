@@ -20,17 +20,14 @@ public class RaiseIntake extends CommandBase {
     public void execute() {
         if (Robot.intake.getDropMotor().getEncoder().getPosition() <= Constants.Intake.RevolutionsToLower) {
             Robot.intake.setDropMotorState(Intake.IntakeDropMotorState.REVERSED);
-        } else if (Robot.intake.getDropMotor().getEncoder().getPosition() >= 0) {
+        } else if (Robot.intake.getDropMotor().getEncoder().getPosition() >= -1) {
             Robot.intake.setDropMotorState(Intake.IntakeDropMotorState.OFF);
             this.inPosition = true;
-            // Robot.intake.m_intakeDropMotor.getEncoder().setPosition(0);
         }
     }
 
     @Override
-    public void end(boolean interrupted) {
-
-    }
+    public void end(boolean interrupted) {}
 
     @Override
     public boolean isFinished() {

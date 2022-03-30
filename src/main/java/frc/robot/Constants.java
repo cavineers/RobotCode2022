@@ -70,7 +70,7 @@ public final class Constants {
         public static double kF = 0.000204; // 0.000206; Feed Forward
 
         public static double angleSpeed = 0.25; // Angle motor speed 0-1 bounds 0.1
-        public static double feederSpeed = 0.65; // Angle motor speed 0-1 bounds
+        public static double feederSpeed = 1.00; // Angle motor speed 0-1 bounds
         
         // Feederwheel distances - Right to wall => 1.68 inches
         // Left to wall => 1.51 inches
@@ -87,7 +87,7 @@ public final class Constants {
         public static double DropSpeed = -0.2;
         public static double LiftSpeed = 0.2;
 
-        public static double RevolutionsToLower = -27.5;
+        public static double RevolutionsToLower = -26;
     }
 
     public static class Climber {

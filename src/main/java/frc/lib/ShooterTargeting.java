@@ -48,7 +48,7 @@ public class ShooterTargeting {
 
         double velocityRPM;
         if (z <= 2.5) {
-            velocityRPM = (velocityMPS * 60 / (Constants.Shooter.flywheelRadius * (2*Math.PI))) * 1.73;  
+            velocityRPM = (velocityMPS * 60 / (Constants.Shooter.flywheelRadius * (2*Math.PI))) * 1.65;  
         } else {
             velocityRPM = (velocityMPS * 60 / (Constants.Shooter.flywheelRadius * (2*Math.PI))) * 1.56;
         }
