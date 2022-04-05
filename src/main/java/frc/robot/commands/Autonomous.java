@@ -13,7 +13,8 @@ public class Autonomous extends CommandBase {
     private double startTime = 0;
     private double middleTime = 0;
 
-    private double kP = 1;
+    private double kP = 0.0005;
+    private double heading;
     private boolean scheduledInitalShoot = false;
     private boolean scheduledSecondShoot = false;
     private boolean scheduledIntake = false;
@@ -26,12 +27,13 @@ public class Autonomous extends CommandBase {
     @Override
     public void initialize() {
         this.startTime = Timer.getFPGATimestamp();
+        this.heading = Robot.gyro.getAngle();
     }
 
     @Override
     public void execute() {
         // Get GyroSphere heading to keep at 0 and account for errors in drive chain
-        // double error = -Robot.gyro.getRate();
+        double error = this.heading - Robot.gyro.getAngle();
 
         if (Timer.getFPGATimestamp() - this.startTime >= 3.8) {
             if (this.scheduledInitalShoot == false) {
@@ -69,7 +71,7 @@ public class Autonomous extends CommandBase {
                 }
             }
         } else {
-            this.rc.drivetrain.drive(0.0, 0.14, true);
+            this.rc.drivetrain.drive(0.0, 0.14 + kP * error, true);
         }
     }
 

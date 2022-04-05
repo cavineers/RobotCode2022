@@ -6,7 +6,6 @@ import frc.robot.Robot;
 import frc.robot.subsystems.Intake;
 
 public class LowerIntake extends CommandBase {
-    private boolean inPosition = false;
     
     public LowerIntake() {
         this.addRequirements(Robot.intake);
@@ -21,7 +20,6 @@ public class LowerIntake extends CommandBase {
         if (Robot.intake.getDropMotor().getEncoder().getPosition() > Constants.Intake.RevolutionsToLower) {
             Robot.intake.setDropMotorState(Intake.IntakeDropMotorState.ON);
         } else if (Robot.intake.getDropMotor().getEncoder().getPosition() <= Constants.Intake.RevolutionsToLower) {
-            this.inPosition = true;
             Robot.m_robotContainer.m_intake.schedule();
             Robot.intake.setDropMotorState(Intake.IntakeDropMotorState.OFF);
         }

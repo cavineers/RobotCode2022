@@ -61,7 +61,7 @@ public class AutoShoot extends CommandBase {
             this.shooter.enableShooter(ShooterTargeting.findZ());
         }
     
-        if(this.shooter.atAngle() == true && this.shooter.atSetpoint() == true && Timer.getFPGATimestamp() - this.middleTime >= 1.4) {
+        if(this.shooter.atAngle() == true && this.shooter.atSetpoint() == true && Timer.getFPGATimestamp() - this.middleTime >= 1.3) {
             this.shooter.enableFeeder();
 
             if (this.setEndTimer == false) {

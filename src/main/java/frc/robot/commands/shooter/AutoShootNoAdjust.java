@@ -54,7 +54,7 @@ public class AutoShootNoAdjust extends CommandBase {
             this.shooter.enableShooter(ShooterTargeting.findZ());
         }
     
-        if(this.shooter.atAngle() == true && this.shooter.atSetpoint() == true && Timer.getFPGATimestamp() - this.middleTime >= 2.5) {
+        if(this.shooter.atAngle() == true && this.shooter.atSetpoint() == true && Timer.getFPGATimestamp() - this.middleTime >= 1.3) {
             this.shooter.enableFeeder();
 
             if (this.setEndTimer == false) {
@@ -62,9 +62,9 @@ public class AutoShootNoAdjust extends CommandBase {
                 this.endTime = Timer.getFPGATimestamp();
             }
 
-            if (this.shooter.getSensorBallState() == false && Timer.getFPGATimestamp() - this.endTime >= 1.5) {
+            if (this.shooter.getSensorBallState() == false && Timer.getFPGATimestamp() - this.endTime >= 0.8) {
                 this.m_finished = true;
-            } else if (Timer.getFPGATimestamp() - this.endTime >= 2.3) {
+            } else if (Timer.getFPGATimestamp() - this.endTime >= 1.3) {
                 this.m_finished = true;
             }
         }

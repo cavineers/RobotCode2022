@@ -104,7 +104,7 @@ public final class Constants {
         public static double AngleSpeedRev = 0.1;
         public static double LeftAngleConstant = 0.011; // 0.012
 
-        public static double MaxElevatorRevolutions = 87;
+        public static double MaxElevatorRevolutions = 84;
         public static double MaxElevatorRevolutionsInital = 58;
         public static double MaxSwivelRevolutions = 84;
     }
