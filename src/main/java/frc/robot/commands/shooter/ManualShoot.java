@@ -33,7 +33,7 @@ public class ManualShoot extends CommandBase {
 
         shooter.enableShooter(2.49); // Safe bounds 0 - 5400 RPM
 
-        if (Timer.getFPGATimestamp() - this.m_timestamp >= 3.5) {
+        if (Timer.getFPGATimestamp() - this.m_timestamp >= 1.7) {
             shooter.enableFeeder();
             
             if (this.setEndTimer == false) {
