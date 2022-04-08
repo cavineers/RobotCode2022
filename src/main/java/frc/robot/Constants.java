@@ -39,11 +39,11 @@ public final class Constants {
     public static class Targeting {
         // TODO Update these values
         public static double kFieldGoalHeightFromGroundIn = 103; // Math constants 104
-        public static double kLimelightHeightFromGroundIn = 23.5; // vertical distance from limelight to ground
+        public static double kLimelightHeightFromGroundIn = 23.6; // vertical distance from limelight to ground
     
         public static double kFieldGoalHeightFromGround = Units.inchesToMeters(kFieldGoalHeightFromGroundIn); // Math constants
         public static double kLimelightHeightFromGround = Units.inchesToMeters(kLimelightHeightFromGroundIn); // vertical distance from limelight to ground
-        public static double kLimelightMountingAngle    = 32;
+        public static double kLimelightMountingAngle    = 32.5;
     }
 
     public static class Shooter {
@@ -104,7 +104,7 @@ public final class Constants {
         public static double AngleSpeedRev = 0.1;
         public static double LeftAngleConstant = 0.011; // 0.012
 
-        public static double MaxElevatorRevolutions = 84;
+        public static double MaxElevatorRevolutions = 89;
         public static double MaxElevatorRevolutionsInital = 58;
         public static double MaxSwivelRevolutions = 84;
     }

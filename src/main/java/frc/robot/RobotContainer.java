@@ -18,10 +18,13 @@ import frc.robot.commands.shooter.AutoShootNoAdjust;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.commands.Autonomous;
+import frc.robot.commands.Autonomous1;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -34,6 +37,8 @@ public class RobotContainer {
   public Dashboard dashboard = new Dashboard(this);
 
   public Command m_autoCommand;
+  public SendableChooser<Command> auto = new SendableChooser<Command>();
+
   // public SequentialCommandGroup m_autoShoot;
   public Command m_autoShoot;
   public Command m_autoShootNoDrive;
@@ -75,6 +80,11 @@ public class RobotContainer {
     } else {
       configureButtonBindingsClimb();
     }
+
+    this.auto.addOption("2 Ball", new Autonomous(this));
+    this.auto.addOption("1 Ball", new Autonomous1(this));
+    this.auto.setDefaultOption("2 Ball Def", new Autonomous(this));
+    SmartDashboard.putData("Auto Mode", this.auto);
 
     this.m_autoCommand = new Autonomous(this);
     // this.m_autoShoot = new SequentialCommandGroup(new AutoShoot(Robot.shooter, Robot.limelight), new HomeShooter());
@@ -180,6 +190,6 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return this.m_autoCommand;
+    return this.auto.getSelected();
   }
 }

@@ -1,6 +1,5 @@
 package frc.lib;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.Robot;
 import java.text.DecimalFormat;
@@ -43,17 +42,13 @@ public class ShooterTargeting {
         //height is height of the goal - height of shooter shooter
         double x = Constants.Targeting.kFieldGoalHeightFromGround-Constants.Targeting.kLimelightHeightFromGround;
         double velocityMPS = Math.sqrt((4.9 * Math.pow(z, 2)) / ((Math.pow(Math.cos(angle), 2) * Math.tan(angle) * z) - (x * Math.pow(Math.cos(angle), 2))));
-        
-        SmartDashboard.putNumber("Velocity M/S", velocityMPS);
 
         double velocityRPM;
         if (z <= 2.5) {
-            velocityRPM = (velocityMPS * 60 / (Constants.Shooter.flywheelRadius * (2*Math.PI))) * 1.65;  
+            velocityRPM = (velocityMPS * 60 / (Constants.Shooter.flywheelRadius * (2*Math.PI))) * 1.55; // 1.56 
         } else {
-            velocityRPM = (velocityMPS * 60 / (Constants.Shooter.flywheelRadius * (2*Math.PI))) * 1.56;
+            velocityRPM = (velocityMPS * 60 / (Constants.Shooter.flywheelRadius * (2*Math.PI))) * 1.45; // 1.55
         }
-        
-        SmartDashboard.putNumber("Velocity RPM", velocityRPM);
         return velocityRPM;
     }
 }
