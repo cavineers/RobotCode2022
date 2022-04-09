@@ -63,7 +63,7 @@ public class ToggleIntake extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        if (Timer.getFPGATimestamp() - this.m_timestamp >= 0.05 && Robot.m_robotContainer.joy.getRawButton(2)) {
+        if (Timer.getFPGATimestamp() - this.m_timestamp >= 0.4 && Robot.m_robotContainer.joy.getRawButton(2)) {
             this.isDone = true;
         }
 

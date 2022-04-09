@@ -30,7 +30,7 @@ public class Autonomous1 extends CommandBase {
         // Get GyroSphere heading to keep at 0 and account for errors in drive chain
         double error = this.heading - Robot.gyro.getAngle();
 
-        if (Timer.getFPGATimestamp() - this.startTime >= 4) {
+        if (Timer.getFPGATimestamp() - this.startTime >= 4.3) {
             if (this.scheduledInitalShoot == false) {
                 this.scheduledInitalShoot = true;
                 this.rc.drivetrain.drive(0, 0, true);
