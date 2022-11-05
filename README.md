@@ -8,6 +8,8 @@ The ensure proper use of the robot and this software, please follow all listed i
 - Ensure the shooter angle system is fully lowered and within the frame parimaters to home the shooter on boot up. DO NOT POWER ON THE BOT WITHOUT THIS STEP BEING COMPLETED
 - Follow all FIRST, FRC, and Hardware safety protocols
 
+[Robot Controls](https://github.com/cavineers/RobotCode2022/blob/development/CONTROLS.md)
+
 ## PID Controller
 PID - Proportional, Integral, and Derivative - A method of setting a setpoint for a given motor and using a PID Loop to keep it at the setpoint. The PID will allow the motor to account for friction, backward forces, or counter forces that might slow down the motor as it interacts with objects or gears.
 
